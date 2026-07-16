@@ -83,12 +83,35 @@ export default function Home() {
           </button>
         </header>
 
-        <div className="metrics">
-          <Metric label="Total kapital" value="1 994 kr" helper="AFG + tradingkapital" icon={<CircleDollarSign/>}/>
-          <Metric label="Tradingkapital" value="1 000 kr" helper="395 kr investert" icon={<TrendingUp/>}/>
-          <Metric label="Kontanter" value="605 kr" helper="Tilgjengelig reserve" icon={<BriefcaseBusiness/>}/>
-          <Metric label="Markedsrisiko" value="Moderat" helper="Selektiv eksponering" icon={<ShieldAlert/>}/>
-        </div>
+       <div className="metrics">
+  <Metric
+    label="Porteføljeverdi"
+    value="1 389 kr"
+    helper="AF Gruppen + Storebrand"
+    icon={<CircleDollarSign />}
+  />
+
+  <Metric
+    label="Investert"
+    value="1 389 kr"
+    helper="7 aksjer i 2 posisjoner"
+    icon={<TrendingUp />}
+  />
+
+  <Metric
+    label="Tilgjengelige kontanter"
+    value="605 kr"
+    helper="Tradingreserve før kurtasje"
+    icon={<BriefcaseBusiness />}
+  />
+
+  <Metric
+    label="Åpne posisjoner"
+    value="2"
+    helper="1 langsiktig · 1 trading"
+    icon={<ShieldAlert />}
+  />
+</div>
 
         <div className="grid">
           <article className="card decision">
