@@ -54,10 +54,27 @@ export default function Home() {
         <header>
           <div>
             <p>Thursday · 16 July 2026</p>
+        
             <h1>Good morning, Kenneth.</h1>
+        
             <span>
-              2 decisions require attention · 3 new opportunities · 18 news items analysed
+              Before the market opens you have
+              <b> 2 decisions</b>,
+              <b> 3 new opportunities</b> and
+              <b> 18 overnight news items</b> ready for review.
             </span>
+        
+            <div className="morningBrief">
+              <div className="briefItem priority">
+                <strong>Priority 1</strong>
+                <span>Review AF Gruppen after new offshore contract.</span>
+              </div>
+        
+              <div className="briefItem">
+                <strong>Priority 2</strong>
+                <span>Storebrand remains Hold. No action recommended.</span>
+              </div>
+            </div>
           </div>
         
           <button>
