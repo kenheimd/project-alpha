@@ -9,9 +9,33 @@ const positions = [
 ];
 
 const candidates = [
-  { ticker: "STB", score: 82, confidence: 82, label: "Rapportmomentum" },
-  { ticker: "AKRBP", score: 68, confidence: 64, label: "Avvent bekreftelse" },
-  { ticker: "NEL", score: 61, confidence: 55, label: "Spekulativ" }
+  {
+    ticker: "STB",
+    score: 82,
+    confidence: 82,
+    label: "Rapportmomentum",
+    intro: "Sterk rapport og positiv markedsreaksjon. Posisjonen følges for videre styrke.",
+    news: "Resultatet var bedre enn forventet, men mye av oppgangen kan allerede være tatt ut.",
+    action: "Behold – ikke øk ennå"
+  },
+  {
+    ticker: "AKRBP",
+    score: 68,
+    confidence: 64,
+    label: "Avvent bekreftelse",
+    intro: "Mulig positivt oppsett dersom kurs og volum bekrefter videre styrke.",
+    news: "Agentene følger oljepris, selskapsmeldinger og endringer i analytikerestimatene.",
+    action: "Overvåk"
+  },
+  {
+    ticker: "NEL",
+    score: 61,
+    confidence: 55,
+    label: "Spekulativ",
+    intro: "Høy risiko, men potensielt interessant ved ny katalysator og tydelig momentum.",
+    news: "Ingen bekreftet kjøpskatalysator er identifisert ennå.",
+    action: "Ingen handel"
+  }
 ];
 
 function Metric({ label, value, helper, icon }: { label: string; value: string; helper: string; icon: React.ReactNode }) {
@@ -58,31 +82,89 @@ export default function Home() {
             <h1>Good morning, Kenneth.</h1>
         
             <span>
-              Before the market opens you have
-              <b> 2 decisions</b>,
-              <b> 3 new opportunities</b> and
-              <b> 18 overnight news items</b> ready for review.
-            </span>
-        
-            <div className="morningBrief">
-              <div className="briefItem priority">
-                <strong>Priority 1</strong>
-                <span>Review AF Gruppen after new offshore contract.</span>
-              </div>
-        
-              <div className="briefItem">
-                <strong>Priority 2</strong>
-                <span>Storebrand remains Hold. No action recommended.</span>
-              </div>
-            </div>
-          </div>
-        
+              Siden sist er det flere elementer som trenger din oppmerksomhet, du har
+              <b> 3 nye muligheter </b> and
+              <b> 17 nyheter </b> som du bør lese. Av disse er 6 av de tilknyttet porteføljen din og 11 koblet til dine muligheter!
+            </span>             
           <button>
             Open Morning Brief
             <ArrowUpRight size={17} />
           </button>
         </header>
+<section
+  id="muligheter"
+  className="card"
+  style={{ marginBottom: "24px" }}
+>
+  <div className="cardTitle">
+    <div>
+      <small>MULIGHETER FUNNET AV ALPHA</small>
+      <h2>Dette bør du vurdere før markedet åpner</h2>
+    </div>
+    <span>{candidates.length} muligheter</span>
+  </div>
 
+  <p style={{ marginBottom: "20px", maxWidth: "850px" }}>
+    Agentene har sammenstilt nyheter, kursutvikling, momentum og mulige
+    katalysatorer. Klikk på en mulighet for å se bakgrunnen.
+  </p>
+
+  <div
+    style={{
+      display: "grid",
+      gridTemplateColumns: "repeat(auto-fit, minmax(260px, 1fr))",
+      gap: "16px"
+    }}
+  >
+    {candidates.map((candidate, index) => (
+      <details
+        key={candidate.ticker}
+        className="card"
+        style={{ cursor: "pointer" }}
+      >
+        <summary
+          style={{
+            listStyle: "none",
+            display: "flex",
+            justifyContent: "space-between",
+            gap: "16px"
+          }}
+        >
+          <div>
+            <small>MULIGHET {index + 1}</small>
+            <h2>{candidate.ticker}</h2>
+            <span>{candidate.label}</span>
+          </div>
+
+          <div style={{ textAlign: "right" }}>
+            <strong>{candidate.score}/100</strong>
+            <small style={{ display: "block" }}>Alpha-score</small>
+          </div>
+        </summary>
+
+        <div style={{ marginTop: "20px" }}>
+          <p>{candidate.intro}</p>
+
+          <div style={{ marginTop: "16px" }}>
+            <small>VIKTIG NYHET / SIGNAL</small>
+            <p>{candidate.news}</p>
+          </div>
+
+          <div style={{ marginTop: "16px" }}>
+            <small>FORELØPIG HANDLING</small>
+            <strong style={{ display: "block", marginTop: "5px" }}>
+              {candidate.action}
+            </strong>
+          </div>
+
+          <div className="miniBar" style={{ marginTop: "18px" }}>
+            <i style={{ width: `${candidate.confidence}%` }} />
+          </div>
+        </div>
+      </details>
+    ))}
+  </div>
+</section>
        <div className="metrics">
         <Metric
           label="Porteføljeverdi"
