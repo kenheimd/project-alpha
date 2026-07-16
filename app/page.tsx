@@ -36,12 +36,12 @@ export default function Home() {
           <div><b>PROJECT</b><strong>ALPHA</strong></div>
         </div>
         <nav>
-          <a className="active"><BarChart3 size={18}/> Dashboard</a>
-          <a><BriefcaseBusiness size={18}/> Portefølje</a>
-          <a><TrendingUp size={18}/> Markeder</a>
-          <a><Activity size={18}/> Signaler</a>
-          <a><BrainCircuit size={18}/> Decision Engine</a>
-          <a><Clock3 size={18}/> Handelsjournal</a>
+          <a className="active"><BarChart3 size={18}/> Workspace</a>
+          <a><BriefcaseBusiness size={18}/> Portfolio</a>
+          <a><TrendingUp size={18}/> Opportunities</a>
+          <a><BrainCircuit size={18}/> Agents</a>
+          <a><Activity size={18}/> Knowledge</a>
+          <a><Clock3 size={18}/> Settings</a>
         </nav>
         <div className="systemStatus">
           <span className="pulse"/>
@@ -53,11 +53,17 @@ export default function Home() {
       <section className="content">
         <header>
           <div>
-            <p>Onsdag 15. juli 2026</p>
-            <h1>God morgen, Kenneth.</h1>
-            <span>Project Alpha følger markedet og åpne posisjoner.</span>
+            <p>Thursday · 16 July 2026</p>
+            <h1>Good morning, Kenneth.</h1>
+            <span>
+              2 decisions require attention · 3 new opportunities · 18 news items analysed
+            </span>
           </div>
-          <button>Ny handel <ArrowUpRight size={17}/></button>
+        
+          <button>
+            Open Morning Brief
+            <ArrowUpRight size={17} />
+          </button>
         </header>
 
         <div className="metrics">
