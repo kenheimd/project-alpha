@@ -137,7 +137,7 @@ export default function Home() {
               <FileText size={18} /> Rapporter
             </a>
 
-            <a>
+            <a href="/settings">
               <Clock3 size={18} /> Innstillinger
             </a>
           </nav>
