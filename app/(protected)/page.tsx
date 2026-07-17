@@ -2,12 +2,12 @@ import type { ReactNode } from "react";
 
 import {
   Activity,
-  ArrowUpRight,
   BarChart3,
   BrainCircuit,
   BriefcaseBusiness,
   CircleDollarSign,
   Clock3,
+  FileText,
   ShieldAlert,
   TrendingUp,
 } from "lucide-react";
@@ -134,6 +134,10 @@ export default function Home() {
             </a>
 
             <a>
+              <FileText size={18} /> Rapporter
+            </a>
+
+            <a>
               <Clock3 size={18} /> Innstillinger
             </a>
           </nav>
@@ -158,11 +162,6 @@ export default function Home() {
                 elleve er knyttet til mulighetene nedenfor.
               </span>
             </div>
-
-            <button type="button">
-              Åpne morgenrapport
-              <ArrowUpRight size={17} />
-            </button>
           </header>
 
           <section
