@@ -18,8 +18,9 @@ aside { position:sticky; top:0; z-index:20; height:100vh; min-width:0; padding:2
 .brand div:last-child { display:flex; flex-direction:column; line-height:1; letter-spacing:.12em; font-size:12px; }
 .brand strong { color:var(--green); font-size:19px; margin-top:5px; }
 nav { display:flex; flex-direction:column; gap:8px; }
-nav a { color:var(--muted); display:flex; gap:12px; padding:12px 13px; border-radius:11px; align-items:center; cursor:pointer; }
+nav a { color:var(--muted); display:flex; gap:12px; padding:12px 13px; border-radius:11px; align-items:center; cursor:pointer; text-decoration:none; font-weight:500; }
 nav a:hover, nav a.active { background:rgba(75,163,255,.1); color:var(--text); }
+nav a.active { font-weight:800; }
 .systemStatus { margin-top:auto; border:1px solid var(--border); background:var(--panel); border-radius:14px; padding:14px; font-size:13px; }
 .systemStatus small { color:var(--muted); display:block; margin:5px 0 0 16px; }
 .pulse { display:inline-block; width:8px; height:8px; background:var(--green); border-radius:50%; margin-right:8px; box-shadow:0 0 12px var(--green); }
