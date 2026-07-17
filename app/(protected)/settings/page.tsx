@@ -360,14 +360,15 @@ export default function SettingsPage() {
       </section>
 
       <style jsx global>{`
-        .settingsShell { isolation: isolate; overflow-x: hidden; }
-        .settingsContent { max-width: 1460px; }
+        .settingsShell { isolation: isolate; overflow-x: hidden; width: 100%; grid-template-columns: 240px minmax(0,1fr); }
+        .settingsShell > aside { grid-column: 1; }
+        .settingsContent { grid-column: 2; min-width: 0; max-width: 1460px; }
         .settingsHeader { align-items: center; }
         .settingsHeader p { color: var(--blue); letter-spacing: .14em; font-weight: 800; }
         .profilePill { display: flex; align-items: center; gap: 12px; min-width: 250px; padding: 10px 14px; border: 1px solid var(--border); border-radius: 14px; background: rgba(13,26,44,.78); }
         .profilePill strong, .profilePill span { display: block; }
         .profilePill span { color: var(--muted); font-size: 12px; margin-top: 3px; }
-        .settingsLayout { display: grid; grid-template-columns: 270px minmax(0,1fr); gap: 20px; align-items: start; }
+        .settingsLayout { display: grid; grid-template-columns: 230px minmax(520px,1fr); gap: 20px; align-items: start; width: 100%; min-width: 0; }
         .settingsNav { position: sticky; top: 26px; display: flex; flex-direction: column; gap: 5px; border: 1px solid var(--border); background: rgba(9,22,38,.84); border-radius: 18px; padding: 12px; }
         .settingsNavLabel { color: var(--muted); font-size: 10px; font-weight: 900; letter-spacing: .15em; padding: 10px 11px 6px; }
         .supportLabel { margin-top: 9px; border-top: 1px solid var(--border); padding-top: 18px; }
@@ -375,12 +376,12 @@ export default function SettingsPage() {
         .settingsNav button:hover, .settingsNav button.active { color: var(--text); background: rgba(75,163,255,.1); }
         .settingsNav button.active { box-shadow: inset 3px 0 0 var(--blue); }
         .settingsNav .logoutButton { display: flex; justify-content: center; gap: 9px; margin-top: 14px; border-top: 1px solid var(--border); border-radius: 0 0 10px 10px; padding-top: 17px; color: #ff9b7c; }
-        .settingsPanel { min-height: 700px; border: 1px solid var(--border); background: linear-gradient(145deg,var(--panel),rgba(12,29,48,.9)); border-radius: 20px; padding: 28px; }
+        .settingsPanel { min-width: 520px; min-height: 700px; border: 1px solid var(--border); background: linear-gradient(145deg,var(--panel),rgba(12,29,48,.9)); border-radius: 20px; padding: 28px; overflow: hidden; }
         .sectionIntro { max-width: 760px; margin-bottom: 26px; }
         .sectionIntro small { color: var(--blue); font-weight: 900; letter-spacing: .14em; }
         .sectionIntro h2 { font-size: 26px; margin: 6px 0 8px; }
         .sectionIntro p { color: var(--muted); line-height: 1.6; margin: 0; }
-        .profileCard { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 16px; padding: 20px; border: 1px solid var(--border); border-radius: 16px; background: rgba(75,163,255,.055); margin-bottom: 20px; }
+        .profileCard { display: grid; grid-template-columns: auto minmax(0,1fr) auto; align-items: center; gap: 16px; padding: 20px; border: 1px solid var(--border); border-radius: 16px; background: rgba(75,163,255,.055); margin-bottom: 20px; }
         .profileCard strong, .profileCard span, .profileCard small { display: block; }
         .profileCard span { color: var(--muted); margin: 4px 0; }
         .profileCard small { color: var(--green); }
@@ -391,7 +392,7 @@ export default function SettingsPage() {
         .settingRow { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 24px; align-items: center; min-height: 78px; border-bottom: 1px solid var(--border); padding: 14px 2px; }
         .settingRow strong, .settingRow span { display: block; }
         .settingRow > div > span { color: var(--muted); font-size: 13px; margin-top: 5px; line-height: 1.45; }
-        .textAction { color: var(--blue); font-size: 13px; font-weight: 800; text-decoration: none; }
+        .textAction { color: var(--blue); font-size: 13px; font-weight: 800; text-decoration: none; white-space: nowrap; }
         .settingsToggle { width: 44px !important; height: 25px; padding: 3px !important; border-radius: 999px !important; background: rgba(255,255,255,.13) !important; display: block !important; }
         .settingsToggle span { width: 19px; height: 19px; border-radius: 50%; background: #dbe5ef; transition: transform .2s ease; }
         .settingsToggle.isOn { background: var(--green) !important; }
@@ -433,8 +434,23 @@ export default function SettingsPage() {
         html[data-theme="light"] body { background: linear-gradient(145deg,#edf3f8,#f7fafc 58%,#e9f0f6); }
         html[data-theme="light"] aside { background: rgba(242,247,251,.92); }
         html[data-theme="light"] .profilePill, html[data-theme="light"] .settingsNav { background: rgba(255,255,255,.86); }
-        @media (max-width: 1050px) { .settingsLayout { grid-template-columns: 1fr; } .settingsNav { position: static; display: grid; grid-template-columns: repeat(2,1fr); } .settingsNavLabel, .settingsNav .logoutButton { grid-column: 1/-1; } }
-        @media (max-width: 720px) { .settingsHeader { align-items: flex-start; } .profilePill { display: none; } .settingsNav { grid-template-columns: 1fr; } .settingsPanel { padding: 20px; } .agentGrid, .usageGrid { grid-template-columns: 1fr; } .profileCard { grid-template-columns: auto 1fr; } .profileCard .primaryAction { grid-column: 1/-1; justify-content: center; } .settingRow { grid-template-columns: 1fr; gap: 10px; } }
+        @media (max-width: 1000px) {
+          .settingsShell { grid-template-columns: 76px minmax(0,1fr); }
+          .settingsLayout { grid-template-columns: 190px minmax(420px,1fr); gap: 16px; }
+          .settingsPanel { min-width: 420px; }
+        }
+        @media (max-width: 760px) {
+          .settingsLayout { grid-template-columns: minmax(0,1fr); }
+          .settingsPanel { min-width: 0; }
+          .settingsNav { position: sticky; top: 0; z-index: 15; display: flex; flex-direction: row; gap: 6px; width: 100%; overflow-x: auto; padding: 8px; border-radius: 14px; backdrop-filter: blur(18px); scrollbar-width: thin; }
+          .settingsNavLabel { display: none; }
+          .settingsNav button { flex: 0 0 auto; width: auto; min-height: 40px; display: flex; grid-template-columns: none; gap: 8px; padding: 9px 12px; white-space: nowrap; }
+          .settingsNav button svg:last-child { display: none; }
+          .settingsNav button.active { box-shadow: inset 0 -3px 0 var(--blue); }
+          .settingsNav .logoutButton { width: auto; margin: 0 0 0 auto; padding: 9px 12px; border: 0; border-radius: 10px; }
+        }
+        @media (max-width: 720px) { .settingsHeader { align-items: flex-start; } .profilePill { display: none; } .settingsPanel { padding: 20px; } .agentGrid, .usageGrid { grid-template-columns: 1fr; } .profileCard { grid-template-columns: auto minmax(0,1fr); } .profileCard .primaryAction { grid-column: 1/-1; justify-content: center; } }
+        @media (max-width: 520px) { .settingRow { grid-template-columns: minmax(0,1fr); gap: 10px; } }
       `}</style>
     </main>
   );

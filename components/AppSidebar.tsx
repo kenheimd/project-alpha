@@ -46,7 +46,7 @@ export default function AppSidebar({ active }: AppSidebarProps) {
               className={active === item.id ? "active" : undefined}
               aria-current={active === item.id ? "page" : undefined}
             >
-              <Icon size={18} /> {item.label}
+              <Icon size={18} /> <span>{item.label}</span>
             </Link>
           );
         })}
@@ -54,7 +54,7 @@ export default function AppSidebar({ active }: AppSidebarProps) {
 
       <div className="systemStatus">
         <span className="pulse" />
-        Systemet er aktivt
+        <span className="systemStatusText">Systemet er aktivt</span>
         <small>v0.2 private beta</small>
       </div>
     </aside>

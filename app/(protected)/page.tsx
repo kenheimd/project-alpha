@@ -1,13 +1,9 @@
 import type { ReactNode } from "react";
+import AppSidebar from "../../components/AppSidebar";
 
 import {
-  Activity,
-  BarChart3,
-  BrainCircuit,
   BriefcaseBusiness,
   CircleDollarSign,
-  Clock3,
-  FileText,
   ShieldAlert,
   TrendingUp,
 } from "lucide-react";
@@ -102,52 +98,7 @@ export default function Home() {
           A
         </div>
 
-        <aside>
-          <div className="brand">
-            <div className="mark">A</div>
-
-            <div>
-              <b>PROJECT</b>
-              <strong>ALPHA</strong>
-            </div>
-          </div>
-
-          <nav>
-            <a className="active">
-              <BarChart3 size={18} /> Arbeidsflate
-            </a>
-
-            <a>
-              <BriefcaseBusiness size={18} /> Portefølje
-            </a>
-
-            <a href="#muligheter">
-              <TrendingUp size={18} /> Muligheter
-            </a>
-
-            <a>
-              <BrainCircuit size={18} /> Agenter
-            </a>
-
-            <a>
-              <Activity size={18} /> Kunnskap
-            </a>
-
-            <a>
-              <FileText size={18} /> Rapporter
-            </a>
-
-            <a href="/settings">
-              <Clock3 size={18} /> Innstillinger
-            </a>
-          </nav>
-
-          <div className="systemStatus">
-            <span className="pulse" />
-            Systemet er aktivt
-            <small>v0.1 prototype</small>
-          </div>
-        </aside>
+        <AppSidebar active="workspace" />
 
         <section className="content">
           <header>
