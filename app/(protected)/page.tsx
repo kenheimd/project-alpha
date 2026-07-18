@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import AppSidebar from "../../components/AppSidebar";
 import AlphaMark from "../../components/AlphaMark";
+import AlphaConstruction from "../../components/AlphaConstruction";
 import AppAtmosphere from "../../components/AppAtmosphere";
 
 import {
@@ -96,7 +97,7 @@ export default function Home() {
 
         <div className="introScreen" aria-hidden="true">
           <div className="introMarkStage">
-            <AlphaMark className="introMark" />
+            <AlphaConstruction className="introConstruction" />
             <div className="introWordmark"><span>PROJECT</span><strong>ALPHA</strong></div>
           </div>
         </div>
@@ -351,11 +352,10 @@ export default function Home() {
           place-items: center;
           overflow: hidden;
           background:
-            radial-gradient(circle at 50% 43%, rgba(143, 184, 168, 0.1), transparent 28%),
+            radial-gradient(circle at 50% 43%, rgba(143, 184, 168, 0.12), transparent 31%),
             #0b0e0d;
-          perspective: 1800px;
           pointer-events: none;
-          animation: introFade 3.15s cubic-bezier(0.3, 0.1, 0.2, 1) forwards;
+          animation: introFade 4.2s cubic-bezier(0.3, 0.1, 0.2, 1) forwards;
         }
 
         .introScreen::after {
@@ -363,10 +363,10 @@ export default function Home() {
           position: absolute;
           inset: 0;
           background-image:
-            linear-gradient(rgba(234,239,233,.025) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(234,239,233,.025) 1px, transparent 1px);
-          background-size: 72px 72px;
-          opacity: .45;
+            linear-gradient(rgba(234,239,233,.018) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(234,239,233,.018) 1px, transparent 1px);
+          background-size: 40px 40px;
+          opacity: .42;
         }
 
         .introMarkStage {
@@ -374,36 +374,111 @@ export default function Home() {
           z-index: 1;
           display: grid;
           place-items: center;
-          color: var(--green);
-          transform-style: preserve-3d;
-          animation: introMarkSettle 2.65s cubic-bezier(0.2, 0.72, 0.18, 1) forwards;
+          width: min(62vw, 620px);
+          color: var(--text);
+          animation: introMarkTransfer 3.85s cubic-bezier(0.2, 0.72, 0.18, 1) forwards;
         }
 
-        .introMark {
-          width: min(26vw, 260px);
-          height: min(26vw, 260px);
-          filter: drop-shadow(0 22px 38px rgba(0,0,0,.32));
+        .introConstruction {
+          width: 100%;
+          height: auto;
+          overflow: visible;
+          filter: drop-shadow(0 24px 50px rgba(0,0,0,.3));
         }
 
-        .introMark .alphaOutline,
-        .introMark .alphaSignal {
+        .constructionGrid {
+          opacity: 0;
+          animation: constructionGridIn .45s ease .08s forwards,
+                     constructionGridOut .55s ease 2.42s forwards;
+        }
+
+        .constructionGridLine {
+          fill: none;
+          stroke: rgba(237,240,234,.085);
+          stroke-width: .45;
+        }
+
+        .constructionGuide,
+        .dimensionLine {
+          fill: none;
+          stroke-linecap: square;
+          stroke-linejoin: miter;
           stroke-dasharray: 1;
           stroke-dashoffset: 1;
-          animation: alphaDraw 1.45s cubic-bezier(.65,0,.2,1) .25s forwards;
+          animation: constructionDraw .85s cubic-bezier(.55,0,.2,1) forwards;
         }
 
-        .introMark .alphaSignal {
-          animation-delay: .75s;
+        .constructionGuide {
+          stroke: rgba(237,240,234,.76);
+          stroke-width: .8;
+        }
+
+        .guideOne { animation-delay: .28s; }
+        .guideTwo { animation-delay: .4s; }
+        .guideThree { animation-delay: .52s; }
+        .guideFour { animation-delay: .64s; }
+        .guideFive { animation-delay: .82s; }
+        .guideSix { animation-delay: .94s; }
+
+        .dimensionLine {
+          stroke: rgba(194,168,120,.68);
+          stroke-width: .55;
+          animation-delay: .78s;
+        }
+
+        .dimensionWidth { animation-delay: .92s; }
+        .angleOne { animation-delay: 1.03s; }
+        .angleTwo { animation-delay: 1.12s; }
+        .angleThree { animation-delay: 1.21s; }
+
+        .constructionArrow {
+          fill: rgba(194,168,120,.78);
+        }
+
+        .constructionLabel {
+          fill: rgba(194,168,120,.88);
+          font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+          font-size: 4.2px;
+          font-weight: 650;
+          letter-spacing: .04em;
+          opacity: 0;
+          animation: constructionLabelIn .35s ease 1.08s forwards;
+        }
+
+        .labelWidth { animation-delay: 1.16s; }
+        .labelAngleLeft { animation-delay: 1.22s; }
+        .labelAngleRight { animation-delay: 1.29s; }
+        .labelAngleBeam { animation-delay: 1.36s; }
+
+        .constructionShape {
+          fill: currentColor;
+          opacity: 0;
+          transform: translateY(3px);
+          transform-origin: center;
+          animation: constructionFillIn .52s cubic-bezier(.2,.75,.2,1) forwards;
+        }
+
+        .constructionLeft { animation-delay: 1.48s; }
+        .constructionRight { animation-delay: 1.63s; }
+        .constructionBeam {
+          fill: var(--blue);
+          animation-delay: 1.8s;
+        }
+
+        .constructionGuides,
+        .constructionDimensions {
+          animation: constructionDraftOut .55s ease 2.42s forwards;
         }
 
         .introWordmark {
           display: flex;
           align-items: baseline;
           gap: 10px;
-          margin-top: 24px;
+          margin-top: -4px;
           letter-spacing: .2em;
           opacity: 0;
-          animation: wordmarkReveal .7s ease 1.15s forwards;
+          animation: wordmarkReveal .58s ease 2.18s forwards,
+                     wordmarkOut .42s ease 3.12s forwards;
         }
 
         .introWordmark span {
@@ -419,21 +494,18 @@ export default function Home() {
 
         .backgroundMark {
           position: fixed;
-          right: -8vw;
+          right: -7vw;
           top: 50%;
           z-index: 0;
           width: min(68vw, 920px);
           height: min(68vw, 920px);
           transform: translateY(-48%);
-          color: rgba(237, 240, 234, 0.018);
+          color: rgba(237, 240, 234, 0.014);
+          --alpha-accent:rgba(194,168,120,.032);
           pointer-events: none;
           user-select: none;
           opacity: 0;
-          animation: backgroundMarkReveal 1.6s ease 1.8s forwards;
-        }
-
-        .backgroundMark .alphaSignal {
-          stroke: rgba(194,168,120,.55);
+          animation: backgroundMarkReveal 1.25s ease 3.02s forwards;
         }
 
         aside,
@@ -442,51 +514,78 @@ export default function Home() {
           z-index: 1;
           opacity: 0;
           transform: translateY(14px);
-          animation: appReveal 0.85s ease 2.45s forwards;
+          animation: appReveal 0.82s ease 3.55s forwards;
         }
 
         .content > header {
-          animation: blockReveal 0.7s ease 2.55s both;
+          animation: blockReveal 0.65s ease 3.62s both;
         }
 
         #muligheter {
-          animation: blockReveal 0.7s ease 2.68s both;
+          animation: blockReveal 0.65s ease 3.72s both;
         }
 
         .metrics {
-          animation: blockReveal 0.7s ease 2.8s both;
+          animation: blockReveal 0.65s ease 3.82s both;
         }
 
         .content > .grid {
-          animation: blockReveal 0.7s ease 2.92s both;
+          animation: blockReveal 0.65s ease 3.92s both;
         }
 
-        @keyframes introMarkSettle {
+        @keyframes introMarkTransfer {
           0% {
             opacity: 0;
-            transform: rotateY(-105deg) rotateX(8deg) scale(.68);
+            transform: scale(.92);
           }
 
-          20% {
+          8%,
+          72% {
             opacity: 1;
-          }
-
-          66% {
-            opacity: 1;
-            transform: rotateY(6deg) rotateX(0) scale(1);
+            transform: scale(1);
           }
 
           100% {
-            opacity: 0;
-            transform: translate3d(29vw, 1vh, 0) rotateY(0) scale(4.3);
+            opacity: .04;
+            transform: translate3d(19vw, 1vh, 0) scale(1.48);
           }
         }
 
-        @keyframes alphaDraw { to { stroke-dashoffset: 0; } }
+        @keyframes constructionGridIn {
+          to { opacity: .72; }
+        }
+
+        @keyframes constructionDraw {
+          to { stroke-dashoffset: 0; }
+        }
+
+        @keyframes constructionLabelIn {
+          from { opacity: 0; transform: translateY(2px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes constructionFillIn {
+          from { opacity: 0; transform: translateY(3px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes constructionDraftOut {
+          from { opacity: 1; }
+          to { opacity: 0; }
+        }
+
+        @keyframes constructionGridOut {
+          from { opacity: .72; }
+          to { opacity: 0; }
+        }
 
         @keyframes wordmarkReveal {
           from { opacity: 0; transform: translateY(8px); }
           to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes wordmarkOut {
+          to { opacity: 0; transform: translateY(-5px); }
         }
 
         @keyframes backgroundMarkReveal {
@@ -495,7 +594,7 @@ export default function Home() {
 
         @keyframes introFade {
           0%,
-          68% {
+          75% {
             opacity: 1;
           }
 
@@ -521,6 +620,22 @@ export default function Home() {
           to {
             opacity: 1;
             transform: translateY(0);
+          }
+        }
+
+        @media (max-width: 620px) {
+          .introMarkStage {
+            width: min(92vw, 500px);
+          }
+
+          .constructionLabel {
+            font-size: 4.8px;
+          }
+
+          .backgroundMark {
+            right: -18vw;
+            width: 92vw;
+            height: 92vw;
           }
         }
 
