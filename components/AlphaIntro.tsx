@@ -13,39 +13,48 @@ function greetingForHour(hour: number) {
 }
 
 export default function AlphaIntro({ userName }: { userName: string }) {
-  const { user } = useUser();
-  const [greeting, setGreeting] = useState("");
-
-  const resolvedName =
-    user?.firstName ||
-    user?.fullName?.split(" ")[0] ||
-    userName;
+  const { isLoaded, user } = useUser();
+  const [intro, setIntro] = useState({ greeting: "", ready: false });
 
   useEffect(() => {
+    if (!isLoaded) return;
+
+    const resolvedName =
+      user?.firstName ||
+      user?.fullName?.split(" ")[0] ||
+      userName;
     const localHour = new Date().getHours();
-    setGreeting(`${greetingForHour(localHour)}, ${resolvedName}.`);
-  }, [resolvedName]);
+    setIntro({
+      greeting: `${greetingForHour(localHour)}, ${resolvedName}.`,
+      ready: true,
+    });
+  }, [isLoaded, user?.firstName, user?.fullName, userName]);
 
   return (
-    <div className="introScreen" aria-hidden="true">
-      <div className="introMarkStage">
-        <AlphaConstruction className="introConstruction" />
+    <div
+      className={`introScreen ${intro.ready ? "introScreenReady" : "introScreenWaiting"}`}
+      aria-hidden="true"
+    >
+      {intro.ready ? (
+        <div className="introMarkStage">
+          <AlphaConstruction className="introConstruction" />
 
-        <div className="introGreeting">
-          <div className="introGreetingText">
-            {Array.from(greeting).map((character, index) => (
-              <span
-                key={`${character}-${index}`}
-                style={{ animationDelay: `${3.25 + index * 0.052}s` } as CSSProperties}
-              >
-                {character}
-              </span>
-            ))}
-            <i className="introTypingCursor" />
+          <div className="introGreeting">
+            <div className="introGreetingText">
+              {Array.from(intro.greeting).map((character, index) => (
+                <span
+                  key={`${character}-${index}`}
+                  style={{ animationDelay: `${3.25 + index * 0.052}s` } as CSSProperties}
+                >
+                  {character}
+                </span>
+              ))}
+              <i className="introTypingCursor" />
+            </div>
+            <small>Ditt investeringssystem er klart.</small>
           </div>
-          <small>Ditt investeringssystem er klart.</small>
         </div>
-      </div>
+      ) : null}
     </div>
   );
 }

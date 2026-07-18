@@ -350,6 +350,9 @@ export default function Home() {
             radial-gradient(circle at 50% 43%, rgba(143, 184, 168, 0.12), transparent 31%),
             #0b0e0d;
           pointer-events: none;
+        }
+
+        .introScreenReady {
           animation: introFade 6.65s cubic-bezier(0.3, 0.1, 0.2, 1) forwards;
         }
 
