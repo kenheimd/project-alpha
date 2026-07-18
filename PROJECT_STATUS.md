@@ -44,8 +44,8 @@ Oppdatert: 18. juli 2026
 
 ## Neste startpunkt
 
-1. Kontroller den nye visuelle profilen, introen og bakgrunnen på live-siden.
-2. Juster farger og animasjonsstyrke videre ut fra visuell vurdering.
+1. Kontroller den større konstruksjonsintroen, velkomstpausen og overgangen til bakgrunnsmerket på live-siden.
+2. Gjennomarbeid Alpha Text med faste sidebearings, ordmellomrom og kerningpar i både normal og fet vekt.
 3. Deretter bygges funksjonene bak menyene gradvis; dummydata må erstattes med database og markedsdata.
 
 ## Arbeidsform

@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import AppSidebar from "../../components/AppSidebar";
 import AlphaMark from "../../components/AlphaMark";
-import AlphaConstruction from "../../components/AlphaConstruction";
+import AlphaIntro from "../../components/AlphaIntro";
 import AppAtmosphere from "../../components/AppAtmosphere";
 
 import {
@@ -95,14 +95,9 @@ export default function Home() {
       <main>
         <AppAtmosphere />
 
-        <div className="introScreen" aria-hidden="true">
-          <div className="introMarkStage">
-            <AlphaConstruction className="introConstruction" />
-            <div className="introWordmark"><span>PROJECT</span><strong>ALPHA</strong></div>
-          </div>
-        </div>
+        <AlphaIntro userName="Kenneth" />
 
-        <div className="backgroundMark" aria-hidden="true">
+        <div className="backgroundMark" data-alpha-background aria-hidden="true">
           <AlphaMark />
         </div>
 
@@ -355,7 +350,7 @@ export default function Home() {
             radial-gradient(circle at 50% 43%, rgba(143, 184, 168, 0.12), transparent 31%),
             #0b0e0d;
           pointer-events: none;
-          animation: introFade 4.2s cubic-bezier(0.3, 0.1, 0.2, 1) forwards;
+          animation: introFade 5.2s cubic-bezier(0.3, 0.1, 0.2, 1) forwards;
         }
 
         .introScreen::after {
@@ -374,9 +369,13 @@ export default function Home() {
           z-index: 1;
           display: grid;
           place-items: center;
-          width: min(62vw, 620px);
+          width: min(94vw, 130vh);
           color: var(--text);
-          animation: introMarkTransfer 3.85s cubic-bezier(0.2, 0.72, 0.18, 1) forwards;
+          opacity: 0;
+          transform: scale(.96);
+          animation:
+            introStageIn .45s cubic-bezier(.2,.75,.2,1) .04s forwards,
+            introStageOut .4s ease 3.32s forwards;
         }
 
         .introConstruction {
@@ -471,14 +470,17 @@ export default function Home() {
         }
 
         .introWordmark {
+          position: absolute;
+          left: 50%;
+          bottom: 9%;
           display: flex;
           align-items: baseline;
           gap: 10px;
-          margin-top: -4px;
           letter-spacing: .2em;
           opacity: 0;
-          animation: wordmarkReveal .58s ease 2.18s forwards,
-                     wordmarkOut .42s ease 3.12s forwards;
+          transform: translate(-50%, 8px);
+          animation: wordmarkReveal .55s ease 2.18s forwards,
+                     wordmarkOut .36s ease 3.2s forwards;
         }
 
         .introWordmark span {
@@ -490,6 +492,51 @@ export default function Home() {
         .introWordmark strong {
           color: var(--text);
           font-size: 19px;
+        }
+
+        .introWelcome {
+          position: absolute;
+          left: 50%;
+          bottom: 2.7%;
+          display: grid;
+          justify-items: center;
+          gap: 4px;
+          width: max-content;
+          max-width: 80vw;
+          opacity: 0;
+          transform: translate(-50%, 8px);
+          animation: welcomeMoment 1.12s ease 2.36s forwards;
+        }
+
+        .introWelcome strong {
+          color: var(--text);
+          font-size: clamp(15px, 1.4vw, 20px);
+          letter-spacing: .035em;
+        }
+
+        .introWelcome span {
+          color: var(--muted);
+          font-size: clamp(10px, .9vw, 13px);
+          letter-spacing: .06em;
+        }
+
+        .introFlyingMark {
+          position: fixed;
+          left: var(--intro-from-left, 50vw);
+          top: var(--intro-from-top, 50vh);
+          z-index: 2;
+          width: var(--intro-from-size, 0px);
+          height: var(--intro-from-size, 0px);
+          color: var(--text);
+          --alpha-accent:var(--blue);
+          opacity: 0;
+          transform-origin: left top;
+          will-change: transform, opacity;
+          filter: drop-shadow(0 24px 50px rgba(0,0,0,.3));
+        }
+
+        .introFlyingMark.isReady {
+          animation: introMarkFlight 4.75s cubic-bezier(.2,.72,.18,1) forwards;
         }
 
         .backgroundMark {
@@ -505,7 +552,7 @@ export default function Home() {
           pointer-events: none;
           user-select: none;
           opacity: 0;
-          animation: backgroundMarkReveal 1.25s ease 3.02s forwards;
+          animation: backgroundMarkReveal .7s ease 4.42s forwards;
         }
 
         aside,
@@ -514,40 +561,51 @@ export default function Home() {
           z-index: 1;
           opacity: 0;
           transform: translateY(14px);
-          animation: appReveal 0.82s ease 3.55s forwards;
+          animation: appReveal 0.76s ease 4.58s forwards;
         }
 
         .content > header {
-          animation: blockReveal 0.65s ease 3.62s both;
+          animation: blockReveal 0.62s ease 4.64s both;
         }
 
         #muligheter {
-          animation: blockReveal 0.65s ease 3.72s both;
+          animation: blockReveal 0.62s ease 4.72s both;
         }
 
         .metrics {
-          animation: blockReveal 0.65s ease 3.82s both;
+          animation: blockReveal 0.62s ease 4.8s both;
         }
 
         .content > .grid {
-          animation: blockReveal 0.65s ease 3.92s both;
+          animation: blockReveal 0.62s ease 4.88s both;
         }
 
-        @keyframes introMarkTransfer {
-          0% {
+        @keyframes introStageIn {
+          to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes introStageOut {
+          to { opacity: 0; }
+        }
+
+        @keyframes introMarkFlight {
+          0%, 48% {
             opacity: 0;
-            transform: scale(.92);
+            transform: translate3d(0,0,0) scale(1);
           }
 
-          8%,
-          72% {
+          50%, 70% {
             opacity: 1;
-            transform: scale(1);
+            transform: translate3d(0,0,0) scale(1);
           }
 
           100% {
-            opacity: .04;
-            transform: translate3d(19vw, 1vh, 0) scale(1.48);
+            opacity: .045;
+            transform: translate3d(
+              var(--intro-shift-x, 0),
+              var(--intro-shift-y, 0),
+              0
+            ) scale(var(--intro-scale, 1));
           }
         }
 
@@ -580,12 +638,18 @@ export default function Home() {
         }
 
         @keyframes wordmarkReveal {
-          from { opacity: 0; transform: translateY(8px); }
-          to { opacity: 1; transform: translateY(0); }
+          from { opacity: 0; transform: translate(-50%, 8px); }
+          to { opacity: 1; transform: translate(-50%, 0); }
         }
 
         @keyframes wordmarkOut {
-          to { opacity: 0; transform: translateY(-5px); }
+          to { opacity: 0; transform: translate(-50%, -5px); }
+        }
+
+        @keyframes welcomeMoment {
+          0% { opacity: 0; transform: translate(-50%, 8px); }
+          22%, 72% { opacity: 1; transform: translate(-50%, 0); }
+          100% { opacity: 0; transform: translate(-50%, -5px); }
         }
 
         @keyframes backgroundMarkReveal {
@@ -594,7 +658,7 @@ export default function Home() {
 
         @keyframes introFade {
           0%,
-          75% {
+          91% {
             opacity: 1;
           }
 
@@ -625,7 +689,7 @@ export default function Home() {
 
         @media (max-width: 620px) {
           .introMarkStage {
-            width: min(92vw, 500px);
+            width: 155vw;
           }
 
           .constructionLabel {
@@ -636,6 +700,10 @@ export default function Home() {
             right: -18vw;
             width: 92vw;
             height: 92vw;
+          }
+
+          .introWelcome {
+            bottom: 1.5%;
           }
         }
 
