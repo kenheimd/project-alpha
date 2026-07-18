@@ -32,12 +32,9 @@ export default function AlphaConstruction({
         </g>
 
         <g className="constructionGuides">
-          <path className="constructionGuide guideOne" pathLength="1" d="M6 96 38 8" />
-          <path className="constructionGuide guideTwo" pathLength="1" d="M52 8 20 96" />
-          <path className="constructionGuide guideThree" pathLength="1" d="M46 8 84 96" />
-          <path className="constructionGuide guideFour" pathLength="1" d="M60 8 100 96" />
-          <path className="constructionGuide guideFive" pathLength="1" d="M18 70 78 52" />
-          <path className="constructionGuide guideSix" pathLength="1" d="M14 84 84 64" />
+          <path className="constructionGuide guideOne" pathLength="1" d="M6 96 38 8H52L20 96Z" />
+          <path className="constructionGuide guideTwo" pathLength="1" d="M46 8H60L100 96H84Z" />
+          <path className="constructionGuide guideThree" pathLength="1" d="M18 70 78 52 84 64 14 84Z" />
         </g>
       </g>
 

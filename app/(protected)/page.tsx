@@ -390,7 +390,7 @@ export default async function Home() {
         .constructionGridLine {
           fill: none;
           stroke: rgba(237,240,234,.085);
-          stroke-width: .45;
+          stroke-width: .28;
         }
 
         .constructionGuide,
@@ -405,7 +405,7 @@ export default async function Home() {
 
         .constructionGuide {
           stroke: rgba(237,240,234,.76);
-          stroke-width: .8;
+          stroke-width: .45;
         }
 
         .guideOne { animation-delay: .35s; }
@@ -417,7 +417,7 @@ export default async function Home() {
 
         .dimensionLine {
           stroke: rgba(194,168,120,.68);
-          stroke-width: .55;
+          stroke-width: .38;
           animation-delay: 1s;
         }
 
