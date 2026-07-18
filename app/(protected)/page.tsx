@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 import AppSidebar from "../../components/AppSidebar";
-import AlphaMark from "../../components/AlphaMark";
 import AlphaIntro from "../../components/AlphaIntro";
+import AlphaConstruction from "../../components/AlphaConstruction";
 import AppAtmosphere from "../../components/AppAtmosphere";
 
 import {
@@ -98,7 +98,7 @@ export default function Home() {
         <AlphaIntro userName="Kenneth" />
 
         <div className="backgroundMark" data-alpha-background aria-hidden="true">
-          <AlphaMark />
+          <AlphaConstruction className="backgroundConstruction" />
         </div>
 
         <AppSidebar active="workspace" />
@@ -350,7 +350,7 @@ export default function Home() {
             radial-gradient(circle at 50% 43%, rgba(143, 184, 168, 0.12), transparent 31%),
             #0b0e0d;
           pointer-events: none;
-          animation: introFade 5.2s cubic-bezier(0.3, 0.1, 0.2, 1) forwards;
+          animation: introFade 6.65s cubic-bezier(0.3, 0.1, 0.2, 1) forwards;
         }
 
         .introScreen::after {
@@ -374,8 +374,8 @@ export default function Home() {
           opacity: 0;
           transform: scale(.96);
           animation:
-            introStageIn .45s cubic-bezier(.2,.75,.2,1) .04s forwards,
-            introStageOut .4s ease 3.32s forwards;
+            introStageIn .55s cubic-bezier(.2,.75,.2,1) .05s forwards,
+            introStageZoom 1.08s cubic-bezier(.56,.02,.72,.27) 5.24s forwards;
         }
 
         .introConstruction {
@@ -387,8 +387,8 @@ export default function Home() {
 
         .constructionGrid {
           opacity: 0;
-          animation: constructionGridIn .45s ease .08s forwards,
-                     constructionGridOut .55s ease 2.42s forwards;
+          animation: constructionGridIn .58s ease .1s forwards,
+                     constructionGridOut .65s ease 3.02s forwards;
         }
 
         .constructionGridLine {
@@ -404,7 +404,7 @@ export default function Home() {
           stroke-linejoin: miter;
           stroke-dasharray: 1;
           stroke-dashoffset: 1;
-          animation: constructionDraw .85s cubic-bezier(.55,0,.2,1) forwards;
+          animation: constructionDraw 1.05s cubic-bezier(.55,0,.2,1) forwards;
         }
 
         .constructionGuide {
@@ -412,23 +412,23 @@ export default function Home() {
           stroke-width: .8;
         }
 
-        .guideOne { animation-delay: .28s; }
-        .guideTwo { animation-delay: .4s; }
-        .guideThree { animation-delay: .52s; }
-        .guideFour { animation-delay: .64s; }
-        .guideFive { animation-delay: .82s; }
-        .guideSix { animation-delay: .94s; }
+        .guideOne { animation-delay: .35s; }
+        .guideTwo { animation-delay: .5s; }
+        .guideThree { animation-delay: .65s; }
+        .guideFour { animation-delay: .8s; }
+        .guideFive { animation-delay: 1s; }
+        .guideSix { animation-delay: 1.18s; }
 
         .dimensionLine {
           stroke: rgba(194,168,120,.68);
           stroke-width: .55;
-          animation-delay: .78s;
+          animation-delay: 1s;
         }
 
-        .dimensionWidth { animation-delay: .92s; }
-        .angleOne { animation-delay: 1.03s; }
-        .angleTwo { animation-delay: 1.12s; }
-        .angleThree { animation-delay: 1.21s; }
+        .dimensionWidth { animation-delay: 1.17s; }
+        .angleOne { animation-delay: 1.33s; }
+        .angleTwo { animation-delay: 1.46s; }
+        .angleThree { animation-delay: 1.58s; }
 
         .constructionArrow {
           fill: rgba(194,168,120,.78);
@@ -441,118 +441,152 @@ export default function Home() {
           font-weight: 650;
           letter-spacing: .04em;
           opacity: 0;
-          animation: constructionLabelIn .35s ease 1.08s forwards;
+          animation: constructionLabelIn .42s ease 1.38s forwards;
         }
 
-        .labelWidth { animation-delay: 1.16s; }
-        .labelAngleLeft { animation-delay: 1.22s; }
-        .labelAngleRight { animation-delay: 1.29s; }
-        .labelAngleBeam { animation-delay: 1.36s; }
+        .labelWidth { animation-delay: 1.5s; }
+        .labelAngleLeft { animation-delay: 1.6s; }
+        .labelAngleRight { animation-delay: 1.7s; }
+        .labelAngleBeam { animation-delay: 1.8s; }
 
         .constructionShape {
           fill: currentColor;
           opacity: 0;
           transform: translateY(3px);
           transform-origin: center;
-          animation: constructionFillIn .52s cubic-bezier(.2,.75,.2,1) forwards;
+          animation: constructionFillIn .62s cubic-bezier(.2,.75,.2,1) forwards;
         }
 
-        .constructionLeft { animation-delay: 1.48s; }
-        .constructionRight { animation-delay: 1.63s; }
+        .constructionLeft { animation-delay: 2s; }
+        .constructionRight { animation-delay: 2.18s; }
         .constructionBeam {
           fill: var(--blue);
-          animation-delay: 1.8s;
+          animation-delay: 2.38s;
         }
 
         .constructionGuides,
         .constructionDimensions {
-          animation: constructionDraftOut .55s ease 2.42s forwards;
+          animation: constructionDraftOut .65s ease 3.02s forwards;
         }
 
-        .introWordmark {
+        .introGreeting {
           position: absolute;
           left: 50%;
-          bottom: 9%;
-          display: flex;
-          align-items: baseline;
-          gap: 10px;
-          letter-spacing: .2em;
-          opacity: 0;
-          transform: translate(-50%, 8px);
-          animation: wordmarkReveal .55s ease 2.18s forwards,
-                     wordmarkOut .36s ease 3.2s forwards;
-        }
-
-        .introWordmark span {
-          color: var(--muted);
-          font-size: 11px;
-          font-weight: 700;
-        }
-
-        .introWordmark strong {
-          color: var(--text);
-          font-size: 19px;
-        }
-
-        .introWelcome {
-          position: absolute;
-          left: 50%;
-          bottom: 2.7%;
+          bottom: 3.5%;
           display: grid;
           justify-items: center;
-          gap: 4px;
+          gap: 7px;
           width: max-content;
-          max-width: 80vw;
-          opacity: 0;
-          transform: translate(-50%, 8px);
-          animation: welcomeMoment 1.12s ease 2.36s forwards;
+          max-width: 90vw;
+          transform: translateX(-50%);
+          animation: greetingContainerOut .3s ease 5.08s forwards;
         }
 
-        .introWelcome strong {
+        .introGreetingText {
+          display: flex;
+          align-items: baseline;
+          min-height: 1.4em;
           color: var(--text);
-          font-size: clamp(15px, 1.4vw, 20px);
-          letter-spacing: .035em;
+          font-size: clamp(18px, 1.75vw, 26px);
+          font-weight: 800;
+          letter-spacing: .025em;
+          white-space: pre;
         }
 
-        .introWelcome span {
+        .introGreetingText span {
+          display: inline-block;
+          opacity: 0;
+          animation: typeCharacter .01s steps(1,end) forwards;
+        }
+
+        .introTypingCursor {
+          display: inline-block;
+          width: 1px;
+          height: .9em;
+          margin-left: 4px;
+          background: var(--blue);
+          opacity: 0;
+          animation: typingCursor 1.65s step-end 3.28s;
+        }
+
+        .introGreeting small {
           color: var(--muted);
-          font-size: clamp(10px, .9vw, 13px);
+          font-size: clamp(10px, .92vw, 13px);
+          font-weight: 400;
           letter-spacing: .06em;
-        }
-
-        .introFlyingMark {
-          position: fixed;
-          left: var(--intro-from-left, 50vw);
-          top: var(--intro-from-top, 50vh);
-          z-index: 2;
-          width: var(--intro-from-size, 0px);
-          height: var(--intro-from-size, 0px);
-          color: var(--text);
-          --alpha-accent:var(--blue);
           opacity: 0;
-          transform-origin: left top;
-          will-change: transform, opacity;
-          filter: drop-shadow(0 24px 50px rgba(0,0,0,.3));
-        }
-
-        .introFlyingMark.isReady {
-          animation: introMarkFlight 4.75s cubic-bezier(.2,.72,.18,1) forwards;
+          animation: greetingSubline .38s ease 4.72s forwards;
         }
 
         .backgroundMark {
           position: fixed;
-          right: -7vw;
+          right: -11vw;
           top: 50%;
           z-index: 0;
-          width: min(68vw, 920px);
-          height: min(68vw, 920px);
-          transform: translateY(-48%);
-          color: rgba(237, 240, 234, 0.014);
-          --alpha-accent:rgba(194,168,120,.032);
+          width: min(78vw, 1120px);
+          height: auto;
+          transform: translateY(-50%);
+          color: rgba(237, 240, 234, 0.045);
           pointer-events: none;
           user-select: none;
           opacity: 0;
-          animation: backgroundMarkReveal .7s ease 4.42s forwards;
+          animation: backgroundMarkReveal .85s ease 5.72s forwards;
+        }
+
+        .backgroundConstruction {
+          display: block;
+          width: 100%;
+          height: auto;
+          overflow: visible;
+        }
+
+        .backgroundConstruction .constructionGrid {
+          opacity: .18;
+          animation: none;
+        }
+
+        .backgroundConstruction .constructionGridLine {
+          stroke: rgba(237,240,234,.12);
+        }
+
+        .backgroundConstruction .constructionGuide,
+        .backgroundConstruction .dimensionLine {
+          stroke-dashoffset: 0;
+          animation: none;
+        }
+
+        .backgroundConstruction .constructionGuide {
+          stroke: rgba(143,184,168,.28);
+        }
+
+        .backgroundConstruction .dimensionLine {
+          stroke: rgba(194,168,120,.35);
+        }
+
+        .backgroundConstruction .constructionGuides,
+        .backgroundConstruction .constructionDimensions {
+          opacity: 1;
+          animation: none;
+        }
+
+        .backgroundConstruction .constructionLabel {
+          fill: rgba(194,168,120,.48);
+          opacity: 1;
+          animation: none;
+        }
+
+        .backgroundConstruction .constructionArrow {
+          fill: rgba(194,168,120,.42);
+        }
+
+        .backgroundConstruction .constructionShape {
+          opacity: 1;
+          transform: none;
+          animation: none;
+        }
+
+        .backgroundConstruction .constructionBeam {
+          fill: rgba(194,168,120,.075);
         }
 
         aside,
@@ -561,52 +595,33 @@ export default function Home() {
           z-index: 1;
           opacity: 0;
           transform: translateY(14px);
-          animation: appReveal 0.76s ease 4.58s forwards;
+          animation: appReveal 0.76s ease 5.92s forwards;
         }
 
         .content > header {
-          animation: blockReveal 0.62s ease 4.64s both;
+          animation: blockReveal 0.62s ease 5.98s both;
         }
 
         #muligheter {
-          animation: blockReveal 0.62s ease 4.72s both;
+          animation: blockReveal 0.62s ease 6.06s both;
         }
 
         .metrics {
-          animation: blockReveal 0.62s ease 4.8s both;
+          animation: blockReveal 0.62s ease 6.14s both;
         }
 
         .content > .grid {
-          animation: blockReveal 0.62s ease 4.88s both;
+          animation: blockReveal 0.62s ease 6.22s both;
         }
 
         @keyframes introStageIn {
           to { opacity: 1; transform: scale(1); }
         }
 
-        @keyframes introStageOut {
-          to { opacity: 0; }
-        }
-
-        @keyframes introMarkFlight {
-          0%, 48% {
-            opacity: 0;
-            transform: translate3d(0,0,0) scale(1);
-          }
-
-          50%, 70% {
-            opacity: 1;
-            transform: translate3d(0,0,0) scale(1);
-          }
-
-          100% {
-            opacity: .045;
-            transform: translate3d(
-              var(--intro-shift-x, 0),
-              var(--intro-shift-y, 0),
-              0
-            ) scale(var(--intro-scale, 1));
-          }
+        @keyframes introStageZoom {
+          0% { opacity: 1; transform: scale(1); }
+          68% { opacity: 1; }
+          100% { opacity: 0; transform: scale(6.5); }
         }
 
         @keyframes constructionGridIn {
@@ -637,19 +652,27 @@ export default function Home() {
           to { opacity: 0; }
         }
 
-        @keyframes wordmarkReveal {
-          from { opacity: 0; transform: translate(-50%, 8px); }
-          to { opacity: 1; transform: translate(-50%, 0); }
+        @keyframes typeCharacter {
+          to { opacity: 1; }
         }
 
-        @keyframes wordmarkOut {
-          to { opacity: 0; transform: translate(-50%, -5px); }
+        @keyframes typingCursor {
+          0%, 100% { opacity: 0; }
+          20%, 40%, 60%, 80% { opacity: 1; }
+          30%, 50%, 70%, 90% { opacity: 0; }
         }
 
-        @keyframes welcomeMoment {
-          0% { opacity: 0; transform: translate(-50%, 8px); }
-          22%, 72% { opacity: 1; transform: translate(-50%, 0); }
-          100% { opacity: 0; transform: translate(-50%, -5px); }
+        @keyframes greetingSubline {
+          from { opacity: 0; transform: translateY(5px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes greetingOut {
+          to { opacity: 0; transform: translateY(-4px); }
+        }
+
+        @keyframes greetingContainerOut {
+          to { opacity: 0; transform: translate(-50%, -4px); }
         }
 
         @keyframes backgroundMarkReveal {
@@ -697,12 +720,12 @@ export default function Home() {
           }
 
           .backgroundMark {
-            right: -18vw;
-            width: 92vw;
-            height: 92vw;
+            right: -24vw;
+            width: 115vw;
+            height: auto;
           }
 
-          .introWelcome {
+          .introGreeting {
             bottom: 1.5%;
           }
         }

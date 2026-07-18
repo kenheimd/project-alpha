@@ -1,6 +1,6 @@
 # Project Alpha – arbeidsstatus
 
-Oppdatert: 18. juli 2026
+Oppdatert: 19. juli 2026
 
 ## Produksjon
 
@@ -23,7 +23,9 @@ Oppdatert: 18. juli 2026
 - Visuell profil er oppdatert til varm grafitt, dempet grønn og messing, med roligere kort og navigasjon.
 - Egen geometrisk Alpha-logo brukes i merkevare, innlogging og intro.
 - Egen Alpha Text-nettfont med normal og fet vekt brukes i grensesnittet; begge vekter deler tegnbredder, har faste sidebearings, tabulære tall, optisk kerning og konsistent ordmellomrom.
-- Introen tegner logoens konstruksjonsrutenett, vinkler og målelinjer før flatene fylles og merket går over i bakgrunnen.
+- Introen tegner logoens konstruksjonsrutenett, vinkler og målelinjer i roligere tempo før flatene fylles.
+- Etter ferdig logo skrives en lokal, klokkeslettstyrt hilsen bokstav for bokstav med brukerens fornavn.
+- Logoen holder en kort pause og zoomer deretter ut av skjermen uten et separat størrelseshopp; konstruksjonslinjene videreføres i bakgrunnen.
 - Arbeidsflaten har en subtil animert bakgrunn som viderefører Alpha-merket.
 
 ## Låste designprinsipper
@@ -44,7 +46,7 @@ Oppdatert: 18. juli 2026
 
 ## Neste startpunkt
 
-1. Kontroller den større konstruksjonsintroen, velkomstpausen og overgangen til bakgrunnsmerket på live-siden.
+1. Kontroller den klokkeslettstyrte konstruksjonsintroen, skriveanimasjonen, velkomstpausen og den rene zoomovergangen på live-siden.
 2. Kontroller Alpha Text visuelt på live-siden og noter eventuelle enkeltpar som trenger ytterligere optisk justering.
 3. Deretter bygges funksjonene bak menyene gradvis; dummydata må erstattes med database og markedsdata.
 
