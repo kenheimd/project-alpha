@@ -1,58 +1,39 @@
 "use client";
 
-import { useEffect, useState, type CSSProperties } from "react";
-import { useUser } from "@clerk/nextjs";
+import { useEffect, useState } from "react";
 import AlphaConstruction from "./AlphaConstruction";
 
-function greetingForHour(hour: number) {
-  if (hour >= 6 && hour < 9) return "God morgen";
-  if (hour >= 9 && hour < 13) return "God formiddag";
-  if (hour >= 13 && hour < 18) return "God ettermiddag";
-  if (hour >= 18) return "God kveld";
-  return "God natt";
-}
-
-export default function AlphaIntro({ userName }: { userName: string }) {
-  const { isLoaded, user } = useUser();
-  const [intro, setIntro] = useState({ greeting: "", ready: false });
+export default function AlphaIntro() {
+  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    if (!isLoaded) return;
+    document.documentElement.classList.remove("alphaIntroComplete", "workspaceReady");
+    const frame = window.requestAnimationFrame(() => setReady(true));
+    return () => window.cancelAnimationFrame(frame);
+  }, []);
 
-    const resolvedName =
-      user?.firstName ||
-      user?.fullName?.split(" ")[0] ||
-      userName;
-    const localHour = new Date().getHours();
-    setIntro({
-      greeting: `${greetingForHour(localHour)}, ${resolvedName}.`,
-      ready: true,
-    });
-  }, [isLoaded, user?.firstName, user?.fullName, userName]);
+  useEffect(() => {
+    if (!ready) return;
+
+    const delay = window.matchMedia("(prefers-reduced-motion: reduce)").matches
+      ? 0
+      : 3200;
+    const timer = window.setTimeout(() => {
+      document.documentElement.classList.add("alphaIntroComplete");
+      window.dispatchEvent(new Event("alpha:intro-complete"));
+    }, delay);
+
+    return () => window.clearTimeout(timer);
+  }, [ready]);
 
   return (
     <div
-      className={`introScreen ${intro.ready ? "introScreenReady" : "introScreenWaiting"}`}
+      className={`introScreen ${ready ? "introScreenReady" : "introScreenWaiting"}`}
       aria-hidden="true"
     >
-      {intro.ready ? (
+      {ready ? (
         <div className="introMarkStage">
           <AlphaConstruction className="introConstruction" />
-
-          <div className="introGreeting">
-            <div className="introGreetingText">
-              {Array.from(intro.greeting).map((character, index) => (
-                <span
-                  key={`${character}-${index}`}
-                  style={{ animationDelay: `${3.25 + index * 0.052}s` } as CSSProperties}
-                >
-                  {character}
-                </span>
-              ))}
-              <i className="introTypingCursor" />
-            </div>
-            <small>Ditt investeringssystem er klart.</small>
-          </div>
         </div>
       ) : null}
     </div>

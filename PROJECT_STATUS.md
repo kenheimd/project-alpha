@@ -24,8 +24,10 @@ Oppdatert: 19. juli 2026
 - Egen geometrisk Alpha-logo brukes i merkevare, innlogging og intro.
 - Egen Alpha Text-nettfont med normal og fet vekt brukes i grensesnittet; begge vekter deler tegnbredder, har faste sidebearings, tabulære tall, optisk kerning og konsistent ordmellomrom.
 - Introen tegner logoens konstruksjonsrutenett, vinkler og målelinjer i roligere tempo før flatene fylles.
-- Etter ferdig logo skrives en lokal, klokkeslettstyrt hilsen bokstav for bokstav med brukerens fornavn.
-- Logoen holder en kort pause og zoomer deretter ut av skjermen uten et separat størrelseshopp; konstruksjonslinjene videreføres i bakgrunnen.
+- Etter ferdig logo skrives en lokal, klokkeslettstyrt hilsen bokstav for bokstav i arbeidsflatens header med brukerens Clerk-fornavn.
+- Logoen zoomer ut av introen uten et separat størrelseshopp, mens et større og mer nedtonet konstruksjonsmerke tegnes og tones inn i bakgrunnen.
+- Dato, forklaring, hovedmeny og arbeidskort tones først inn etter at velkomsthilsenen i headeren er ferdig skrevet.
+- Logoens diagonaler er lukkede geometriske former med tydelige horisontale endestykker i topp og bunn.
 - Arbeidsflaten har en subtil animert bakgrunn som viderefører Alpha-merket.
 
 ## Låste designprinsipper

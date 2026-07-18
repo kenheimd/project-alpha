@@ -26,18 +26,18 @@ export default function AlphaConstruction({
 
       <g className="constructionLogo" transform="translate(30 10)">
         <g className="constructionFill">
-          <path className="constructionShape constructionLeft" d="M6 92 38 8h11L27 88Z" />
-          <path className="constructionShape constructionRight" d="M42 8h12l40 80-22 4Z" />
-          <path className="constructionShape constructionBeam" d="m20 70 50-16 7 12-61 18Z" />
+          <path className="constructionShape constructionLeft" d="M6 96 38 8h14L20 96Z" />
+          <path className="constructionShape constructionRight" d="M46 8h14l40 88H84Z" />
+          <path className="constructionShape constructionBeam" d="M18 70 78 52 84 64 14 84Z" />
         </g>
 
         <g className="constructionGuides">
-          <path className="constructionGuide guideOne" pathLength="1" d="M6 92 38 8" />
-          <path className="constructionGuide guideTwo" pathLength="1" d="M49 8 27 88" />
-          <path className="constructionGuide guideThree" pathLength="1" d="M42 8 72 92" />
-          <path className="constructionGuide guideFour" pathLength="1" d="M54 8 94 88" />
-          <path className="constructionGuide guideFive" pathLength="1" d="M20 70 70 54" />
-          <path className="constructionGuide guideSix" pathLength="1" d="M16 84 77 66" />
+          <path className="constructionGuide guideOne" pathLength="1" d="M6 96 38 8" />
+          <path className="constructionGuide guideTwo" pathLength="1" d="M52 8 20 96" />
+          <path className="constructionGuide guideThree" pathLength="1" d="M46 8 84 96" />
+          <path className="constructionGuide guideFour" pathLength="1" d="M60 8 100 96" />
+          <path className="constructionGuide guideFive" pathLength="1" d="M18 70 78 52" />
+          <path className="constructionGuide guideSix" pathLength="1" d="M14 84 84 64" />
         </g>
       </g>
 

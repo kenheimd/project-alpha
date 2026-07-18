@@ -3,6 +3,8 @@ import AppSidebar from "../../components/AppSidebar";
 import AlphaIntro from "../../components/AlphaIntro";
 import AlphaConstruction from "../../components/AlphaConstruction";
 import AppAtmosphere from "../../components/AppAtmosphere";
+import WorkspaceWelcome from "../../components/WorkspaceWelcome";
+import { currentUser } from "@clerk/nextjs/server";
 
 import {
   BriefcaseBusiness,
@@ -89,13 +91,16 @@ function Metric({
   );
 }
 
-export default function Home() {
+export default async function Home() {
+  const user = await currentUser();
+  const userName = user?.firstName || user?.username || "Kenneth";
+
   return (
     <>
       <main>
         <AppAtmosphere />
 
-        <AlphaIntro userName="Kenneth" />
+        <AlphaIntro />
 
         <div className="backgroundMark" data-alpha-background aria-hidden="true">
           <AlphaConstruction className="backgroundConstruction" />
@@ -104,19 +109,7 @@ export default function Home() {
         <AppSidebar active="workspace" />
 
         <section className="content">
-          <header>
-            <div>
-              <p>Torsdag 16. juli 2026</p>
-
-              <h1>God morgen, Kenneth.</h1>
-
-              <span>
-                Siden sist har Alpha funnet <b>3 nye muligheter</b> og analysert{" "}
-                <b>17 relevante nyheter</b>. Seks gjelder porteføljen din, og
-                elleve er knyttet til mulighetene nedenfor.
-              </span>
-            </div>
-          </header>
+          <WorkspaceWelcome userName={userName} />
 
           <section
             id="muligheter"
@@ -353,7 +346,7 @@ export default function Home() {
         }
 
         .introScreenReady {
-          animation: introFade 6.65s cubic-bezier(0.3, 0.1, 0.2, 1) forwards;
+          animation: introFade 4.55s cubic-bezier(0.3, 0.1, 0.2, 1) forwards;
         }
 
         .introScreen::after {
@@ -378,7 +371,7 @@ export default function Home() {
           transform: scale(.96);
           animation:
             introStageIn .55s cubic-bezier(.2,.75,.2,1) .05s forwards,
-            introStageZoom 1.08s cubic-bezier(.56,.02,.72,.27) 5.24s forwards;
+            introStageZoom 1.08s cubic-bezier(.56,.02,.72,.27) 3.25s forwards;
         }
 
         .introConstruction {
@@ -472,68 +465,23 @@ export default function Home() {
           animation: constructionDraftOut .65s ease 3.02s forwards;
         }
 
-        .introGreeting {
-          position: absolute;
-          left: 50%;
-          bottom: 3.5%;
-          display: grid;
-          justify-items: center;
-          gap: 7px;
-          width: max-content;
-          max-width: 90vw;
-          transform: translateX(-50%);
-          animation: greetingContainerOut .3s ease 5.08s forwards;
-        }
-
-        .introGreetingText {
-          display: flex;
-          align-items: baseline;
-          min-height: 1.4em;
-          color: var(--text);
-          font-size: clamp(18px, 1.75vw, 26px);
-          font-weight: 800;
-          letter-spacing: .025em;
-          white-space: pre;
-        }
-
-        .introGreetingText span {
-          display: inline-block;
-          opacity: 0;
-          animation: typeCharacter .01s steps(1,end) forwards;
-        }
-
-        .introTypingCursor {
-          display: inline-block;
-          width: 1px;
-          height: .9em;
-          margin-left: 4px;
-          background: var(--blue);
-          opacity: 0;
-          animation: typingCursor 1.65s step-end 3.28s;
-        }
-
-        .introGreeting small {
-          color: var(--muted);
-          font-size: clamp(10px, .92vw, 13px);
-          font-weight: 400;
-          letter-spacing: .06em;
-          opacity: 0;
-          animation: greetingSubline .38s ease 4.72s forwards;
-        }
-
         .backgroundMark {
           position: fixed;
-          right: -11vw;
+          right: -24vw;
           top: 50%;
           z-index: 0;
-          width: min(78vw, 1120px);
+          width: min(112vw, 1600px);
           height: auto;
-          transform: translateY(-50%);
-          color: rgba(237, 240, 234, 0.045);
+          transform: translateY(-50%) scale(.82);
+          transform-origin: 68% 50%;
+          color: rgba(237, 240, 234, 0.032);
           pointer-events: none;
           user-select: none;
           opacity: 0;
-          animation: backgroundMarkReveal .85s ease 5.72s forwards;
+        }
+
+        html.alphaIntroComplete .backgroundMark {
+          animation: backgroundMarkReveal 1.45s cubic-bezier(.2,.72,.2,1) forwards;
         }
 
         .backgroundConstruction {
@@ -544,7 +492,7 @@ export default function Home() {
         }
 
         .backgroundConstruction .constructionGrid {
-          opacity: .18;
+          opacity: 0;
           animation: none;
         }
 
@@ -554,7 +502,7 @@ export default function Home() {
 
         .backgroundConstruction .constructionGuide,
         .backgroundConstruction .dimensionLine {
-          stroke-dashoffset: 0;
+          stroke-dashoffset: 1;
           animation: none;
         }
 
@@ -574,7 +522,7 @@ export default function Home() {
 
         .backgroundConstruction .constructionLabel {
           fill: rgba(194,168,120,.48);
-          opacity: 1;
+          opacity: 0;
           animation: none;
         }
 
@@ -583,38 +531,109 @@ export default function Home() {
         }
 
         .backgroundConstruction .constructionShape {
-          opacity: 1;
+          opacity: 0;
           transform: none;
           animation: none;
         }
 
         .backgroundConstruction .constructionBeam {
-          fill: rgba(194,168,120,.075);
+          fill: rgba(194,168,120,.058);
         }
 
-        aside,
-        .content {
+        html.alphaIntroComplete .backgroundConstruction .constructionGrid {
+          animation: backgroundGridReveal 1.35s ease .12s forwards;
+        }
+
+        html.alphaIntroComplete .backgroundConstruction .constructionGuide,
+        html.alphaIntroComplete .backgroundConstruction .dimensionLine {
+          animation: constructionDraw 1.28s cubic-bezier(.42,0,.18,1) forwards;
+        }
+
+        html.alphaIntroComplete .backgroundConstruction .constructionLabel {
+          animation: constructionLabelIn .7s ease .62s forwards;
+        }
+
+        html.alphaIntroComplete .backgroundConstruction .constructionShape {
+          animation: backgroundShapeReveal 1.05s ease forwards;
+        }
+
+        html.alphaIntroComplete .backgroundConstruction .constructionLeft {
+          animation-delay: .18s;
+        }
+
+        html.alphaIntroComplete .backgroundConstruction .constructionRight {
+          animation-delay: .34s;
+        }
+
+        html.alphaIntroComplete .backgroundConstruction .constructionBeam {
+          animation-delay: .5s;
+        }
+
+        aside {
           position: relative;
           z-index: 1;
           opacity: 0;
           transform: translateY(14px);
-          animation: appReveal 0.76s ease 5.92s forwards;
         }
 
-        .content > header {
-          animation: blockReveal 0.62s ease 5.98s both;
+        .content {
+          position: relative;
+          z-index: 1;
         }
 
-        #muligheter {
-          animation: blockReveal 0.62s ease 6.06s both;
+        .workspaceHeader {
+          opacity: 1;
+          transform: none;
         }
 
-        .metrics {
-          animation: blockReveal 0.62s ease 6.14s both;
+        .workspaceGreeting {
+          display: flex;
+          align-items: baseline;
+          min-height: 1.32em;
+          white-space: pre;
         }
 
+        .workspaceGreeting span {
+          display: inline-block;
+          opacity: 0;
+          animation: typeCharacter .01s steps(1,end) forwards;
+        }
+
+        .workspaceTypingCursor {
+          display: inline-block;
+          width: 1px;
+          height: .82em;
+          margin-left: 5px;
+          background: var(--blue);
+          animation: typingCursor 1.9s step-end forwards;
+        }
+
+        .workspaceHeaderSecondary,
+        #muligheter,
+        .metrics,
         .content > .grid {
-          animation: blockReveal 0.62s ease 6.22s both;
+          opacity: 0;
+          transform: translateY(18px);
+        }
+
+        html.workspaceReady aside {
+          animation: appReveal .72s ease forwards;
+        }
+
+        html.workspaceReady .workspaceHeaderSecondary {
+          animation: blockReveal .62s ease forwards;
+        }
+
+        html.workspaceReady #muligheter {
+          animation: blockReveal .62s ease .08s forwards;
+        }
+
+        html.workspaceReady .metrics {
+          animation: blockReveal .62s ease .16s forwards;
+        }
+
+        html.workspaceReady .content > .grid {
+          animation: blockReveal .62s ease .24s forwards;
         }
 
         @keyframes introStageIn {
@@ -665,26 +684,22 @@ export default function Home() {
           30%, 50%, 70%, 90% { opacity: 0; }
         }
 
-        @keyframes greetingSubline {
-          from { opacity: 0; transform: translateY(5px); }
-          to { opacity: 1; transform: translateY(0); }
+        @keyframes backgroundGridReveal {
+          to { opacity: .2; }
         }
 
-        @keyframes greetingOut {
-          to { opacity: 0; transform: translateY(-4px); }
-        }
-
-        @keyframes greetingContainerOut {
-          to { opacity: 0; transform: translate(-50%, -4px); }
+        @keyframes backgroundShapeReveal {
+          from { opacity: 0; }
+          to { opacity: 1; }
         }
 
         @keyframes backgroundMarkReveal {
-          to { opacity: 1; }
+          to { opacity: 1; transform: translateY(-50%) scale(1); }
         }
 
         @keyframes introFade {
           0%,
-          91% {
+          72% {
             opacity: 1;
           }
 
@@ -723,13 +738,9 @@ export default function Home() {
           }
 
           .backgroundMark {
-            right: -24vw;
-            width: 115vw;
+            right: -48vw;
+            width: 175vw;
             height: auto;
-          }
-
-          .introGreeting {
-            bottom: 1.5%;
           }
         }
 
@@ -740,12 +751,22 @@ export default function Home() {
 
           .backgroundMark {
             opacity: 1;
+            transform: translateY(-50%) scale(1);
             animation: none;
+          }
+
+          .workspaceGreeting span {
+            opacity: 1;
+            animation: none;
+          }
+
+          .workspaceTypingCursor {
+            display: none;
           }
 
           aside,
           .content,
-          .content > header,
+          .workspaceHeaderSecondary,
           #muligheter,
           .metrics,
           .content > .grid {
