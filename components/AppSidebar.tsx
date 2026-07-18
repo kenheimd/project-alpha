@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import AlphaMark from "./AlphaMark";
 import {
   Activity,
   BarChart3,
@@ -29,7 +30,7 @@ export default function AppSidebar({ active }: AppSidebarProps) {
   return (
     <aside>
       <Link className="brand" href="/" aria-label="Project Alpha arbeidsflate">
-        <div className="mark">A</div>
+        <div className="mark"><AlphaMark /></div>
         <div>
           <b>PROJECT</b>
           <strong>ALPHA</strong>

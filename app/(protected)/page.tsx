@@ -1,5 +1,7 @@
 import type { ReactNode } from "react";
 import AppSidebar from "../../components/AppSidebar";
+import AlphaMark from "../../components/AlphaMark";
+import AppAtmosphere from "../../components/AppAtmosphere";
 
 import {
   BriefcaseBusiness,
@@ -90,12 +92,17 @@ export default function Home() {
   return (
     <>
       <main>
+        <AppAtmosphere />
+
         <div className="introScreen" aria-hidden="true">
-          <div className="introA">A</div>
+          <div className="introMarkStage">
+            <AlphaMark className="introMark" />
+            <div className="introWordmark"><span>PROJECT</span><strong>ALPHA</strong></div>
+          </div>
         </div>
 
-        <div className="backgroundA" aria-hidden="true">
-          A
+        <div className="backgroundMark" aria-hidden="true">
+          <AlphaMark />
         </div>
 
         <AppSidebar active="workspace" />
@@ -333,6 +340,7 @@ export default function Home() {
         main {
           isolation: isolate;
           overflow-x: hidden;
+          background: transparent;
         }
 
         .introScreen {
@@ -342,33 +350,90 @@ export default function Home() {
           display: grid;
           place-items: center;
           overflow: hidden;
-          background: #08111f;
-          perspective: 1600px;
+          background:
+            radial-gradient(circle at 50% 43%, rgba(143, 184, 168, 0.1), transparent 28%),
+            #0b0e0d;
+          perspective: 1800px;
           pointer-events: none;
-          animation: introFade 3.4s ease forwards;
+          animation: introFade 3.15s cubic-bezier(0.3, 0.1, 0.2, 1) forwards;
         }
 
-        .introA {
-          font-size: min(78vw, 900px);
-          font-weight: 900;
-          line-height: 0.8;
-          color: rgba(255, 255, 255, 0.1);
+        .introScreen::after {
+          content: "";
+          position: absolute;
+          inset: 0;
+          background-image:
+            linear-gradient(rgba(234,239,233,.025) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(234,239,233,.025) 1px, transparent 1px);
+          background-size: 72px 72px;
+          opacity: .45;
+        }
+
+        .introMarkStage {
+          position: relative;
+          z-index: 1;
+          display: grid;
+          place-items: center;
+          color: var(--green);
           transform-style: preserve-3d;
-          animation: introSpin 2.55s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+          animation: introMarkSettle 2.65s cubic-bezier(0.2, 0.72, 0.18, 1) forwards;
         }
 
-        .backgroundA {
+        .introMark {
+          width: min(26vw, 260px);
+          height: min(26vw, 260px);
+          filter: drop-shadow(0 22px 38px rgba(0,0,0,.32));
+        }
+
+        .introMark .alphaOutline,
+        .introMark .alphaSignal {
+          stroke-dasharray: 1;
+          stroke-dashoffset: 1;
+          animation: alphaDraw 1.45s cubic-bezier(.65,0,.2,1) .25s forwards;
+        }
+
+        .introMark .alphaSignal {
+          animation-delay: .75s;
+        }
+
+        .introWordmark {
+          display: flex;
+          align-items: baseline;
+          gap: 10px;
+          margin-top: 24px;
+          letter-spacing: .2em;
+          opacity: 0;
+          animation: wordmarkReveal .7s ease 1.15s forwards;
+        }
+
+        .introWordmark span {
+          color: var(--muted);
+          font-size: 11px;
+          font-weight: 700;
+        }
+
+        .introWordmark strong {
+          color: var(--text);
+          font-size: 19px;
+        }
+
+        .backgroundMark {
           position: fixed;
-          right: -5vw;
+          right: -8vw;
           top: 50%;
           z-index: 0;
-          transform: translateY(-50%);
-          font-size: min(72vw, 940px);
-          font-weight: 900;
-          line-height: 0.75;
-          color: rgba(255, 255, 255, 0.022);
+          width: min(68vw, 920px);
+          height: min(68vw, 920px);
+          transform: translateY(-48%);
+          color: rgba(237, 240, 234, 0.018);
           pointer-events: none;
           user-select: none;
+          opacity: 0;
+          animation: backgroundMarkReveal 1.6s ease 1.8s forwards;
+        }
+
+        .backgroundMark .alphaSignal {
+          stroke: rgba(194,168,120,.55);
         }
 
         aside,
@@ -396,30 +461,41 @@ export default function Home() {
           animation: blockReveal 0.7s ease 2.92s both;
         }
 
-        @keyframes introSpin {
+        @keyframes introMarkSettle {
           0% {
             opacity: 0;
-            transform: rotateY(-125deg) scale(0.7);
+            transform: rotateY(-105deg) rotateX(8deg) scale(.68);
           }
 
-          18% {
+          20% {
             opacity: 1;
           }
 
-          72% {
-            opacity: 0.55;
-            transform: rotateY(20deg) scale(1);
+          66% {
+            opacity: 1;
+            transform: rotateY(6deg) rotateX(0) scale(1);
           }
 
           100% {
-            opacity: 0.14;
-            transform: rotateY(0deg) scale(1.08);
+            opacity: 0;
+            transform: translate3d(29vw, 1vh, 0) rotateY(0) scale(4.3);
           }
+        }
+
+        @keyframes alphaDraw { to { stroke-dashoffset: 0; } }
+
+        @keyframes wordmarkReveal {
+          from { opacity: 0; transform: translateY(8px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes backgroundMarkReveal {
+          to { opacity: 1; }
         }
 
         @keyframes introFade {
           0%,
-          72% {
+          68% {
             opacity: 1;
           }
 
@@ -451,6 +527,11 @@ export default function Home() {
         @media (prefers-reduced-motion: reduce) {
           .introScreen {
             display: none;
+          }
+
+          .backgroundMark {
+            opacity: 1;
+            animation: none;
           }
 
           aside,

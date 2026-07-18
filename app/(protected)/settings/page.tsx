@@ -374,32 +374,32 @@ export default function SettingsPage() {
         .settingsContent { grid-column: 2; min-width: 0; width: 100%; max-width: none; margin: 0; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
         .settingsHeader { align-items: center; }
         .settingsHeader p { color: var(--blue); letter-spacing: .14em; font-weight: 800; }
-        .profilePill { display: flex; align-items: center; gap: 12px; min-width: 250px; padding: 10px 14px; border: 1px solid var(--border); border-radius: 14px; background: rgba(13,26,44,.78); }
+        .profilePill { display: flex; align-items: center; gap: 12px; min-width: 250px; padding: 10px 14px; border: 1px solid var(--border); border-radius: 12px; background: rgba(19,24,22,.82); }
         .profilePill strong, .profilePill span { display: block; }
         .profilePill span { color: var(--muted); font-size: 12px; margin-top: 3px; }
         .settingsLayout { flex: 1; display: grid; grid-template-columns: 230px minmax(0,1fr); gap: 20px; align-items: stretch; width: 100%; min-width: 0; min-height: 0; overflow: hidden; }
-        .settingsNav { min-height: 0; height: 100%; overflow-y: auto; overscroll-behavior: contain; display: flex; flex-direction: column; gap: 5px; border: 1px solid var(--border); background: rgba(9,22,38,.84); border-radius: 18px; padding: 12px; }
+        .settingsNav { min-height: 0; height: 100%; overflow-y: auto; overscroll-behavior: contain; display: flex; flex-direction: column; gap: 5px; border: 1px solid var(--border); background: rgba(15,19,17,.9); border-radius: 14px; padding: 12px; }
         .settingsNavLabel { color: var(--muted); font-size: 10px; font-weight: 900; letter-spacing: .15em; padding: 10px 11px 6px; }
         .supportLabel { margin-top: 9px; border-top: 1px solid var(--border); padding-top: 18px; }
         .settingsNav button { width: 100%; border: 0; background: transparent; color: var(--muted); padding: 11px; border-radius: 10px; display: grid; grid-template-columns: 20px 1fr 16px; align-items: center; text-align: left; font-weight: 650; }
-        .settingsNav button:hover, .settingsNav button.active { color: var(--text); background: rgba(75,163,255,.1); }
+        .settingsNav button:hover, .settingsNav button.active { color: var(--text); background: rgba(143,184,168,.08); }
         .settingsNav button.active { box-shadow: inset 3px 0 0 var(--blue); }
-        .settingsNav .logoutButton { display: flex; justify-content: center; gap: 9px; margin-top: 14px; border-top: 1px solid var(--border); border-radius: 0 0 10px 10px; padding-top: 17px; color: #ff9b7c; }
-        .settingsPanel { min-width: 0; min-height: 0; height: 100%; border: 1px solid var(--border); background: linear-gradient(145deg,var(--panel),rgba(12,29,48,.9)); border-radius: 20px; padding: 28px; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; }
-        .settingsNav, .settingsPanel { scrollbar-width: thin; scrollbar-color: rgba(75,163,255,.4) transparent; }
+        .settingsNav .logoutButton { display: flex; justify-content: center; gap: 9px; margin-top: 14px; border-top: 1px solid var(--border); border-radius: 0 0 10px 10px; padding-top: 17px; color: #dc8d73; }
+        .settingsPanel { min-width: 0; min-height: 0; height: 100%; border: 1px solid var(--border); background: rgba(19,24,22,.91); border-radius: 14px; padding: 28px; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; box-shadow: var(--shadow); }
+        .settingsNav, .settingsPanel { scrollbar-width: thin; scrollbar-color: rgba(143,184,168,.32) transparent; }
         .settingsNav::-webkit-scrollbar, .settingsPanel::-webkit-scrollbar { width: 8px; height: 8px; }
-        .settingsNav::-webkit-scrollbar-thumb, .settingsPanel::-webkit-scrollbar-thumb { background: rgba(75,163,255,.32); border-radius: 999px; }
+        .settingsNav::-webkit-scrollbar-thumb, .settingsPanel::-webkit-scrollbar-thumb { background: rgba(143,184,168,.28); border-radius: 999px; }
         .settingsNav::-webkit-scrollbar-track, .settingsPanel::-webkit-scrollbar-track { background: transparent; }
         .sectionIntro { max-width: 760px; margin-bottom: 26px; }
         .sectionIntro small { color: var(--blue); font-weight: 900; letter-spacing: .14em; }
         .sectionIntro h2 { font-size: 26px; margin: 6px 0 8px; }
         .sectionIntro p { color: var(--muted); line-height: 1.6; margin: 0; }
-        .profileCard { display: grid; grid-template-columns: auto minmax(0,1fr) auto; align-items: center; gap: 16px; padding: 20px; border: 1px solid var(--border); border-radius: 16px; background: rgba(75,163,255,.055); margin-bottom: 20px; }
+        .profileCard { display: grid; grid-template-columns: auto minmax(0,1fr) auto; align-items: center; gap: 16px; padding: 20px; border: 1px solid var(--border); border-radius: 13px; background: rgba(194,168,120,.045); margin-bottom: 20px; }
         .profileCard strong, .profileCard span, .profileCard small { display: block; }
         .profileCard span { color: var(--muted); margin: 4px 0; }
         .profileCard small { color: var(--green); }
         .primaryAction, .secondaryAction { display: inline-flex; align-items: center; gap: 7px; padding: 10px 13px; border-radius: 10px; text-decoration: none; font-weight: 800; }
-        .primaryAction { background: var(--green); color: #04130d; }
+        .primaryAction { background: var(--green); color: #111714; }
         .secondaryAction { margin-top: 20px; background: rgba(255,255,255,.05); color: var(--muted); border: 1px solid var(--border); }
         .settingsGroup { border-top: 1px solid var(--border); }
         .settingRow { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 24px; align-items: center; min-height: 78px; border-bottom: 1px solid var(--border); padding: 14px 2px; }
@@ -407,29 +407,29 @@ export default function SettingsPage() {
         .settingRow > div > span { color: var(--muted); font-size: 13px; margin-top: 5px; line-height: 1.45; }
         .textAction { color: var(--blue); font-size: 13px; font-weight: 800; text-decoration: none; white-space: nowrap; }
         .settingsToggle { width: 44px !important; height: 25px; padding: 3px !important; border-radius: 999px !important; background: rgba(255,255,255,.13) !important; display: block !important; }
-        .settingsToggle span { width: 19px; height: 19px; border-radius: 50%; background: #dbe5ef; transition: transform .2s ease; }
+        .settingsToggle span { width: 19px; height: 19px; border-radius: 50%; background: #e2e6df; transition: transform .2s ease; }
         .settingsToggle.isOn { background: var(--green) !important; }
-        .settingsToggle.isOn span { transform: translateX(19px); background: #07111f; }
+        .settingsToggle.isOn span { transform: translateX(19px); background: #111714; }
         .agentGrid { display: grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap: 13px; }
         .agentChoice { min-height: 145px; display: flex; flex-direction: column; align-items: flex-start; text-align: left; color: var(--text); background: rgba(255,255,255,.025); border: 1px solid var(--border); border-radius: 15px; padding: 17px; }
-        .agentChoice.selected { border-color: rgba(61,220,151,.45); background: rgba(61,220,151,.055); }
+        .agentChoice.selected { border-color: rgba(143,184,168,.38); background: rgba(143,184,168,.055); }
         .agentChoice:disabled { opacity: .52; cursor: not-allowed; }
         .agentChoiceTop { width: 100%; display: flex; justify-content: space-between; color: var(--blue); margin-bottom: 16px; }
         .agentChoice strong { margin-bottom: 6px; }
         .agentChoice > span { color: var(--muted); font-size: 13px; line-height: 1.45; }
-        .agentCheck { display: grid !important; place-items: center; width: 20px; height: 20px; border-radius: 50%; color: #04130d !important; background: var(--green); }
+        .agentCheck { display: grid !important; place-items: center; width: 20px; height: 20px; border-radius: 50%; color: #111714 !important; background: var(--green); }
         .soonBadge, .planBadge, .draftBadge { border-radius: 999px; font-size: 10px !important; font-weight: 900; padding: 5px 8px; }
-        .soonBadge, .draftBadge { background: rgba(255,122,69,.12); color: var(--orange) !important; }
-        .infoStrip, .legalNotice { display: flex; gap: 12px; margin-top: 18px; padding: 14px 16px; border: 1px solid rgba(75,163,255,.2); border-radius: 12px; background: rgba(75,163,255,.06); color: #bcd7f3; font-size: 13px; }
+        .soonBadge, .draftBadge { background: rgba(209,123,93,.11); color: var(--orange) !important; }
+        .infoStrip, .legalNotice { display: flex; gap: 12px; margin-top: 18px; padding: 14px 16px; border: 1px solid rgba(194,168,120,.18); border-radius: 11px; background: rgba(194,168,120,.05); color: #d9c9aa; font-size: 13px; }
         .segmented { display: flex; padding: 3px; background: rgba(255,255,255,.05); border-radius: 10px; }
         .segmented button { padding: 7px 10px; background: transparent; color: var(--muted); border-radius: 7px; }
         .segmented button.active { background: var(--panel2); color: var(--text); }
         select { color: var(--text); background: var(--panel2); border: 1px solid var(--border); border-radius: 9px; padding: 9px 12px; }
-        .planCard { display: flex; justify-content: space-between; align-items: flex-start; padding: 22px; border-radius: 17px; background: linear-gradient(135deg,rgba(61,220,151,.12),rgba(75,163,255,.09)); border: 1px solid rgba(61,220,151,.25); }
+        .planCard { display: flex; justify-content: space-between; align-items: flex-start; padding: 22px; border-radius: 14px; background: linear-gradient(135deg,rgba(143,184,168,.09),rgba(194,168,120,.055)); border: 1px solid rgba(143,184,168,.2); }
         .planCard span { color: var(--green); font-size: 11px; font-weight: 900; letter-spacing: .12em; }
         .planCard h3 { font-size: 27px; margin: 7px 0; }
         .planCard p { color: var(--muted); margin: 0; }
-        .planBadge { background: rgba(61,220,151,.13); }
+        .planBadge { background: rgba(143,184,168,.12); }
         .usageGrid { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; margin-top: 16px; }
         .usageGrid > div { padding: 16px; border: 1px solid var(--border); border-radius: 13px; }
         .usageGrid span, .usageGrid strong, .usageGrid small { display: block; }
@@ -440,13 +440,13 @@ export default function SettingsPage() {
         .linkCards button:hover { color: var(--blue); }
         .linkCards strong, .linkCards span { display: block; }
         .linkCards div > span { color: var(--muted); font-size: 13px; margin-top: 5px; }
-        .legalNotice { margin: 0 0 18px; border-color: rgba(255,122,69,.22); background: rgba(255,122,69,.06); color: #ffd0c1; }
+        .legalNotice { margin: 0 0 18px; border-color: rgba(209,123,93,.2); background: rgba(209,123,93,.05); color: #e8b9a9; }
         .legalNotice strong, .legalNotice span { display: block; }
         .legalNotice span { color: var(--muted); margin-top: 4px; }
-        html[data-theme="light"] { --bg:#eef3f8; --panel:#ffffff; --panel2:#e8eff6; --border:rgba(7,17,31,.11); --text:#102033; --muted:#607287; }
-        html[data-theme="light"] body { background: linear-gradient(145deg,#edf3f8,#f7fafc 58%,#e9f0f6); }
-        html[data-theme="light"] aside { background: rgba(242,247,251,.92); }
-        html[data-theme="light"] .profilePill, html[data-theme="light"] .settingsNav { background: rgba(255,255,255,.86); }
+        html[data-theme="light"] { --bg:#f1f0eb; --panel:#fbfaf7; --panel2:#eceae4; --surface:#e5e2da; --border:rgba(31,39,34,.12); --border-strong:rgba(31,39,34,.18); --text:#202620; --muted:#697168; --green:#5f8876; --blue:#8d7349; --orange:#b46048; --shadow:0 18px 46px rgba(35,40,36,.08); }
+        html[data-theme="light"] body { background: #f1f0eb; }
+        html[data-theme="light"] aside { background: rgba(245,244,239,.94); }
+        html[data-theme="light"] .profilePill, html[data-theme="light"] .settingsNav { background: rgba(251,250,247,.9); }
         @media (max-width: 1000px) {
           .settingsShell { grid-template-columns: 76px minmax(0,1fr); }
           .settingsLayout { grid-template-columns: 190px minmax(0,1fr); gap: 16px; }

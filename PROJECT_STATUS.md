@@ -20,6 +20,9 @@ Oppdatert: 18. juli 2026
 - Valgt innhold ruller internt og bruker resten av tilgjengelig skjermbredde.
 - Responsivt oppsett for store skjermer, mindre PC-er og smale skjermer.
 - Aktivt hovedmenyvalg har fet tekst uten understrek; øvrige valg har normal skriftvekt.
+- Visuell profil er oppdatert til varm grafitt, dempet grønn og messing, med roligere kort og navigasjon.
+- Egen geometrisk Alpha-logo brukes i merkevare, innlogging og intro.
+- Arbeidsflaten har en subtil animert bakgrunn og en intro som går over i bakgrunnsmerket.
 
 ## Låste designprinsipper
 
@@ -39,8 +42,8 @@ Oppdatert: 18. juli 2026
 
 ## Neste startpunkt
 
-1. Kontroller siste menystil og innstillingssiden på live-siden.
-2. Juster responsiv struktur videre ut fra visuell vurdering.
+1. Kontroller den nye visuelle profilen, introen og bakgrunnen på live-siden.
+2. Juster farger og animasjonsstyrke videre ut fra visuell vurdering.
 3. Deretter bygges funksjonene bak menyene gradvis; dummydata må erstattes med database og markedsdata.
 
 ## Arbeidsform
