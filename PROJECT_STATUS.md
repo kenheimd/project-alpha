@@ -22,6 +22,7 @@ Oppdatert: 18. juli 2026
 - Aktivt hovedmenyvalg har fet tekst uten understrek; øvrige valg har normal skriftvekt.
 - Visuell profil er oppdatert til varm grafitt, dempet grønn og messing, med roligere kort og navigasjon.
 - Egen geometrisk Alpha-logo brukes i merkevare, innlogging og intro.
+- Egen Alpha Text-nettfont med normal og fet vekt brukes i grensesnittet; aktiv hovedmeny vises med fet vekt.
 - Introen tegner logoens konstruksjonsrutenett, vinkler og målelinjer før flatene fylles og merket går over i bakgrunnen.
 - Arbeidsflaten har en subtil animert bakgrunn som viderefører Alpha-merket.
 

@@ -383,7 +383,7 @@ export default function SettingsPage() {
         .supportLabel { margin-top: 9px; border-top: 1px solid var(--border); padding-top: 18px; }
         .settingsNav button { width: 100%; border: 0; background: transparent; color: var(--muted); padding: 11px; border-radius: 10px; display: grid; grid-template-columns: 20px 1fr 16px; align-items: center; text-align: left; font-weight: 650; }
         .settingsNav button:hover, .settingsNav button.active { color: var(--text); background: rgba(143,184,168,.08); }
-        .settingsNav button.active { box-shadow: inset 3px 0 0 var(--blue); }
+        .settingsNav button.active { box-shadow: inset 3px 0 0 var(--blue); font-weight: 800; }
         .settingsNav .logoutButton { display: flex; justify-content: center; gap: 9px; margin-top: 14px; border-top: 1px solid var(--border); border-radius: 0 0 10px 10px; padding-top: 17px; color: #dc8d73; }
         .settingsPanel { min-width: 0; min-height: 0; height: 100%; border: 1px solid var(--border); background: rgba(19,24,22,.91); border-radius: 14px; padding: 28px; overflow-x: hidden; overflow-y: auto; overscroll-behavior: contain; scrollbar-gutter: stable; box-shadow: var(--shadow); }
         .settingsNav, .settingsPanel { scrollbar-width: thin; scrollbar-color: rgba(143,184,168,.32) transparent; }
