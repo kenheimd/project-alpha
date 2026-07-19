@@ -85,6 +85,11 @@ function BlueprintStudy() {
     <svg className="studySvg" viewBox="0 0 600 500" role="img" aria-label="Konstruksjonsanimasjon med reelle mål og vinkler">
       <DefinitionSet prefix="blueprint" />
       <rect className="studyGrid" x="62" y="28" width="476" height="432" fill="url(#blueprint-grid)" />
+      <g className="blueprintSketch">
+        <path className="sketchLine sketchLeft" d="M126.3 432.7 317.5 43" pathLength="1" />
+        <path className="sketchLine sketchRight" d="M308.3 62.9 401.7 423.6" pathLength="1" />
+        <path className="sketchLine sketchBeam" d="M174 351.8 416.8 301.5" pathLength="1" />
+      </g>
       <Baselines prefix="blueprint" />
       <FinalGeometry className="blueprintGeometry" />
       <g className="studyNodes">
@@ -210,10 +215,25 @@ export default function AlphaAssemblyLab() {
         .studyArrow { fill:#c2a878; }
         .studyLabel { fill:#9fa8a1; font-family:"Alpha Text",sans-serif; font-size:10px; font-weight:700; letter-spacing:.08em; opacity:0; animation:labelReveal .4s ease 1.35s forwards; }
         .studyObject { fill:rgba(237,240,234,.015); stroke:#d9dfda; stroke-width:1.35; vector-effect:non-scaling-stroke; stroke-linejoin:round; stroke-dasharray:1; stroke-dashoffset:1; }
-        .blueprintGeometry .studyLeft { animation:lineDraw 1.1s ease 1.65s forwards; }
-        .blueprintGeometry .studyRight { animation:lineDraw 1.1s ease 1.88s forwards; }
-        .blueprintGeometry .studyBeam { animation:lineDraw .8s ease 2.12s forwards; }
-        .studyNodes circle { fill:#0a0e0c; stroke:#8fb8a8; stroke-width:1; opacity:0; animation:labelReveal .35s ease 2.55s forwards; }
+        .blueprintSketch { animation:sketchSettle .7s ease 3.7s forwards; }
+        .sketchLine { fill:none; stroke:rgba(143,184,168,.62); stroke-width:.9; stroke-dasharray:1; stroke-dashoffset:1; vector-effect:non-scaling-stroke; }
+        .sketchLeft { animation:lineDraw .82s ease .18s forwards; }
+        .sketchRight { animation:lineDraw .82s ease .46s forwards; }
+        .sketchBeam { animation:lineDraw .68s ease .74s forwards; }
+        .study-blueprint .studyDatum { opacity:0; animation:datumReveal .52s ease 1.12s forwards; }
+        .study-blueprint .studyDatumVertical { animation-delay:1.26s; }
+        .study-blueprint .studyArc { animation-delay:1.65s; }
+        .study-blueprint .labelLeftAngle,
+        .study-blueprint .labelRightAngle,
+        .study-blueprint .labelBeamAngle { animation-delay:2.05s; }
+        .study-blueprint .studyDimension { animation-delay:2.32s; }
+        .study-blueprint .labelLeftLength,
+        .study-blueprint .labelRightLength,
+        .study-blueprint .labelBeamLength { animation-delay:2.95s; }
+        .blueprintGeometry .studyLeft { animation:lineDraw 1.05s ease 3.35s forwards; }
+        .blueprintGeometry .studyRight { animation:lineDraw 1.05s ease 3.55s forwards; }
+        .blueprintGeometry .studyBeam { animation:lineDraw .82s ease 3.8s forwards; }
+        .studyNodes circle { fill:#0a0e0c; stroke:#8fb8a8; stroke-width:1; opacity:0; animation:labelReveal .35s ease 4.7s forwards; }
         .motionVector { stroke-dasharray:5 8; opacity:0; animation:vectorReveal .7s ease .25s forwards; }
         .motionLabel { animation-delay:.72s; }
         .assemblyGeometry .studyObject { stroke-dashoffset:0; }
@@ -240,6 +260,7 @@ export default function AlphaAssemblyLab() {
         @keyframes lockPulse { 0%{opacity:0;transform:scale(.7)} 45%{opacity:1} 100%{opacity:.25;transform:scale(1)} }
         @keyframes ringIn { from{opacity:0;transform:scale(1.8)} to{opacity:.7;transform:scale(1)} }
         @keyframes scanAcross { from{transform:translateX(0);opacity:0} 12%{opacity:1} 88%{opacity:1} to{transform:translateX(445px);opacity:0} }
+        @keyframes sketchSettle { to{opacity:.2} }
         @media(max-width:1180px){.studyList{grid-template-columns:1fr}.studyViewport{height:min(76vw,600px)}}
         @media(max-width:620px){.geometryLab{padding-inline:13px}.geometryTopbar>span{display:none}.studyCardHeader{min-height:0}.studyViewport{min-height:360px}}
         @media(prefers-reduced-motion:reduce){.studySvg *{animation-duration:.001ms!important;animation-delay:0s!important}}
