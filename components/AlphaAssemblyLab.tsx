@@ -4,7 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, Play } from "lucide-react";
 
-type Study = "blueprint" | "assembly" | "calibration";
+type Study = "blueprint" | "assembly" | "calibration" | "hybrid";
 
 const studies: Array<{ id: Study; number: string; name: string; note: string }> = [
   {
@@ -24,6 +24,12 @@ const studies: Array<{ id: Study; number: string; name: string; note: string }> 
     number: "03",
     name: "Kalibrering",
     note: "Kontrollpunkter, hovedakser og mål verifiseres før konturen blir stående alene.",
+  },
+  {
+    id: "hybrid",
+    number: "04",
+    name: "Konstruksjon + kontroll",
+    note: "Den faglige oppbyggingen fra studie 1 avsluttes med kontrollpunkter og skanning fra studie 3.",
   },
 ];
 
@@ -143,10 +149,33 @@ function CalibrationStudy() {
   );
 }
 
+function HybridStudy() {
+  return (
+    <svg className="studySvg" viewBox="0 0 600 500" role="img" aria-label="Kombinert konstruksjons- og kalibreringsanimasjon">
+      <DefinitionSet prefix="hybrid" />
+      <rect className="studyGrid" x="62" y="28" width="476" height="432" fill="url(#hybrid-grid)" />
+      <g className="hybridSketch">
+        <path className="hybridSketchLine hybridSketchLeft" d="M126.3 432.7 317.5 43" pathLength="1" />
+        <path className="hybridSketchLine hybridSketchRight" d="M308.3 62.9 401.7 423.6" pathLength="1" />
+        <path className="hybridSketchLine hybridSketchBeam" d="M174 351.8 416.8 301.5" pathLength="1" />
+      </g>
+      <Baselines prefix="hybrid" />
+      <g className="hybridRings">
+        <circle cx="126.3" cy="432.7" r="12" /><circle cx="317.5" cy="43" r="12" />
+        <circle cx="308.3" cy="62.9" r="12" /><circle cx="401.7" cy="423.6" r="12" />
+        <circle cx="174" cy="351.8" r="10" /><circle cx="416.8" cy="301.5" r="10" />
+      </g>
+      <FinalGeometry className="hybridGeometry" />
+      <path className="hybridScan" d="M78 54V446" />
+    </svg>
+  );
+}
+
 function StudyGraphic({ study }: { study: Study }) {
   if (study === "blueprint") return <BlueprintStudy />;
   if (study === "assembly") return <AssemblyStudy />;
-  return <CalibrationStudy />;
+  if (study === "calibration") return <CalibrationStudy />;
+  return <HybridStudy />;
 }
 
 function StudyCard({ study }: { study: (typeof studies)[number] }) {
@@ -196,7 +225,7 @@ export default function AlphaAssemblyLab() {
         .geometryHeader small,.studyCardHeader small { color:#c2a878; font-weight:850; letter-spacing:.16em; }
         .geometryHeader h1 { margin:11px 0 17px; font-size:clamp(44px,7vw,84px); line-height:.95; letter-spacing:-.05em; }
         .geometryHeader p { max-width:650px; margin:0; color:#8e9891; line-height:1.65; }
-        .studyList { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
+        .studyList { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
         .studyCard { overflow:hidden; min-width:0; border:1px solid rgba(234,239,233,.09); border-radius:17px; background:rgba(17,22,20,.86); box-shadow:0 22px 64px rgba(0,0,0,.22); }
         .studyCardHeader { min-height:166px; padding:23px; display:flex; align-items:flex-start; justify-content:space-between; gap:16px; }
         .studyCardHeader h2 { margin:6px 0 8px; font-size:25px; letter-spacing:-.025em; }
@@ -250,6 +279,27 @@ export default function AlphaAssemblyLab() {
         .calibrationGeometry .studyObject { animation:lineDraw .85s ease 1.85s forwards; }
         .calibrationGeometry .studyRight { animation-delay:2s; }.calibrationGeometry .studyBeam { animation-delay:2.15s; }
         .calibrationScan { fill:none; stroke:rgba(143,184,168,.5); stroke-width:1; filter:drop-shadow(0 0 7px rgba(143,184,168,.65)); animation:scanAcross 1.65s ease 2.6s both; }
+        .hybridSketch { animation:sketchSettle .65s ease 4.25s forwards; }
+        .hybridSketchLine { fill:none; stroke:rgba(143,184,168,.62); stroke-width:.9; stroke-dasharray:1; stroke-dashoffset:1; vector-effect:non-scaling-stroke; }
+        .hybridSketchLeft { animation:lineDraw .82s ease .15s forwards; }
+        .hybridSketchRight { animation:lineDraw .82s ease .42s forwards; }
+        .hybridSketchBeam { animation:lineDraw .68s ease .69s forwards; }
+        .study-hybrid .studyDatum { opacity:0; animation:datumReveal .52s ease 1.05s forwards; }
+        .study-hybrid .studyDatumVertical { animation-delay:1.2s; }
+        .study-hybrid .studyArc { animation-delay:1.55s; }
+        .study-hybrid .labelLeftAngle,
+        .study-hybrid .labelRightAngle,
+        .study-hybrid .labelBeamAngle { animation-delay:1.98s; }
+        .study-hybrid .studyDimension { animation-delay:2.25s; }
+        .study-hybrid .labelLeftLength,
+        .study-hybrid .labelRightLength,
+        .study-hybrid .labelBeamLength { animation-delay:2.85s; }
+        .hybridRings circle { fill:none; stroke:#c2a878; stroke-width:1; opacity:0; transform-box:fill-box; transform-origin:center; animation:ringIn .55s ease 3.15s both; }
+        .hybridRings circle:nth-child(2n) { animation-delay:3.28s; }
+        .hybridGeometry .studyLeft { animation:lineDraw 1.05s ease 3.45s forwards; }
+        .hybridGeometry .studyRight { animation:lineDraw 1.05s ease 3.65s forwards; }
+        .hybridGeometry .studyBeam { animation:lineDraw .82s ease 3.9s forwards; }
+        .hybridScan { fill:none; stroke:rgba(143,184,168,.52); stroke-width:1; filter:drop-shadow(0 0 7px rgba(143,184,168,.65)); animation:scanAcross 1.55s ease 4.75s both; }
         @keyframes datumReveal { from{opacity:0} to{opacity:1} }
         @keyframes lineDraw { to{stroke-dashoffset:0} }
         @keyframes labelReveal { from{opacity:0} to{opacity:1} }
