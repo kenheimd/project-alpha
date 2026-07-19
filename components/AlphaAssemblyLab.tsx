@@ -57,17 +57,17 @@ function Baselines({ prefix, compact = false }: { prefix: string; compact?: bool
       <path className="studyDatum" d="M58 425H520" />
       <path className="studyDatum studyDatumVertical" d="M286 26V462" />
 
-      <path className="studyArc arcLeft" d="M202 425A72 72 0 0 0 161.8 360.3" />
-      <path className="studyArc arcRight" d="M330 425A72 72 0 0 1 383.9 355.3" />
-      <path className="studyArc arcBeam" d="M226 351.8A52 52 0 0 0 224.9 341.2" />
+      <path className="studyArc arcLeft" d="M202 425A72 72 0 0 0 161.8 360.3" pathLength="1" />
+      <path className="studyArc arcRight" d="M330 425A72 72 0 0 1 383.9 355.3" pathLength="1" />
+      <path className="studyArc arcBeam" d="M226 351.8A52 52 0 0 0 224.9 341.2" pathLength="1" />
 
       <text className="studyLabel labelLeftAngle" x="165" y="394">63,9°</text>
       <text className="studyLabel labelRightAngle" x="368" y="393">75,5°</text>
       <text className="studyLabel labelBeamAngle" x="224" y="344">11,7°</text>
 
-      <path className="studyDimension dimLeft" d="M86 425 277.3 35.3" markerStart={`url(#${prefix}-arrow)`} markerEnd={`url(#${prefix}-arrow)`} />
-      <path className="studyDimension dimRight" d="M349 57 442.4 417.6" markerStart={`url(#${prefix}-arrow)`} markerEnd={`url(#${prefix}-arrow)`} />
-      <path className="studyDimension dimBeam" d="M170 310 412.8 259.8" markerStart={`url(#${prefix}-arrow)`} markerEnd={`url(#${prefix}-arrow)`} />
+      <path className="studyDimension dimLeft" d="M86 425 277.3 35.3" pathLength="1" markerStart={`url(#${prefix}-arrow)`} markerEnd={`url(#${prefix}-arrow)`} />
+      <path className="studyDimension dimRight" d="M349 57 442.4 417.6" pathLength="1" markerStart={`url(#${prefix}-arrow)`} markerEnd={`url(#${prefix}-arrow)`} />
+      <path className="studyDimension dimBeam" d="M170 310 412.8 259.8" pathLength="1" markerStart={`url(#${prefix}-arrow)`} markerEnd={`url(#${prefix}-arrow)`} />
 
       <text className="studyLabel labelLeftLength" x="172" y="230" transform="rotate(-63.9 172 230)">434,1 u</text>
       <text className="studyLabel labelRightLength" x="397" y="235" transform="rotate(75.5 397 235)">372,5 u</text>
@@ -279,30 +279,36 @@ export default function AlphaAssemblyLab() {
         .calibrationGeometry .studyObject { animation:lineDraw .85s ease 1.85s forwards; }
         .calibrationGeometry .studyRight { animation-delay:2s; }.calibrationGeometry .studyBeam { animation-delay:2.15s; }
         .calibrationScan { fill:none; stroke:rgba(143,184,168,.5); stroke-width:1; filter:drop-shadow(0 0 7px rgba(143,184,168,.65)); animation:scanAcross 1.65s ease 2.6s both; }
-        .study-hybrid .studyGrid { opacity:0; animation:hybridGridReveal .35s ease .3s forwards; }
-        .hybridSketch { animation:sketchSettle .65s ease 4.85s forwards; }
+        .study-hybrid .studyGrid { opacity:0; animation:hybridGridReveal .35s ease .25s forwards; }
+        .hybridSketch { animation:sketchSettle .65s ease 7.35s forwards; }
         .hybridSketchLine { fill:none; stroke:rgba(143,184,168,.62); stroke-width:.9; stroke-dasharray:1; stroke-dashoffset:1; vector-effect:non-scaling-stroke; }
-        .hybridSketchLeft { animation:lineDraw .82s ease .9s forwards; }
-        .hybridSketchRight { animation:lineDraw .82s ease 1.15s forwards; }
-        .hybridSketchBeam { animation:lineDraw .68s ease 1.4s forwards; }
-        .study-hybrid .studyDatum { opacity:0; animation:datumReveal .52s ease .48s forwards; }
-        .study-hybrid .studyDatumVertical { animation-delay:.63s; }
-        .study-hybrid .studyArc { animation-delay:2.42s; }
+        .hybridSketchLeft { animation:lineDraw .72s ease 1.45s forwards; }
+        .hybridSketchRight { animation:lineDraw .72s ease 2.08s forwards; }
+        .hybridSketchBeam { animation:lineDraw .62s ease 2.71s forwards; }
+        .study-hybrid .studyDatum { opacity:0; stroke-dashoffset:80; animation:datumTrace .55s ease .55s forwards; }
+        .study-hybrid .studyDatumVertical { animation-delay:1.02s; }
+        .study-hybrid .studyArc { animation-delay:3.82s; }
+        .study-hybrid .arcRight { animation-delay:3.98s; }
+        .study-hybrid .arcBeam { animation-delay:4.14s; }
         .study-hybrid .labelLeftAngle,
         .study-hybrid .labelRightAngle,
-        .study-hybrid .labelBeamAngle { animation-delay:2.8s; }
-        .study-hybrid .studyDimension { animation-delay:2.95s; }
-        .study-hybrid .labelLeftLength,
-        .study-hybrid .labelRightLength,
-        .study-hybrid .labelBeamLength { animation-delay:3.58s; }
-        .hybridRings circle { fill:none; stroke:#c2a878; stroke-width:1; opacity:0; transform-box:fill-box; transform-origin:center; animation:ringIn .55s ease 1.95s both; }
-        .hybridRings circle:nth-child(2n) { animation-delay:2.08s; }
+        .study-hybrid .labelBeamAngle { animation-delay:4.45s; }
+        .study-hybrid .studyDimension { opacity:0; animation:hybridDimensionDraw .8s ease 4.72s forwards; }
+        .study-hybrid .dimRight { animation-delay:5.05s; }
+        .study-hybrid .dimBeam { animation-delay:5.38s; }
+        .study-hybrid .labelLeftLength { animation-delay:5.17s; }
+        .study-hybrid .labelRightLength { animation-delay:5.5s; }
+        .study-hybrid .labelBeamLength { animation-delay:5.83s; }
+        .hybridRings circle { fill:none; stroke:#c2a878; stroke-width:1; opacity:0; transform-box:fill-box; transform-origin:center; animation:ringIn .55s ease 3.28s both; }
+        .hybridRings circle:nth-child(2n) { animation-delay:3.4s; }
         .hybridGeometry .studyObject { fill:none; }
-        .hybridGeometry .studyLeft { animation:lineDraw 1.05s ease 4.05s forwards; }
-        .hybridGeometry .studyRight { animation:lineDraw 1.05s ease 4.25s forwards; }
-        .hybridGeometry .studyBeam { animation:lineDraw .82s ease 4.5s forwards; }
-        .hybridScan { fill:none; stroke:rgba(143,184,168,.52); stroke-width:1; filter:drop-shadow(0 0 7px rgba(143,184,168,.65)); animation:scanAcross 1.55s ease 5.4s both; }
+        .hybridGeometry .studyLeft { animation:lineDraw 1.05s ease 6.18s forwards,polygonFill .65s ease 7.45s forwards; }
+        .hybridGeometry .studyRight { animation:lineDraw 1.05s ease 6.38s forwards,polygonFill .65s ease 7.45s forwards; }
+        .hybridGeometry .studyBeam { animation:lineDraw .82s ease 6.63s forwards,polygonFill .65s ease 7.45s forwards; }
+        .hybridScan { fill:none; stroke:rgba(143,184,168,.52); stroke-width:1; filter:drop-shadow(0 0 7px rgba(143,184,168,.65)); animation:scanAcross 1.55s ease 8.12s both; }
         @keyframes datumReveal { from{opacity:0} to{opacity:1} }
+        @keyframes datumTrace { from{opacity:0;stroke-dashoffset:80} to{opacity:1;stroke-dashoffset:0} }
+        @keyframes hybridDimensionDraw { from{opacity:0;stroke-dashoffset:1} to{opacity:1;stroke-dashoffset:0} }
         @keyframes lineDraw { to{stroke-dashoffset:0} }
         @keyframes labelReveal { from{opacity:0} to{opacity:1} }
         @keyframes vectorReveal { from{opacity:0;stroke-dashoffset:30} to{opacity:1;stroke-dashoffset:0} }
@@ -314,6 +320,7 @@ export default function AlphaAssemblyLab() {
         @keyframes scanAcross { from{transform:translateX(0);opacity:0} 12%{opacity:1} 88%{opacity:1} to{transform:translateX(445px);opacity:0} }
         @keyframes sketchSettle { to{opacity:.2} }
         @keyframes hybridGridReveal { to{opacity:.34} }
+        @keyframes polygonFill { from{fill:rgba(237,240,234,0)} to{fill:rgba(237,240,234,.07)} }
         @media(max-width:1180px){.studyList{grid-template-columns:1fr}.studyViewport{height:min(76vw,600px)}}
         @media(max-width:620px){.geometryLab{padding-inline:13px}.geometryTopbar>span{display:none}.studyCardHeader{min-height:0}.studyViewport{min-height:360px}}
         @media(prefers-reduced-motion:reduce){.studySvg *{animation-duration:.001ms!important;animation-delay:0s!important}}
