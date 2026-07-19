@@ -279,27 +279,28 @@ export default function AlphaAssemblyLab() {
         .calibrationGeometry .studyObject { animation:lineDraw .85s ease 1.85s forwards; }
         .calibrationGeometry .studyRight { animation-delay:2s; }.calibrationGeometry .studyBeam { animation-delay:2.15s; }
         .calibrationScan { fill:none; stroke:rgba(143,184,168,.5); stroke-width:1; filter:drop-shadow(0 0 7px rgba(143,184,168,.65)); animation:scanAcross 1.65s ease 2.6s both; }
-        .hybridSketch { animation:sketchSettle .65s ease 4.25s forwards; }
+        .study-hybrid .studyGrid { opacity:0; animation:hybridGridReveal .35s ease .3s forwards; }
+        .hybridSketch { animation:sketchSettle .65s ease 4.85s forwards; }
         .hybridSketchLine { fill:none; stroke:rgba(143,184,168,.62); stroke-width:.9; stroke-dasharray:1; stroke-dashoffset:1; vector-effect:non-scaling-stroke; }
-        .hybridSketchLeft { animation:lineDraw .82s ease .15s forwards; }
-        .hybridSketchRight { animation:lineDraw .82s ease .42s forwards; }
-        .hybridSketchBeam { animation:lineDraw .68s ease .69s forwards; }
-        .study-hybrid .studyDatum { opacity:0; animation:datumReveal .52s ease 1.05s forwards; }
-        .study-hybrid .studyDatumVertical { animation-delay:1.2s; }
-        .study-hybrid .studyArc { animation-delay:1.55s; }
+        .hybridSketchLeft { animation:lineDraw .82s ease .9s forwards; }
+        .hybridSketchRight { animation:lineDraw .82s ease 1.15s forwards; }
+        .hybridSketchBeam { animation:lineDraw .68s ease 1.4s forwards; }
+        .study-hybrid .studyDatum { opacity:0; animation:datumReveal .52s ease .48s forwards; }
+        .study-hybrid .studyDatumVertical { animation-delay:.63s; }
+        .study-hybrid .studyArc { animation-delay:2.42s; }
         .study-hybrid .labelLeftAngle,
         .study-hybrid .labelRightAngle,
-        .study-hybrid .labelBeamAngle { animation-delay:1.98s; }
-        .study-hybrid .studyDimension { animation-delay:2.25s; }
+        .study-hybrid .labelBeamAngle { animation-delay:2.8s; }
+        .study-hybrid .studyDimension { animation-delay:2.95s; }
         .study-hybrid .labelLeftLength,
         .study-hybrid .labelRightLength,
-        .study-hybrid .labelBeamLength { animation-delay:2.85s; }
-        .hybridRings circle { fill:none; stroke:#c2a878; stroke-width:1; opacity:0; transform-box:fill-box; transform-origin:center; animation:ringIn .55s ease 3.15s both; }
-        .hybridRings circle:nth-child(2n) { animation-delay:3.28s; }
-        .hybridGeometry .studyLeft { animation:lineDraw 1.05s ease 3.45s forwards; }
-        .hybridGeometry .studyRight { animation:lineDraw 1.05s ease 3.65s forwards; }
-        .hybridGeometry .studyBeam { animation:lineDraw .82s ease 3.9s forwards; }
-        .hybridScan { fill:none; stroke:rgba(143,184,168,.52); stroke-width:1; filter:drop-shadow(0 0 7px rgba(143,184,168,.65)); animation:scanAcross 1.55s ease 4.75s both; }
+        .study-hybrid .labelBeamLength { animation-delay:3.58s; }
+        .hybridRings circle { fill:none; stroke:#c2a878; stroke-width:1; opacity:0; transform-box:fill-box; transform-origin:center; animation:ringIn .55s ease 1.95s both; }
+        .hybridRings circle:nth-child(2n) { animation-delay:2.08s; }
+        .hybridGeometry .studyLeft { animation:lineDraw 1.05s ease 4.05s forwards; }
+        .hybridGeometry .studyRight { animation:lineDraw 1.05s ease 4.25s forwards; }
+        .hybridGeometry .studyBeam { animation:lineDraw .82s ease 4.5s forwards; }
+        .hybridScan { fill:none; stroke:rgba(143,184,168,.52); stroke-width:1; filter:drop-shadow(0 0 7px rgba(143,184,168,.65)); animation:scanAcross 1.55s ease 5.4s both; }
         @keyframes datumReveal { from{opacity:0} to{opacity:1} }
         @keyframes lineDraw { to{stroke-dashoffset:0} }
         @keyframes labelReveal { from{opacity:0} to{opacity:1} }
@@ -311,6 +312,7 @@ export default function AlphaAssemblyLab() {
         @keyframes ringIn { from{opacity:0;transform:scale(1.8)} to{opacity:.7;transform:scale(1)} }
         @keyframes scanAcross { from{transform:translateX(0);opacity:0} 12%{opacity:1} 88%{opacity:1} to{transform:translateX(445px);opacity:0} }
         @keyframes sketchSettle { to{opacity:.2} }
+        @keyframes hybridGridReveal { to{opacity:.34} }
         @media(max-width:1180px){.studyList{grid-template-columns:1fr}.studyViewport{height:min(76vw,600px)}}
         @media(max-width:620px){.geometryLab{padding-inline:13px}.geometryTopbar>span{display:none}.studyCardHeader{min-height:0}.studyViewport{min-height:360px}}
         @media(prefers-reduced-motion:reduce){.studySvg *{animation-duration:.001ms!important;animation-delay:0s!important}}
