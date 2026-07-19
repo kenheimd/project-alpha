@@ -27,10 +27,10 @@ const studies: Array<{ id: Study; number: string; name: string; note: string }> 
   },
 ];
 
-// Exact 4x projection of the established Project Alpha mark.
-const leftShape = "104,424 232,72 288,72 160,424";
-const rightShape = "264,72 320,72 480,424 416,424";
-const beamShape = "152,320 392,248 416,296 136,376";
+// Exact 0.5x front projection of the final pre-3D Alpha study.
+const leftShape = "82.5,440.4 300,40 335,46 170,425";
+const rightShape = "288.3,64.4 328.3,61.5 421.7,422.1 381.7,425";
+const beamShape = "178,339 399,271 434.5,332 170,364.5";
 
 function DefinitionSet({ prefix }: { prefix: string }) {
   return (
@@ -48,24 +48,24 @@ function DefinitionSet({ prefix }: { prefix: string }) {
 function Baselines({ prefix, compact = false }: { prefix: string; compact?: boolean }) {
   return (
     <g className={`studyMeasurements${compact ? " compact" : ""}`}>
-      <path className="studyDatum" d="M72 424H520" />
-      <path className="studyDatum studyDatumVertical" d="M276 42V456" />
+      <path className="studyDatum" d="M58 425H520" />
+      <path className="studyDatum studyDatumVertical" d="M286 26V462" />
 
-      <path className="studyArc arcLeft" d="M204 424A72 72 0 0 0 156.6 356.3" />
-      <path className="studyArc arcRight" d="M376 424A72 72 0 0 1 418.8 358.2" />
-      <path className="studyArc arcBeam" d="M196 348A52 52 0 0 0 193.9 333.4" />
+      <path className="studyArc arcLeft" d="M202 425A72 72 0 0 0 161.8 360.3" />
+      <path className="studyArc arcRight" d="M330 425A72 72 0 0 1 383.9 355.3" />
+      <path className="studyArc arcBeam" d="M226 351.8A52 52 0 0 0 224.9 341.2" />
 
-      <text className="studyLabel labelLeftAngle" x="169" y="391">70,0°</text>
-      <text className="studyLabel labelRightAngle" x="391" y="391">66,1°</text>
-      <text className="studyLabel labelBeamAngle" x="202" y="338">16,3°</text>
+      <text className="studyLabel labelLeftAngle" x="165" y="394">63,9°</text>
+      <text className="studyLabel labelRightAngle" x="368" y="393">75,5°</text>
+      <text className="studyLabel labelBeamAngle" x="224" y="344">11,7°</text>
 
-      <path className="studyDimension dimLeft" d="M92 424 220 72" markerStart={`url(#${prefix}-arrow)`} markerEnd={`url(#${prefix}-arrow)`} />
-      <path className="studyDimension dimRight" d="M332 72 488 424" markerStart={`url(#${prefix}-arrow)`} markerEnd={`url(#${prefix}-arrow)`} />
-      <path className="studyDimension dimBeam" d="M140 304 400 228" markerStart={`url(#${prefix}-arrow)`} markerEnd={`url(#${prefix}-arrow)`} />
+      <path className="studyDimension dimLeft" d="M86 425 277.3 35.3" markerStart={`url(#${prefix}-arrow)`} markerEnd={`url(#${prefix}-arrow)`} />
+      <path className="studyDimension dimRight" d="M349 57 442.4 417.6" markerStart={`url(#${prefix}-arrow)`} markerEnd={`url(#${prefix}-arrow)`} />
+      <path className="studyDimension dimBeam" d="M170 310 412.8 259.8" markerStart={`url(#${prefix}-arrow)`} markerEnd={`url(#${prefix}-arrow)`} />
 
-      <text className="studyLabel labelLeftLength" x="143" y="238" transform="rotate(-70 143 238)">374,4 u</text>
-      <text className="studyLabel labelRightLength" x="420" y="238" transform="rotate(66.1 420 238)">385,0 u</text>
-      <text className="studyLabel labelBeamLength" x="267" y="248" transform="rotate(-16.3 267 248)">270,9 u</text>
+      <text className="studyLabel labelLeftLength" x="172" y="230" transform="rotate(-63.9 172 230)">434,1 u</text>
+      <text className="studyLabel labelRightLength" x="397" y="235" transform="rotate(75.5 397 235)">372,5 u</text>
+      <text className="studyLabel labelBeamLength" x="285" y="282" transform="rotate(-11.7 285 282)">247,9 u</text>
     </g>
   );
 }
@@ -88,9 +88,9 @@ function BlueprintStudy() {
       <Baselines prefix="blueprint" />
       <FinalGeometry className="blueprintGeometry" />
       <g className="studyNodes">
-        <circle cx="132" cy="424" r="3" /><circle cx="260" cy="72" r="3" />
-        <circle cx="292" cy="72" r="3" /><circle cx="448" cy="424" r="3" />
-        <circle cx="144" cy="348" r="3" /><circle cx="404" cy="272" r="3" />
+        <circle cx="126.3" cy="432.7" r="3" /><circle cx="317.5" cy="43" r="3" />
+        <circle cx="308.3" cy="62.9" r="3" /><circle cx="401.7" cy="423.6" r="3" />
+        <circle cx="174" cy="351.8" r="3" /><circle cx="416.8" cy="301.5" r="3" />
       </g>
     </svg>
   );
@@ -109,9 +109,9 @@ function AssemblyStudy() {
       <text className="studyLabel motionLabel motionLabelBeam" x="300" y="458">Δ 108,0 u</text>
       <FinalGeometry className="assemblyGeometry" />
       <g className="lockingPoints">
-        <path d="M251 72h18M260 63v18" />
-        <path d="M135 348h18M144 339v18" />
-        <path d="M395 272h18M404 263v18" />
+        <path d="M308.5 43h18M317.5 34v18" />
+        <path d="M165 351.8h18M174 342.8v18" />
+        <path d="M407.8 301.5h18M416.8 292.5v18" />
       </g>
     </svg>
   );
@@ -122,15 +122,15 @@ function CalibrationStudy() {
     <svg className="studySvg" viewBox="0 0 600 500" role="img" aria-label="Geometrisk kalibrering av bokstaven A">
       <DefinitionSet prefix="calibration" />
       <g className="calibrationAxes">
-        <path className="axisLine axisLeft" d="M132 424 260 72" pathLength="1" />
-        <path className="axisLine axisRight" d="M292 72 448 424" pathLength="1" />
-        <path className="axisLine axisBeam" d="M144 348 404 272" pathLength="1" />
+        <path className="axisLine axisLeft" d="M126.3 432.7 317.5 43" pathLength="1" />
+        <path className="axisLine axisRight" d="M308.3 62.9 401.7 423.6" pathLength="1" />
+        <path className="axisLine axisBeam" d="M174 351.8 416.8 301.5" pathLength="1" />
       </g>
       <Baselines prefix="calibration" compact />
       <g className="calibrationRings">
-        <circle cx="132" cy="424" r="12" /><circle cx="260" cy="72" r="12" />
-        <circle cx="292" cy="72" r="12" /><circle cx="448" cy="424" r="12" />
-        <circle cx="144" cy="348" r="10" /><circle cx="404" cy="272" r="10" />
+        <circle cx="126.3" cy="432.7" r="12" /><circle cx="317.5" cy="43" r="12" />
+        <circle cx="308.3" cy="62.9" r="12" /><circle cx="401.7" cy="423.6" r="12" />
+        <circle cx="174" cy="351.8" r="10" /><circle cx="416.8" cy="301.5" r="10" />
       </g>
       <FinalGeometry className="calibrationGeometry" />
       <path className="calibrationScan" d="M78 54V446" />
