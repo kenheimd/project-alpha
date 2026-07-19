@@ -4,354 +4,244 @@ import { useState } from "react";
 import Link from "next/link";
 import { ArrowLeft, Play } from "lucide-react";
 
-type Variant = {
-  id: "monolith" | "precision" | "offset";
-  number: string;
-  name: string;
-  note: string;
-};
+type Study = "blueprint" | "assembly" | "calibration";
 
-const variants: Variant[] = [
+const studies: Array<{ id: Study; number: string; name: string; note: string }> = [
   {
-    id: "monolith",
+    id: "blueprint",
     number: "01",
-    name: "Monolitt",
-    note: "Rolige, massive legemer med stor dybde og et tydelig sluttmerke.",
+    name: "Konstruksjon",
+    note: "Baselinjer og vinkler etableres først. De tre lukkede formene tegnes deretter presist.",
   },
   {
-    id: "precision",
+    id: "assembly",
     number: "02",
-    name: "Presisjon",
-    note: "Slankere konstruksjon, skarpere kanter og mer teknisk karakter.",
+    name: "Sammenstilling",
+    note: "Tre separate objekter føres inn langs målte bevegelsesakser og låses til sluttposisjonen.",
   },
   {
-    id: "offset",
+    id: "calibration",
     number: "03",
-    name: "Forskyvning",
-    note: "Større avstand mellom objektene og en mer dramatisk samling.",
+    name: "Kalibrering",
+    note: "Kontrollpunkter, hovedakser og mål verifiseres før konturen blir stående alene.",
   },
 ];
 
-function PrismA({ variant }: { variant: Variant["id"] }) {
+const leftShape = "132,416 261,70 289,80 174,420";
+const rightShape = "278,80 305,69 466,411 424,420";
+const beamShape = "190,286 386,264 397,286 180,312";
+
+function DefinitionSet({ prefix }: { prefix: string }) {
   return (
-    <div className={`assemblyViewport assembly-${variant}`}>
-      <div className="assemblyAxis" aria-hidden="true" />
-      <svg
-        className="assemblySvg"
-        viewBox="0 0 600 520"
-        role="img"
-        aria-label="Tre separate objekter roterer og danner bokstaven A"
-      >
-        <defs>
-          <linearGradient id={`${variant}-front`} x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#e7ebe6" />
-            <stop offset="0.55" stopColor="#aeb7b1" />
-            <stop offset="1" stopColor="#737d77" />
-          </linearGradient>
-          <linearGradient id={`${variant}-edge`} x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stopColor="#89938d" />
-            <stop offset="1" stopColor="#3f4844" />
-          </linearGradient>
-          <linearGradient id={`${variant}-dark`} x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stopColor="#606a65" />
-            <stop offset="1" stopColor="#222a27" />
-          </linearGradient>
-          <filter id={`${variant}-shadow`} x="-40%" y="-40%" width="180%" height="200%">
-            <feDropShadow dx="0" dy="20" stdDeviation="18" floodColor="#000" floodOpacity=".42" />
-          </filter>
-        </defs>
-
-        <g className="assemblyCamera" filter={`url(#${variant}-shadow)`}>
-          <g className="prism prismLeft">
-            <polygon className="prismBack" points="120,438 247,78 282,91 181,438" />
-            <polygon className="prismSide" points="120,438 247,78 266,57 137,418" />
-            <polygon className="prismTop" points="247,78 282,91 300,70 266,57" />
-            <polygon className="prismFront" points="137,418 266,57 300,70 181,438" />
-            <polygon className="prismEnd" points="120,438 137,418 181,438" />
-          </g>
-
-          <g className="prism prismRight">
-            <polygon className="prismBack" points="278,87 316,72 478,438 419,438" />
-            <polygon className="prismSide" points="316,72 334,52 500,418 478,438" />
-            <polygon className="prismTop" points="278,87 316,72 334,52 296,67" />
-            <polygon className="prismFront" points="296,67 334,52 500,418 441,438" />
-            <polygon className="prismEnd" points="419,438 441,438 500,418 478,438" />
-          </g>
-
-          <g className="prism prismBeam">
-            <polygon className="prismBack" points="177,326 412,263 429,296 162,365" />
-            <polygon className="prismSide" points="412,263 431,243 451,277 429,296" />
-            <polygon className="prismTop" points="177,326 412,263 431,243 197,306" />
-            <polygon className="prismFront" points="197,306 431,243 451,277 181,347" />
-            <polygon className="prismEnd" points="162,365 181,347 197,306 177,326" />
-          </g>
-        </g>
-      </svg>
-      <div className="assemblyCaption">
-        <span>3 OBJEKTER</span>
-        <i />
-        <span>1 PERSPEKTIV</span>
-      </div>
-    </div>
+    <defs>
+      <pattern id={`${prefix}-grid`} width="20" height="20" patternUnits="userSpaceOnUse">
+        <path d="M20 0H0V20" className="studyGridLine" />
+      </pattern>
+      <marker id={`${prefix}-arrow`} viewBox="0 0 8 8" refX="4" refY="4" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
+        <path d="M0 0 8 4 0 8Z" className="studyArrow" />
+      </marker>
+    </defs>
   );
 }
 
-function VariantCard({ variant }: { variant: Variant }) {
-  const [run, setRun] = useState(0);
-
+function Baselines({ prefix, compact = false }: { prefix: string; compact?: boolean }) {
   return (
-    <article className="assemblyCard">
-      <div className="assemblyCardHeader">
+    <g className={`studyMeasurements${compact ? " compact" : ""}`}>
+      <path className="studyDatum" d="M82 420H510" />
+      <path className="studyDatum studyDatumVertical" d="M282 42V452" />
+
+      <path className="studyArc arcLeft" d="M132 416A72 72 0 0 1 158 350" />
+      <path className="studyArc arcRight" d="M466 411A72 72 0 0 0 435 347" />
+      <path className="studyArc arcBeam" d="M180 336A52 52 0 0 1 232 330" />
+
+      <text className="studyLabel labelLeftAngle" x="151" y="376">69,5°</text>
+      <text className="studyLabel labelRightAngle" x="421" y="377">65,1°</text>
+      <text className="studyLabel labelBeamAngle" x="215" y="354">6,6°</text>
+
+      <path className="studyDimension dimLeft" d="M112 410 236 78" markerStart={`url(#${prefix}-arrow)`} markerEnd={`url(#${prefix}-arrow)`} />
+      <path className="studyDimension dimRight" d="M324 78 478 410" markerStart={`url(#${prefix}-arrow)`} markerEnd={`url(#${prefix}-arrow)`} />
+      <path className="studyDimension dimBeam" d="M186 250 377 228" markerStart={`url(#${prefix}-arrow)`} markerEnd={`url(#${prefix}-arrow)`} />
+
+      <text className="studyLabel labelLeftLength" x="151" y="228" transform="rotate(-69.5 151 228)">354,4 u</text>
+      <text className="studyLabel labelRightLength" x="415" y="225" transform="rotate(65.1 415 225)">366,0 u</text>
+      <text className="studyLabel labelBeamLength" x="282" y="229" transform="rotate(-6.6 282 229)">192,3 u</text>
+    </g>
+  );
+}
+
+function FinalGeometry({ className = "" }: { className?: string }) {
+  return (
+    <g className={`studyGeometry ${className}`.trim()}>
+      <polygon className="studyObject studyLeft" points={leftShape} pathLength="1" />
+      <polygon className="studyObject studyRight" points={rightShape} pathLength="1" />
+      <polygon className="studyObject studyBeam" points={beamShape} pathLength="1" />
+    </g>
+  );
+}
+
+function BlueprintStudy() {
+  return (
+    <svg className="studySvg" viewBox="0 0 600 500" role="img" aria-label="Konstruksjonsanimasjon med reelle mål og vinkler">
+      <DefinitionSet prefix="blueprint" />
+      <rect className="studyGrid" x="62" y="28" width="476" height="432" fill="url(#blueprint-grid)" />
+      <Baselines prefix="blueprint" />
+      <FinalGeometry className="blueprintGeometry" />
+      <g className="studyNodes">
+        <circle cx="132" cy="416" r="3" /><circle cx="275" cy="75" r="3" />
+        <circle cx="291" cy="75" r="3" /><circle cx="466" cy="411" r="3" />
+        <circle cx="185" cy="299" r="3" /><circle cx="392" cy="275" r="3" />
+      </g>
+    </svg>
+  );
+}
+
+function AssemblyStudy() {
+  return (
+    <svg className="studySvg" viewBox="0 0 600 500" role="img" aria-label="Tre geometriske objekter føres sammen til bokstaven A">
+      <DefinitionSet prefix="assembly" />
+      <rect className="studyGrid faint" x="62" y="28" width="476" height="432" fill="url(#assembly-grid)" />
+      <path className="motionVector vectorLeft" d="M34 346 153 280" markerEnd="url(#assembly-arrow)" />
+      <path className="motionVector vectorRight" d="M548 170 430 237" markerEnd="url(#assembly-arrow)" />
+      <path className="motionVector vectorBeam" d="M292 482 290 374" markerEnd="url(#assembly-arrow)" />
+      <text className="studyLabel motionLabel motionLabelLeft" x="56" y="326">Δ 136,1 u</text>
+      <text className="studyLabel motionLabel motionLabelRight" x="444" y="183">Δ 135,7 u</text>
+      <text className="studyLabel motionLabel motionLabelBeam" x="300" y="458">Δ 108,0 u</text>
+      <FinalGeometry className="assemblyGeometry" />
+      <g className="lockingPoints">
+        <path d="M268 79h18M277 70v18" />
+        <path d="M173 296h18M182 287v18" />
+        <path d="M387 275h18M396 266v18" />
+      </g>
+    </svg>
+  );
+}
+
+function CalibrationStudy() {
+  return (
+    <svg className="studySvg" viewBox="0 0 600 500" role="img" aria-label="Geometrisk kalibrering av bokstaven A">
+      <DefinitionSet prefix="calibration" />
+      <g className="calibrationAxes">
+        <path className="axisLine axisLeft" d="M151 410 275 78" pathLength="1" />
+        <path className="axisLine axisRight" d="M293 78 447 410" pathLength="1" />
+        <path className="axisLine axisBeam" d="M196 300 387 278" pathLength="1" />
+      </g>
+      <Baselines prefix="calibration" compact />
+      <g className="calibrationRings">
+        <circle cx="151" cy="410" r="12" /><circle cx="275" cy="78" r="12" />
+        <circle cx="293" cy="78" r="12" /><circle cx="447" cy="410" r="12" />
+        <circle cx="196" cy="300" r="10" /><circle cx="387" cy="278" r="10" />
+      </g>
+      <FinalGeometry className="calibrationGeometry" />
+      <path className="calibrationScan" d="M78 54V446" />
+    </svg>
+  );
+}
+
+function StudyGraphic({ study }: { study: Study }) {
+  if (study === "blueprint") return <BlueprintStudy />;
+  if (study === "assembly") return <AssemblyStudy />;
+  return <CalibrationStudy />;
+}
+
+function StudyCard({ study }: { study: (typeof studies)[number] }) {
+  const [run, setRun] = useState(0);
+  return (
+    <article className={`studyCard study-${study.id}`}>
+      <div className="studyCardHeader">
         <div>
-          <small>RETNING {variant.number}</small>
-          <h2>{variant.name}</h2>
-          <p>{variant.note}</p>
+          <small>STUDIE {study.number}</small>
+          <h2>{study.name}</h2>
+          <p>{study.note}</p>
         </div>
-        <button type="button" className="replayButton" onClick={() => setRun((value) => value + 1)}>
-          <Play size={15} />
-          Spill av
+        <button className="studyReplay" type="button" onClick={() => setRun((value) => value + 1)}>
+          <Play size={14} /> Spill av
         </button>
       </div>
-      <PrismA key={run} variant={variant.id} />
+      <div className="studyViewport">
+        <StudyGraphic key={run} study={study.id} />
+      </div>
     </article>
   );
 }
 
 export default function AlphaAssemblyLab() {
   return (
-    <main className="assemblyLab">
-      <div className="assemblyLabTopbar">
-        <Link href="/" className="assemblyBack">
-          <ArrowLeft size={16} /> Tilbake til arbeidsflaten
-        </Link>
-        <span>PROJECT ALPHA / FORMSTUDIE</span>
+    <main className="geometryLab">
+      <div className="geometryTopbar">
+        <Link href="/" className="geometryBack"><ArrowLeft size={16} /> Tilbake til arbeidsflaten</Link>
+        <span>PROJECT ALPHA / GEOMETRISTUDIE</span>
       </div>
 
-      <header className="assemblyLabHeader">
-        <small>ALPHA ASSEMBLY STUDY</small>
-        <h1>Tre objekter. Ett merke.</h1>
-        <p>
-          Hver variant starter i sideperspektiv, viser at konstruksjonen består av tre
-          separate legemer og roterer deretter inn til en tydelig A.
-        </p>
+      <header className="geometryHeader">
+        <small>ALPHA MOTION STUDY</small>
+        <h1>Enklere form.<br />Reell geometri.</h1>
+        <p>Tre vidt forskjellige animasjoner basert på identiske, målbare koordinater. Ingen simulert 3D eller tvunget perspektiv.</p>
       </header>
 
-      <section className="assemblyVariants">
-        {variants.map((variant) => (
-          <VariantCard key={variant.id} variant={variant} />
-        ))}
+      <section className="studyList">
+        {studies.map((study) => <StudyCard key={study.id} study={study} />)}
       </section>
 
       <style jsx global>{`
-        .assemblyLab {
-          min-height: 100dvh;
-          display: block;
-          overflow-y: auto;
-          background:
-            radial-gradient(circle at 72% 8%, rgba(143,184,168,.09), transparent 33%),
-            linear-gradient(145deg, #0b0e0d, #101512 58%, #0b0e0d);
-          color: #edf0ea;
-          padding: 28px clamp(20px, 4vw, 68px) 64px;
-        }
-        .assemblyLabTopbar {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 24px;
-          color: #7f8982;
-          font-size: 11px;
-          font-weight: 800;
-          letter-spacing: .15em;
-        }
-        .assemblyBack {
-          display: inline-flex;
-          align-items: center;
-          gap: 8px;
-          color: #aeb7b1;
-          text-decoration: none;
-          letter-spacing: .02em;
-          font-size: 13px;
-        }
-        .assemblyLabHeader {
-          display: block;
-          max-width: 760px;
-          margin: clamp(54px, 8vw, 112px) 0 48px;
-        }
-        .assemblyLabHeader small, .assemblyCardHeader small {
-          color: #c2a878;
-          font-weight: 850;
-          letter-spacing: .16em;
-        }
-        .assemblyLabHeader h1 {
-          margin: 10px 0 14px;
-          font-size: clamp(42px, 7vw, 82px);
-          line-height: .96;
-          letter-spacing: -.045em;
-        }
-        .assemblyLabHeader p {
-          max-width: 660px;
-          color: #9aa39c;
-          line-height: 1.65;
-          font-size: 16px;
-        }
-        .assemblyVariants {
-          display: grid;
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-          gap: 18px;
-        }
-        .assemblyCard {
-          min-width: 0;
-          overflow: hidden;
-          border: 1px solid rgba(234,239,233,.1);
-          border-radius: 18px;
-          background: rgba(17,22,20,.84);
-          box-shadow: 0 24px 70px rgba(0,0,0,.24);
-        }
-        .assemblyCardHeader {
-          min-height: 154px;
-          display: flex;
-          align-items: flex-start;
-          justify-content: space-between;
-          gap: 18px;
-          padding: 24px 24px 18px;
-        }
-        .assemblyCardHeader h2 {
-          margin: 6px 0 7px;
-          font-size: 25px;
-          letter-spacing: -.025em;
-        }
-        .assemblyCardHeader p {
-          max-width: 310px;
-          margin: 0;
-          color: #89938c;
-          font-size: 13px;
-          line-height: 1.5;
-        }
-        .replayButton {
-          flex: 0 0 auto;
-          color: #dce2dd;
-          background: rgba(255,255,255,.035);
-          border: 1px solid rgba(234,239,233,.11);
-          padding: 9px 11px;
-          font-size: 12px;
-          cursor: pointer;
-        }
-        .assemblyViewport {
-          position: relative;
-          height: min(53vw, 520px);
-          min-height: 390px;
-          overflow: hidden;
-          border-top: 1px solid rgba(234,239,233,.07);
-          background:
-            linear-gradient(rgba(234,239,233,.025) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(234,239,233,.025) 1px, transparent 1px),
-            radial-gradient(circle at 50% 55%, rgba(143,184,168,.07), transparent 52%),
-            #0b0f0d;
-          background-size: 32px 32px, 32px 32px, auto, auto;
-          perspective: 1200px;
-        }
-        .assemblyAxis {
-          position: absolute;
-          left: 12%;
-          right: 12%;
-          bottom: 12%;
-          height: 1px;
-          background: linear-gradient(90deg, transparent, rgba(194,168,120,.2), transparent);
-        }
-        .assemblySvg {
-          width: 100%;
-          height: calc(100% - 42px);
-          overflow: visible;
-        }
-        .assemblyCamera {
-          transform-box: view-box;
-          transform-origin: 50% 52%;
-          animation: cameraResolve 5.8s cubic-bezier(.2,.74,.16,1) both;
-        }
-        .prism {
-          transform-box: fill-box;
-          transform-origin: center;
-          animation: objectAssemble 5.8s cubic-bezier(.2,.74,.16,1) both;
-        }
-        .prismLeft { --from-x: -150px; --from-y: 28px; --from-r: -13deg; --delay: 0s; }
-        .prismRight { --from-x: 158px; --from-y: -20px; --from-r: 11deg; --delay: .08s; }
-        .prismBeam { --from-x: 38px; --from-y: 128px; --from-r: 19deg; --delay: .16s; }
-        .prismFront { fill: url(#monolith-front); }
-        .prismSide { fill: url(#monolith-edge); }
-        .prismTop { fill: #dfe4df; }
-        .prismBack { fill: #343c38; }
-        .prismEnd { fill: url(#monolith-dark); }
-        .assembly-precision .prismFront { fill: url(#precision-front); }
-        .assembly-precision .prismSide { fill: url(#precision-edge); }
-        .assembly-precision .prismEnd { fill: url(#precision-dark); }
-        .assembly-offset .prismFront { fill: url(#offset-front); }
-        .assembly-offset .prismSide { fill: url(#offset-edge); }
-        .assembly-offset .prismEnd { fill: url(#offset-dark); }
-        .assembly-precision .assemblyCamera { animation-name: cameraPrecision; }
-        .assembly-precision .prism { animation-name: objectPrecision; }
-        .assembly-precision .prismLeft { --from-x: -118px; --from-y: -68px; --from-r: -24deg; }
-        .assembly-precision .prismRight { --from-x: 116px; --from-y: 74px; --from-r: 22deg; }
-        .assembly-precision .prismBeam { --from-x: 0px; --from-y: 166px; --from-r: -25deg; }
-        .assembly-offset .assemblyCamera { animation-name: cameraOffset; }
-        .assembly-offset .prism { animation-name: objectOffset; }
-        .assembly-offset .prismLeft { --from-x: -220px; --from-y: 80px; --from-r: -8deg; }
-        .assembly-offset .prismRight { --from-x: 238px; --from-y: -92px; --from-r: 16deg; }
-        .assembly-offset .prismBeam { --from-x: 18px; --from-y: 215px; --from-r: 31deg; }
-        .assemblyCaption {
-          position: absolute;
-          left: 24px;
-          right: 24px;
-          bottom: 17px;
-          display: flex;
-          align-items: center;
-          gap: 12px;
-          color: #6f7972;
-          font-size: 9px;
-          font-weight: 850;
-          letter-spacing: .16em;
-        }
-        .assemblyCaption i { height: 1px; flex: 1; background: rgba(234,239,233,.08); }
-        @keyframes cameraResolve {
-          0%, 12% { transform: perspective(850px) rotateY(72deg) rotateX(-7deg) scale(.74); }
-          70%, 100% { transform: perspective(850px) rotateY(0deg) rotateX(0deg) scale(.88); }
-        }
-        @keyframes objectAssemble {
-          0%, 12% { transform: translate(var(--from-x), var(--from-y)) rotate(var(--from-r)); opacity: .35; }
-          28% { opacity: 1; }
-          72%, 100% { transform: translate(0, 0) rotate(0); opacity: 1; }
-        }
-        @keyframes cameraPrecision {
-          0%, 12% { transform: perspective(900px) rotateY(-78deg) rotateX(9deg) scale(.78); }
-          74%, 100% { transform: perspective(900px) rotateY(0deg) rotateX(0deg) scale(.86); }
-        }
-        @keyframes objectPrecision {
-          0%, 12% { transform: translate(var(--from-x), var(--from-y)) rotate(var(--from-r)) scale(.91); opacity: .4; }
-          32% { opacity: 1; }
-          74%, 100% { transform: translate(0, 0) rotate(0) scale(1); opacity: 1; }
-        }
-        @keyframes cameraOffset {
-          0%, 15% { transform: perspective(780px) rotateY(84deg) rotateX(-13deg) scale(.67); }
-          78%, 100% { transform: perspective(780px) rotateY(0deg) rotateX(0deg) scale(.9); }
-        }
-        @keyframes objectOffset {
-          0%, 15% { transform: translate(var(--from-x), var(--from-y)) rotate(var(--from-r)) scale(.84); opacity: .28; }
-          36% { opacity: 1; }
-          78%, 100% { transform: translate(0, 0) rotate(0) scale(1); opacity: 1; }
-        }
-        @media (max-width: 1180px) {
-          .assemblyVariants { grid-template-columns: 1fr; }
-          .assemblyViewport { height: min(76vw, 620px); }
-        }
-        @media (max-width: 620px) {
-          .assemblyLab { padding-inline: 14px; }
-          .assemblyLabTopbar > span { display: none; }
-          .assemblyCardHeader { min-height: 0; }
-          .replayButton { padding-inline: 9px; }
-          .assemblyViewport { min-height: 360px; }
-        }
-        @media (prefers-reduced-motion: reduce) {
-          .assemblyCamera, .prism { animation-duration: .001ms; animation-delay: 0s; }
-        }
+        .geometryLab { min-height:100dvh; display:block; overflow-y:auto; padding:28px clamp(18px,4vw,64px) 70px; color:#edf0ea; background:radial-gradient(circle at 82% 3%,rgba(143,184,168,.07),transparent 32%),#0b0e0d; }
+        .geometryTopbar { display:flex; align-items:center; justify-content:space-between; gap:20px; color:#737d77; font-size:10px; font-weight:800; letter-spacing:.17em; }
+        .geometryBack { display:inline-flex; align-items:center; gap:8px; color:#aab2ac; text-decoration:none; font-size:13px; letter-spacing:.01em; }
+        .geometryHeader { display:block; max-width:780px; margin:clamp(58px,8vw,112px) 0 48px; }
+        .geometryHeader small,.studyCardHeader small { color:#c2a878; font-weight:850; letter-spacing:.16em; }
+        .geometryHeader h1 { margin:11px 0 17px; font-size:clamp(44px,7vw,84px); line-height:.95; letter-spacing:-.05em; }
+        .geometryHeader p { max-width:650px; margin:0; color:#8e9891; line-height:1.65; }
+        .studyList { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px; }
+        .studyCard { overflow:hidden; min-width:0; border:1px solid rgba(234,239,233,.09); border-radius:17px; background:rgba(17,22,20,.86); box-shadow:0 22px 64px rgba(0,0,0,.22); }
+        .studyCardHeader { min-height:166px; padding:23px; display:flex; align-items:flex-start; justify-content:space-between; gap:16px; }
+        .studyCardHeader h2 { margin:6px 0 8px; font-size:25px; letter-spacing:-.025em; }
+        .studyCardHeader p { max-width:300px; margin:0; color:#879089; font-size:13px; line-height:1.52; }
+        .studyReplay { flex:0 0 auto; padding:9px 11px; color:#dce2dd; background:rgba(255,255,255,.03); border:1px solid rgba(234,239,233,.11); font-size:11px; cursor:pointer; }
+        .studyViewport { height:min(48vw,500px); min-height:400px; border-top:1px solid rgba(234,239,233,.07); background:#0a0e0c; overflow:hidden; }
+        .studySvg { display:block; width:100%; height:100%; }
+        .studyGrid { opacity:.34; }
+        .studyGrid.faint { opacity:.15; }
+        .studyGridLine { fill:none; stroke:rgba(237,240,234,.075); stroke-width:.7; }
+        .studyDatum { fill:none; stroke:rgba(194,168,120,.35); stroke-width:1; stroke-dasharray:5 7; animation:datumReveal .65s ease both; }
+        .studyDatumVertical { animation-delay:.12s; }
+        .studyArc,.studyDimension,.motionVector,.axisLine { fill:none; stroke:rgba(194,168,120,.62); stroke-width:1; vector-effect:non-scaling-stroke; }
+        .studyArc { stroke-dasharray:1; stroke-dashoffset:1; animation:lineDraw .55s ease .5s forwards; }
+        .studyDimension { stroke-dasharray:1; stroke-dashoffset:1; animation:lineDraw .8s ease .78s forwards; }
+        .studyArrow { fill:#c2a878; }
+        .studyLabel { fill:#9fa8a1; font-family:"Alpha Text",sans-serif; font-size:10px; font-weight:700; letter-spacing:.08em; opacity:0; animation:labelReveal .4s ease 1.35s forwards; }
+        .studyObject { fill:rgba(237,240,234,.015); stroke:#d9dfda; stroke-width:1.35; vector-effect:non-scaling-stroke; stroke-linejoin:round; stroke-dasharray:1; stroke-dashoffset:1; }
+        .blueprintGeometry .studyLeft { animation:lineDraw 1.1s ease 1.65s forwards; }
+        .blueprintGeometry .studyRight { animation:lineDraw 1.1s ease 1.88s forwards; }
+        .blueprintGeometry .studyBeam { animation:lineDraw .8s ease 2.12s forwards; }
+        .studyNodes circle { fill:#0a0e0c; stroke:#8fb8a8; stroke-width:1; opacity:0; animation:labelReveal .35s ease 2.55s forwards; }
+        .motionVector { stroke-dasharray:5 8; opacity:0; animation:vectorReveal .7s ease .25s forwards; }
+        .motionLabel { animation-delay:.72s; }
+        .assemblyGeometry .studyObject { stroke-dashoffset:0; }
+        .assemblyGeometry .studyLeft { animation:assembleLeft 2.5s cubic-bezier(.18,.78,.17,1) .85s both; }
+        .assemblyGeometry .studyRight { animation:assembleRight 2.5s cubic-bezier(.18,.78,.17,1) .94s both; }
+        .assemblyGeometry .studyBeam { animation:assembleBeam 2.5s cubic-bezier(.18,.78,.17,1) 1.03s both; }
+        .lockingPoints path { fill:none; stroke:#8fb8a8; stroke-width:1; opacity:0; animation:lockPulse .8s ease 3.25s both; }
+        .axisLine { stroke:#8fb8a8; stroke-dasharray:1; stroke-dashoffset:1; animation:lineDraw .9s ease forwards; }
+        .axisRight { animation-delay:.18s; }.axisBeam { animation-delay:.36s; }
+        .study-calibration .studyMeasurements { opacity:0; animation:labelReveal .5s ease 1s forwards; }
+        .studyMeasurements.compact .studyDimension { display:none; }
+        .calibrationRings circle { fill:none; stroke:#c2a878; stroke-width:1; opacity:0; transform-box:fill-box; transform-origin:center; animation:ringIn .65s ease 1.25s both; }
+        .calibrationRings circle:nth-child(2n) { animation-delay:1.38s; }
+        .calibrationGeometry .studyObject { animation:lineDraw .85s ease 1.85s forwards; }
+        .calibrationGeometry .studyRight { animation-delay:2s; }.calibrationGeometry .studyBeam { animation-delay:2.15s; }
+        .calibrationScan { fill:none; stroke:rgba(143,184,168,.5); stroke-width:1; filter:drop-shadow(0 0 7px rgba(143,184,168,.65)); animation:scanAcross 1.65s ease 2.6s both; }
+        @keyframes datumReveal { from{opacity:0} to{opacity:1} }
+        @keyframes lineDraw { to{stroke-dashoffset:0} }
+        @keyframes labelReveal { from{opacity:0} to{opacity:1} }
+        @keyframes vectorReveal { from{opacity:0;stroke-dashoffset:30} to{opacity:1;stroke-dashoffset:0} }
+        @keyframes assembleLeft { from{transform:translate(-119px,66px);opacity:.15} to{transform:translate(0,0);opacity:1} }
+        @keyframes assembleRight { from{transform:translate(118px,-67px);opacity:.15} to{transform:translate(0,0);opacity:1} }
+        @keyframes assembleBeam { from{transform:translate(2px,108px);opacity:.15} to{transform:translate(0,0);opacity:1} }
+        @keyframes lockPulse { 0%{opacity:0;transform:scale(.7)} 45%{opacity:1} 100%{opacity:.25;transform:scale(1)} }
+        @keyframes ringIn { from{opacity:0;transform:scale(1.8)} to{opacity:.7;transform:scale(1)} }
+        @keyframes scanAcross { from{transform:translateX(0);opacity:0} 12%{opacity:1} 88%{opacity:1} to{transform:translateX(445px);opacity:0} }
+        @media(max-width:1180px){.studyList{grid-template-columns:1fr}.studyViewport{height:min(76vw,600px)}}
+        @media(max-width:620px){.geometryLab{padding-inline:13px}.geometryTopbar>span{display:none}.studyCardHeader{min-height:0}.studyViewport{min-height:360px}}
+        @media(prefers-reduced-motion:reduce){.studySvg *{animation-duration:.001ms!important;animation-delay:0s!important}}
       `}</style>
     </main>
   );
