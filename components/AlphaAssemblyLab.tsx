@@ -297,6 +297,7 @@ export default function AlphaAssemblyLab() {
         .study-hybrid .labelBeamLength { animation-delay:3.58s; }
         .hybridRings circle { fill:none; stroke:#c2a878; stroke-width:1; opacity:0; transform-box:fill-box; transform-origin:center; animation:ringIn .55s ease 1.95s both; }
         .hybridRings circle:nth-child(2n) { animation-delay:2.08s; }
+        .hybridGeometry .studyObject { fill:none; }
         .hybridGeometry .studyLeft { animation:lineDraw 1.05s ease 4.05s forwards; }
         .hybridGeometry .studyRight { animation:lineDraw 1.05s ease 4.25s forwards; }
         .hybridGeometry .studyBeam { animation:lineDraw .82s ease 4.5s forwards; }
