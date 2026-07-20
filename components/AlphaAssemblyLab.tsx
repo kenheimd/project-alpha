@@ -434,8 +434,12 @@ export default function AlphaAssemblyLab() {
         .study-hybrid .labelLeftLength { animation-delay:5.17s; }
         .study-hybrid .labelRightLength { animation-delay:5.5s; }
         .study-hybrid .labelBeamLength { animation-delay:5.83s; }
-        .hybridRings circle { fill:none; stroke:#c2a878; stroke-width:1; opacity:0; transform-box:fill-box; transform-origin:center; animation:ringIn .55s ease 3.28s both; }
-        .hybridRings circle:nth-child(2n) { animation-delay:3.4s; }
+        .hybridRings circle { fill:none; stroke:#c2a878; stroke-width:1; opacity:0; transform-box:fill-box; transform-origin:center; animation:ringIn .45s ease 2.52s both; }
+        .hybridRings circle:nth-child(2) { animation-delay:2.58s; }
+        .hybridRings circle:nth-child(3) { animation-delay:2.64s; }
+        .hybridRings circle:nth-child(4) { animation-delay:2.7s; }
+        .hybridRings circle:nth-child(5) { animation-delay:2.76s; }
+        .hybridRings circle:nth-child(6) { animation-delay:2.82s; }
         .hybridOutlineGeometry .studyObject { fill:none; }
         .hybridOutlineGeometry .studyLeft { animation:lineDraw 1.05s ease 6.18s forwards; }
         .hybridOutlineGeometry .studyRight { animation:lineDraw 1.05s ease 6.38s forwards; }
