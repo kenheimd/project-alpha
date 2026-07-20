@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ArrowLeft, Play } from "lucide-react";
 
 type Study = "blueprint" | "assembly" | "calibration" | "hybrid";
-const motionVersion = "07";
+const motionVersion = "08";
 
 const studies: Array<{ id: Study; number: string; name: string; note: string }> = [
   {
@@ -439,12 +439,12 @@ export default function AlphaAssemblyLab() {
         .study-hybrid .labelLeftLength { animation-delay:3.3s; animation-duration:.9s; }
         .study-hybrid .labelRightLength { animation-delay:3.48s; animation-duration:.9s; }
         .study-hybrid .labelBeamLength { animation-delay:3.66s; animation-duration:.9s; }
-        .hybridRings circle { fill:none; stroke:#c2a878; stroke-width:1; opacity:0; transform-box:fill-box; transform-origin:center; animation:ringIn 1.1s var(--alpha-arrival) 1.55s both; }
-        .hybridRings circle:nth-child(2) { animation-delay:1.595s; }
-        .hybridRings circle:nth-child(3) { animation-delay:1.64s; }
-        .hybridRings circle:nth-child(4) { animation-delay:1.685s; }
-        .hybridRings circle:nth-child(5) { animation-delay:1.73s; }
-        .hybridRings circle:nth-child(6) { animation-delay:1.775s; }
+        .hybridRings circle { fill:none; stroke:#c2a878; stroke-width:1; opacity:0; transform-box:fill-box; transform-origin:center; animation:ringIn 1.1s var(--alpha-arrival) 1.5s both; }
+        .hybridRings circle:nth-child(2) { animation-delay:1.62s; }
+        .hybridRings circle:nth-child(3) { animation-delay:1.74s; }
+        .hybridRings circle:nth-child(4) { animation-delay:1.86s; }
+        .hybridRings circle:nth-child(5) { animation-delay:1.98s; }
+        .hybridRings circle:nth-child(6) { animation-delay:2.1s; }
         .hybridOutlineGeometry .studyObject { fill:none; }
         .hybridOutlineGeometry .studyLeft { animation:lineDraw 2.4s var(--alpha-flow) 5.1s forwards; }
         .hybridOutlineGeometry .studyRight { animation:lineDraw 2.4s var(--alpha-flow) 5.25s forwards; }
