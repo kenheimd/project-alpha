@@ -412,39 +412,40 @@ export default function AlphaAssemblyLab() {
         .calibrationGeometry .studyObject { animation:lineDraw .85s ease 1.85s forwards; }
         .calibrationGeometry .studyRight { animation-delay:2s; }.calibrationGeometry .studyBeam { animation-delay:2.15s; }
         .calibrationScan { fill:none; stroke:rgba(143,184,168,.5); stroke-width:1; filter:drop-shadow(0 0 7px rgba(143,184,168,.65)); animation:scanAcross 1.65s ease 2.6s both; }
-        .study-hybrid .studyGrid { opacity:0; animation:hybridGridReveal .35s ease .25s forwards; }
-        .hybridConstruction { animation:constructionExit 1.05s ease-in-out 7.45s forwards; }
-        .hybridSketch { animation:sketchSettle .65s ease 7.35s forwards; }
+        .study-hybrid { --alpha-flow:cubic-bezier(.22,.68,.24,1); }
+        .study-hybrid .studyGrid { opacity:0; animation:hybridGridReveal .4s var(--alpha-flow) .22s forwards; }
+        .hybridConstruction { animation:constructionExit 1.1s var(--alpha-flow) 6.62s forwards; }
+        .hybridSketch { animation:sketchSettle .7s var(--alpha-flow) 6.45s forwards; }
         .hybridSketchLine { fill:none; stroke:rgba(143,184,168,.62); stroke-width:.9; stroke-dasharray:1; stroke-dashoffset:1; vector-effect:non-scaling-stroke; }
         .hybridSketchLeft,
         .hybridSketchRight,
-        .hybridSketchBeam { animation:lineDraw .9s ease 1.45s forwards; }
-        .study-hybrid .studyDatum { opacity:0; stroke-dashoffset:80; animation:datumTrace .55s ease .55s forwards; }
-        .study-hybrid .studyDatumVertical { animation-delay:1.02s; }
-        .study-hybrid .studyArc { animation-delay:3.82s; }
-        .study-hybrid .arcRight { animation-delay:3.98s; }
-        .study-hybrid .arcBeam { animation-delay:4.14s; }
-        .study-hybrid .beamAngleDatum { animation:angleDatumReveal .55s ease 4.14s forwards; }
+        .hybridSketchBeam { animation:lineDraw 1.05s var(--alpha-flow) 1.35s forwards; }
+        .study-hybrid .studyDatum { opacity:0; stroke-dashoffset:80; animation:datumTrace .65s var(--alpha-flow) .5s forwards; }
+        .study-hybrid .studyDatumVertical { animation-delay:.95s; }
+        .study-hybrid .studyArc { animation-delay:3s; animation-timing-function:var(--alpha-flow); }
+        .study-hybrid .arcRight { animation-delay:3.12s; }
+        .study-hybrid .arcBeam { animation-delay:3.24s; }
+        .study-hybrid .beamAngleDatum { animation:angleDatumReveal .52s var(--alpha-flow) 3.24s forwards; }
         .study-hybrid .labelLeftAngle,
         .study-hybrid .labelRightAngle,
-        .study-hybrid .labelBeamAngle { animation-delay:4.45s; }
-        .study-hybrid .studyDimension { opacity:0; animation:hybridDimensionDraw .8s ease 4.72s forwards; }
-        .study-hybrid .dimRight { animation-delay:5.05s; }
-        .study-hybrid .dimBeam { animation-delay:5.38s; }
-        .study-hybrid .labelLeftLength { animation-delay:5.17s; }
-        .study-hybrid .labelRightLength { animation-delay:5.5s; }
-        .study-hybrid .labelBeamLength { animation-delay:5.83s; }
-        .hybridRings circle { fill:none; stroke:#c2a878; stroke-width:1; opacity:0; transform-box:fill-box; transform-origin:center; animation:ringIn .45s ease 2.52s both; }
-        .hybridRings circle:nth-child(2) { animation-delay:2.58s; }
-        .hybridRings circle:nth-child(3) { animation-delay:2.64s; }
-        .hybridRings circle:nth-child(4) { animation-delay:2.7s; }
-        .hybridRings circle:nth-child(5) { animation-delay:2.76s; }
-        .hybridRings circle:nth-child(6) { animation-delay:2.82s; }
+        .study-hybrid .labelBeamAngle { animation-delay:3.55s; animation-timing-function:var(--alpha-flow); }
+        .study-hybrid .studyDimension { opacity:0; animation:hybridDimensionDraw .8s var(--alpha-flow) 3.9s forwards; }
+        .study-hybrid .dimRight { animation-delay:4.14s; }
+        .study-hybrid .dimBeam { animation-delay:4.38s; }
+        .study-hybrid .labelLeftLength { animation-delay:4.35s; }
+        .study-hybrid .labelRightLength { animation-delay:4.59s; }
+        .study-hybrid .labelBeamLength { animation-delay:4.83s; }
+        .hybridRings circle { fill:none; stroke:#c2a878; stroke-width:1; opacity:0; transform-box:fill-box; transform-origin:center; animation:ringIn .44s var(--alpha-flow) 2.28s both; }
+        .hybridRings circle:nth-child(2) { animation-delay:2.335s; }
+        .hybridRings circle:nth-child(3) { animation-delay:2.39s; }
+        .hybridRings circle:nth-child(4) { animation-delay:2.445s; }
+        .hybridRings circle:nth-child(5) { animation-delay:2.5s; }
+        .hybridRings circle:nth-child(6) { animation-delay:2.555s; }
         .hybridOutlineGeometry .studyObject { fill:none; }
-        .hybridOutlineGeometry .studyLeft { animation:lineDraw 1.05s ease 6.18s forwards; }
-        .hybridOutlineGeometry .studyRight { animation:lineDraw 1.05s ease 6.38s forwards; }
-        .hybridOutlineGeometry .studyBeam { animation:lineDraw .82s ease 6.63s forwards; }
-        .hybridFinalGeometry { opacity:0; transform-box:fill-box; transform-origin:center; animation:finalLogoReveal 1.05s ease-in-out 7.45s forwards,fixedLogoSettle .9s cubic-bezier(.2,.75,.2,1) 8.05s both; }
+        .hybridOutlineGeometry .studyLeft { animation:lineDraw 1.05s var(--alpha-flow) 5.35s forwards; }
+        .hybridOutlineGeometry .studyRight { animation:lineDraw 1.05s var(--alpha-flow) 5.53s forwards; }
+        .hybridOutlineGeometry .studyBeam { animation:lineDraw .88s var(--alpha-flow) 5.72s forwards; }
+        .hybridFinalGeometry { opacity:0; transform-box:fill-box; transform-origin:center; animation:finalLogoReveal 1.1s var(--alpha-flow) 6.62s forwards,fixedLogoSettle .9s var(--alpha-flow) 7.15s both; }
         .hybridFinalGeometry .studyObject { stroke:rgba(237,240,234,.28); stroke-dasharray:none; stroke-dashoffset:0; }
         .hybridFinalGeometry .studyLeft { fill:#e1e7e2; }
         .hybridFinalGeometry .studyRight { fill:#aeb8b1; }
