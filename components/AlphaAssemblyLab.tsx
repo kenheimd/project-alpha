@@ -41,6 +41,7 @@ function Baselines({ prefix, compact = false }: { prefix: string; compact?: bool
     <g className={`studyMeasurements${compact ? " compact" : ""}`}>
       <path className="studyDatum" d="M58 425H520" />
       <path className="studyDatum studyDatumVertical" d="M286 26V462" />
+      <path className="studyAngleDatum beamAngleDatum" d="M174 351.8H226" pathLength="1" />
 
       <path className="studyArc arcLeft" d="M202 425A72 72 0 0 0 161.8 360.3" pathLength="1" />
       <path className="studyArc arcRight" d="M330 425A72 72 0 0 1 383.9 355.3" pathLength="1" />
@@ -55,7 +56,7 @@ function Baselines({ prefix, compact = false }: { prefix: string; compact?: bool
       <path className="studyDimension dimBeam" d="M170 310 412.8 259.8" pathLength="1" markerStart={`url(#${prefix}-arrow)`} markerEnd={`url(#${prefix}-arrow)`} />
 
       <text className="studyLabel labelLeftLength" x="172" y="230" transform="rotate(-63.9 172 230)">434,1 u</text>
-      <text className="studyLabel labelRightLength" x="397" y="235" transform="rotate(75.5 397 235)">372,5 u</text>
+      <text className="studyLabel labelRightLength" x="388" y="200" transform="rotate(75.5 388 200)">372,5 u</text>
       <text className="studyLabel labelBeamLength" x="285" y="282" transform="rotate(-11.7 285 282)">247,9 u</text>
     </g>
   );
@@ -241,6 +242,7 @@ export default function AlphaAssemblyLab() {
         .studyGridLine { fill:none; stroke:rgba(237,240,234,.075); stroke-width:.7; }
         .studyDatum { fill:none; stroke:rgba(194,168,120,.35); stroke-width:1; stroke-dasharray:5 7; animation:datumReveal .65s ease both; }
         .studyDatumVertical { animation-delay:.12s; }
+        .studyAngleDatum { fill:none; stroke:rgba(194,168,120,.48); stroke-width:1; stroke-dasharray:4 5; stroke-dashoffset:20; opacity:0; vector-effect:non-scaling-stroke; }
         .studyArc,.studyDimension,.motionVector,.axisLine { fill:none; stroke:rgba(194,168,120,.62); stroke-width:1; vector-effect:non-scaling-stroke; }
         .studyArc { stroke-dasharray:1; stroke-dashoffset:1; animation:lineDraw .55s ease .5s forwards; }
         .studyDimension { stroke-dasharray:1; stroke-dashoffset:1; animation:lineDraw .8s ease .78s forwards; }
@@ -294,6 +296,7 @@ export default function AlphaAssemblyLab() {
         .study-hybrid .studyArc { animation-delay:3.82s; }
         .study-hybrid .arcRight { animation-delay:3.98s; }
         .study-hybrid .arcBeam { animation-delay:4.14s; }
+        .study-hybrid .beamAngleDatum { animation:angleDatumReveal .55s ease 4.14s forwards; }
         .study-hybrid .labelLeftAngle,
         .study-hybrid .labelRightAngle,
         .study-hybrid .labelBeamAngle { animation-delay:4.45s; }
@@ -317,6 +320,7 @@ export default function AlphaAssemblyLab() {
         @keyframes datumReveal { from{opacity:0} to{opacity:1} }
         @keyframes datumTrace { from{opacity:0;stroke-dashoffset:80} to{opacity:1;stroke-dashoffset:0} }
         @keyframes hybridDimensionDraw { from{opacity:0;stroke-dashoffset:1} to{opacity:1;stroke-dashoffset:0} }
+        @keyframes angleDatumReveal { from{opacity:0;stroke-dashoffset:20} to{opacity:1;stroke-dashoffset:0} }
         @keyframes lineDraw { to{stroke-dashoffset:0} }
         @keyframes labelReveal { from{opacity:0} to{opacity:1} }
         @keyframes vectorReveal { from{opacity:0;stroke-dashoffset:30} to{opacity:1;stroke-dashoffset:0} }
