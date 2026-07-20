@@ -223,6 +223,10 @@ function LightingLogo({ study }: { study: LightStudy }) {
         <clipPath id={`${prefix}-beam-overlap`}>
           <polygon points={beamShape} />
         </clipPath>
+        <mask id={`${prefix}-beam-outline-mask`} maskUnits="userSpaceOnUse" x="0" y="0" width="600" height="500">
+          <rect x="0" y="0" width="600" height="500" fill="white" />
+          <polygon points={rightShape} fill="black" stroke="black" strokeWidth="4" />
+        </mask>
         <filter id={`${prefix}-shadow`} x="-35%" y="-35%" width="170%" height="170%">
           <feDropShadow dx={study.shadowX} dy={study.shadowY} stdDeviation="7" floodColor="#000000" floodOpacity="0.42" />
         </filter>
@@ -234,7 +238,13 @@ function LightingLogo({ study }: { study: LightStudy }) {
       <g className="lightingLogo" filter={`url(#${prefix}-shadow)`}>
         <polygon className="lightingObject" points={rightShape} fill={`url(#${prefix}-right)`} />
         <polygon className="lightingObject" points={leftShape} fill={`url(#${prefix}-left)`} filter={`url(#${prefix}-contact)`} />
-        <polygon className="lightingObject" points={beamShape} fill={`url(#${prefix}-beam)`} filter={`url(#${prefix}-contact)`} />
+        <polygon className="lightingObject" points={beamShape} fill={`url(#${prefix}-beam)`} stroke="none" filter={`url(#${prefix}-contact)`} />
+        <polygon
+          className="lightingObject"
+          points={beamShape}
+          fill="none"
+          mask={`url(#${prefix}-beam-outline-mask)`}
+        />
         <polygon
           className="lightingObject"
           points={rightShape}
