@@ -5,6 +5,7 @@ import Link from "next/link";
 import { ArrowLeft, Play } from "lucide-react";
 
 type Study = "blueprint" | "assembly" | "calibration" | "hybrid";
+const motionVersion = "01";
 
 const studies: Array<{ id: Study; number: string; name: string; note: string }> = [
   {
@@ -301,7 +302,7 @@ function StudyCard({ study }: { study: (typeof studies)[number] }) {
     <article className={`studyCard study-${study.id}`}>
       <div className="studyCardHeader">
         <div>
-          <small>STUDIE {study.number}</small>
+          <small>ALPHA-ANIMASJON · VERSJON {motionVersion}</small>
           <h2>{study.name}</h2>
           <p>{study.note}</p>
         </div>
@@ -321,7 +322,7 @@ export default function AlphaAssemblyLab() {
     <main className="geometryLab">
       <div className="geometryTopbar">
         <Link href="/" className="geometryBack"><ArrowLeft size={16} /> Tilbake til arbeidsflaten</Link>
-        <span>PROJECT ALPHA / GEOMETRISTUDIE</span>
+        <span>PROJECT ALPHA / ANIMASJON V{motionVersion}</span>
       </div>
 
       <header className="geometryHeader">
