@@ -20,6 +20,31 @@ const leftShape = "82.5,440.4 300,40 335,46 170,425";
 const rightShape = "288.3,64.4 328.3,61.5 421.7,422.1 381.7,425";
 const beamShape = "178,339 399,271 434.5,332 170,364.5";
 
+type LightStudy = {
+  id: string;
+  time: string;
+  direction: string;
+  x1: string;
+  y1: string;
+  x2: string;
+  y2: string;
+  shadowX: number;
+  shadowY: number;
+  frontal?: boolean;
+};
+
+const lightStudies: LightStudy[] = [
+  { id: "twelve", time: "12:00", direction: "Ovenfra", x1: "50%", y1: "0%", x2: "50%", y2: "100%", shadowX: 0, shadowY: 8 },
+  { id: "one-thirty", time: "13:30", direction: "Øvre høyre", x1: "100%", y1: "0%", x2: "0%", y2: "100%", shadowX: -6, shadowY: 6 },
+  { id: "three", time: "15:00", direction: "Fra høyre", x1: "100%", y1: "50%", x2: "0%", y2: "50%", shadowX: -8, shadowY: 0 },
+  { id: "four-thirty", time: "16:30", direction: "Nedre høyre", x1: "100%", y1: "100%", x2: "0%", y2: "0%", shadowX: -6, shadowY: -6 },
+  { id: "six", time: "18:00", direction: "Nedenfra", x1: "50%", y1: "100%", x2: "50%", y2: "0%", shadowX: 0, shadowY: -8 },
+  { id: "seven-thirty", time: "19:30", direction: "Nedre venstre", x1: "0%", y1: "100%", x2: "100%", y2: "0%", shadowX: 6, shadowY: -6 },
+  { id: "nine", time: "21:00", direction: "Fra venstre", x1: "0%", y1: "50%", x2: "100%", y2: "50%", shadowX: 8, shadowY: 0 },
+  { id: "ten-thirty", time: "22:30", direction: "Øvre venstre", x1: "0%", y1: "0%", x2: "100%", y2: "100%", shadowX: 6, shadowY: 6 },
+  { id: "front", time: "FRONT", direction: "Kontrolllys", x1: "50%", y1: "18%", x2: "50%", y2: "100%", shadowX: 0, shadowY: 3, frontal: true },
+];
+
 function DefinitionSet({ prefix }: { prefix: string }) {
   return (
     <defs>
@@ -175,6 +200,83 @@ function HybridStudy() {
   );
 }
 
+function LightingLogo({ study }: { study: LightStudy }) {
+  const prefix = `light-${study.id}`;
+  return (
+    <svg className="lightingSvg" viewBox="0 0 600 500" role="img" aria-label={`Alpha med lys ${study.direction.toLowerCase()}`}>
+      <defs>
+        <linearGradient id={`${prefix}-left`} x1={study.x1} y1={study.y1} x2={study.x2} y2={study.y2}>
+          <stop offset="0%" stopColor={study.frontal ? "#eef2ef" : "#f4f7f4"} />
+          <stop offset="48%" stopColor="#cbd2cd" />
+          <stop offset="100%" stopColor={study.frontal ? "#8f9993" : "#69736d"} />
+        </linearGradient>
+        <linearGradient id={`${prefix}-right`} x1={study.x1} y1={study.y1} x2={study.x2} y2={study.y2}>
+          <stop offset="0%" stopColor={study.frontal ? "#d9dfdb" : "#e5eae6"} />
+          <stop offset="50%" stopColor="#a8b1ab" />
+          <stop offset="100%" stopColor={study.frontal ? "#717b75" : "#4b544f"} />
+        </linearGradient>
+        <linearGradient id={`${prefix}-beam`} x1={study.x1} y1={study.y1} x2={study.x2} y2={study.y2}>
+          <stop offset="0%" stopColor={study.frontal ? "#d6dcd8" : "#e8ece9"} />
+          <stop offset="52%" stopColor="#abb4ae" />
+          <stop offset="100%" stopColor={study.frontal ? "#737d77" : "#515a55"} />
+        </linearGradient>
+        <clipPath id={`${prefix}-beam-overlap`}>
+          <polygon points={beamShape} />
+        </clipPath>
+        <filter id={`${prefix}-shadow`} x="-35%" y="-35%" width="170%" height="170%">
+          <feDropShadow dx={study.shadowX} dy={study.shadowY} stdDeviation="7" floodColor="#000000" floodOpacity="0.42" />
+        </filter>
+        <filter id={`${prefix}-contact`} x="-25%" y="-25%" width="150%" height="150%">
+          <feDropShadow dx={study.shadowX * 0.22} dy={study.shadowY * 0.22} stdDeviation="2.2" floodColor="#020403" floodOpacity="0.5" />
+        </filter>
+      </defs>
+
+      <g className="lightingLogo" filter={`url(#${prefix}-shadow)`}>
+        <polygon className="lightingObject" points={rightShape} fill={`url(#${prefix}-right)`} />
+        <polygon className="lightingObject" points={leftShape} fill={`url(#${prefix}-left)`} filter={`url(#${prefix}-contact)`} />
+        <polygon className="lightingObject" points={beamShape} fill={`url(#${prefix}-beam)`} filter={`url(#${prefix}-contact)`} />
+        <polygon
+          className="lightingObject"
+          points={rightShape}
+          fill={`url(#${prefix}-right)`}
+          clipPath={`url(#${prefix}-beam-overlap)`}
+          filter={`url(#${prefix}-contact)`}
+        />
+      </g>
+    </svg>
+  );
+}
+
+function LightingStudyGrid() {
+  const positions = [
+    lightStudies[7], lightStudies[0], lightStudies[1],
+    lightStudies[6], lightStudies[8], lightStudies[2],
+    lightStudies[5], lightStudies[4], lightStudies[3],
+  ];
+
+  return (
+    <section className="lightingStudy">
+      <div className="lightingStudyHeader">
+        <small>LYSSTUDIE 01</small>
+        <h2>Én form. Ni lysretninger.</h2>
+        <p>Åtte posisjoner følger klokken med 90 minutters mellomrom. Frontlys i midten fungerer som nøytral kontroll.</p>
+      </div>
+
+      <div className="lightingGrid">
+        {positions.map((study) => (
+          <article className={`lightingCard${study.frontal ? " isReference" : ""}`} key={study.id}>
+            <div className="lightingCardMeta">
+              <strong>{study.time}</strong>
+              <span>{study.direction}</span>
+            </div>
+            <LightingLogo study={study} />
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
 function StudyGraphic({ study }: { study: Study }) {
   if (study === "blueprint") return <BlueprintStudy />;
   if (study === "assembly") return <AssemblyStudy />;
@@ -221,6 +323,8 @@ export default function AlphaAssemblyLab() {
         {studies.map((study) => <StudyCard key={study.id} study={study} />)}
       </section>
 
+      <LightingStudyGrid />
+
       <style jsx global>{`
         .geometryLab { min-height:100dvh; display:block; overflow-y:auto; padding:28px clamp(18px,4vw,64px) 70px; color:#edf0ea; background:radial-gradient(circle at 82% 3%,rgba(143,184,168,.07),transparent 32%),#0b0e0d; }
         .geometryTopbar { display:flex; align-items:center; justify-content:space-between; gap:20px; color:#737d77; font-size:10px; font-weight:800; letter-spacing:.17em; }
@@ -237,6 +341,19 @@ export default function AlphaAssemblyLab() {
         .studyReplay { flex:0 0 auto; padding:9px 11px; color:#dce2dd; background:rgba(255,255,255,.03); border:1px solid rgba(234,239,233,.11); font-size:11px; cursor:pointer; }
         .studyViewport { height:min(48vw,500px); min-height:400px; border-top:1px solid rgba(234,239,233,.07); background:#0a0e0c; overflow:hidden; }
         .studySvg { display:block; width:100%; height:100%; }
+        .lightingStudy { max-width:1120px; margin:clamp(70px,9vw,130px) auto 0; }
+        .lightingStudyHeader { max-width:680px; margin-bottom:28px; }
+        .lightingStudyHeader small { color:#c2a878; font-size:10px; font-weight:850; letter-spacing:.16em; }
+        .lightingStudyHeader h2 { margin:10px 0 14px; font-size:clamp(34px,5vw,58px); line-height:1; letter-spacing:-.045em; }
+        .lightingStudyHeader p { margin:0; color:#8e9891; line-height:1.65; }
+        .lightingGrid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; }
+        .lightingCard { position:relative; min-width:0; aspect-ratio:1.05; overflow:hidden; border:1px solid rgba(234,239,233,.08); border-radius:15px; background:radial-gradient(circle at 50% 42%,rgba(255,255,255,.035),transparent 55%),#090c0b; }
+        .lightingCard.isReference { border-color:rgba(194,168,120,.34); box-shadow:inset 0 0 0 1px rgba(194,168,120,.08); }
+        .lightingCardMeta { position:absolute; z-index:2; top:16px; left:17px; display:flex; flex-direction:column; gap:3px; pointer-events:none; }
+        .lightingCardMeta strong { color:#e5eae6; font-size:12px; letter-spacing:.08em; }
+        .lightingCardMeta span { color:#77817b; font-size:10px; letter-spacing:.06em; }
+        .lightingSvg { display:block; width:100%; height:100%; transform:scale(.82); }
+        .lightingObject { stroke:rgba(241,245,242,.18); stroke-width:1; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
         .studyGrid { opacity:.34; }
         .studyGrid.faint { opacity:.15; }
         .studyGridLine { fill:none; stroke:rgba(237,240,234,.075); stroke-width:.7; }
@@ -336,7 +453,8 @@ export default function AlphaAssemblyLab() {
         @keyframes finalLogoReveal { from{opacity:0} to{opacity:1} }
         @keyframes fixedLogoSettle { from{filter:drop-shadow(0 0 0 rgba(0,0,0,0))} to{filter:drop-shadow(0 18px 18px rgba(0,0,0,.26))} }
         @media(max-width:1180px){.studyList{grid-template-columns:1fr}.studyViewport{height:min(76vw,600px)}}
-        @media(max-width:620px){.geometryLab{padding-inline:13px}.geometryTopbar>span{display:none}.studyCardHeader{min-height:0}.studyViewport{min-height:360px}}
+        @media(max-width:760px){.lightingGrid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+        @media(max-width:620px){.geometryLab{padding-inline:13px}.geometryTopbar>span{display:none}.studyCardHeader{min-height:0}.studyViewport{min-height:360px}.lightingGrid{grid-template-columns:1fr}.lightingCard{aspect-ratio:1.18}}
         @media(prefers-reduced-motion:reduce){.studySvg *{animation-duration:.001ms!important;animation-delay:0s!important}}
       `}</style>
     </main>
