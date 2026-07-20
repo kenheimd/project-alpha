@@ -19,6 +19,7 @@ const studies: Array<{ id: Study; number: string; name: string; note: string }> 
 const leftShape = "82.5,440.4 300,40 335,46 170,425";
 const rightShape = "288.3,64.4 328.3,61.5 421.7,422.1 381.7,425";
 const beamShape = "178,339 399,271 434.5,332 170,364.5";
+const beamWithRightCutoutPath = "M178 339 399 271 434.5 332 170 364.5Z M346.033 287.297 383.776 275.684 399.478 336.303 359.983 341.156Z";
 
 type LightStudy = {
   id: string;
@@ -205,24 +206,21 @@ function LightingLogo({ study }: { study: LightStudy }) {
   return (
     <svg className="lightingSvg" viewBox="0 0 600 500" role="img" aria-label={`Alpha med lys ${study.direction.toLowerCase()}`}>
       <defs>
-        <linearGradient id={`${prefix}-left`} x1={study.x1} y1={study.y1} x2={study.x2} y2={study.y2}>
+        <linearGradient id={`${prefix}-left`} x1={study.x1} y1={study.y1} x2={study.x2} y2={study.y2} gradientUnits="userSpaceOnUse">
           <stop offset="0%" stopColor={study.frontal ? "#eef2ef" : "#f4f7f4"} />
           <stop offset="48%" stopColor="#cbd2cd" />
           <stop offset="100%" stopColor={study.frontal ? "#8f9993" : "#69736d"} />
         </linearGradient>
-        <linearGradient id={`${prefix}-right`} x1={study.x1} y1={study.y1} x2={study.x2} y2={study.y2}>
+        <linearGradient id={`${prefix}-right`} x1={study.x1} y1={study.y1} x2={study.x2} y2={study.y2} gradientUnits="userSpaceOnUse">
           <stop offset="0%" stopColor={study.frontal ? "#d9dfdb" : "#e5eae6"} />
           <stop offset="50%" stopColor="#a8b1ab" />
           <stop offset="100%" stopColor={study.frontal ? "#717b75" : "#4b544f"} />
         </linearGradient>
-        <linearGradient id={`${prefix}-beam`} x1={study.x1} y1={study.y1} x2={study.x2} y2={study.y2}>
+        <linearGradient id={`${prefix}-beam`} x1={study.x1} y1={study.y1} x2={study.x2} y2={study.y2} gradientUnits="userSpaceOnUse">
           <stop offset="0%" stopColor={study.frontal ? "#d6dcd8" : "#e8ece9"} />
           <stop offset="52%" stopColor="#abb4ae" />
           <stop offset="100%" stopColor={study.frontal ? "#737d77" : "#515a55"} />
         </linearGradient>
-        <clipPath id={`${prefix}-beam-overlap`}>
-          <polygon points={beamShape} />
-        </clipPath>
         <filter id={`${prefix}-shadow`} x="-35%" y="-35%" width="170%" height="170%">
           <feDropShadow dx={study.shadowX} dy={study.shadowY} stdDeviation="7" floodColor="#000000" floodOpacity="0.42" />
         </filter>
@@ -231,12 +229,12 @@ function LightingLogo({ study }: { study: LightStudy }) {
       <g className="lightingLogo" filter={`url(#${prefix}-shadow)`}>
         <polygon className="lightingObject" points={rightShape} fill={`url(#${prefix}-right)`} />
         <polygon className="lightingObject" points={leftShape} fill={`url(#${prefix}-left)`} />
-        <polygon className="lightingObject" points={beamShape} fill={`url(#${prefix}-beam)`} />
-        <polygon
+        <path
           className="lightingObject"
-          points={rightShape}
-          fill={`url(#${prefix}-right)`}
-          clipPath={`url(#${prefix}-beam-overlap)`}
+          d={beamWithRightCutoutPath}
+          fill={`url(#${prefix}-beam)`}
+          fillRule="evenodd"
+          clipRule="evenodd"
         />
       </g>
     </svg>
