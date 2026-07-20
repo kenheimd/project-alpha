@@ -92,16 +92,28 @@ function FinalGeometry({
   className = "",
   prefix,
   includeForeground = true,
+  cutBeamAroundRight = false,
 }: {
   className?: string;
   prefix: string;
   includeForeground?: boolean;
+  cutBeamAroundRight?: boolean;
 }) {
   return (
     <g className={`studyGeometry ${className}`.trim()}>
       <polygon className="studyObject studyRight" points={rightShape} pathLength="1" />
       <polygon className="studyObject studyLeft" points={leftShape} pathLength="1" />
-      <polygon className="studyObject studyBeam" points={beamShape} pathLength="1" />
+      {cutBeamAroundRight ? (
+        <path
+          className="studyObject studyBeam"
+          d={beamWithRightCutoutPath}
+          pathLength="1"
+          fillRule="evenodd"
+          clipRule="evenodd"
+        />
+      ) : (
+        <polygon className="studyObject studyBeam" points={beamShape} pathLength="1" />
+      )}
       {includeForeground ? (
         <polygon
           className="studyObject studyRight studyRightForeground"
@@ -196,7 +208,12 @@ function HybridStudy() {
         </g>
         <FinalGeometry className="hybridOutlineGeometry" prefix="hybrid" includeForeground={false} />
       </g>
-      <FinalGeometry className="hybridFinalGeometry" prefix="hybrid" />
+      <FinalGeometry
+        className="hybridFinalGeometry"
+        prefix="hybrid"
+        includeForeground={false}
+        cutBeamAroundRight
+      />
     </svg>
   );
 }
