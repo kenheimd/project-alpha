@@ -8,28 +8,10 @@ type Study = "blueprint" | "assembly" | "calibration" | "hybrid";
 
 const studies: Array<{ id: Study; number: string; name: string; note: string }> = [
   {
-    id: "blueprint",
-    number: "01",
-    name: "Konstruksjon",
-    note: "Baselinjer og vinkler etableres først. De tre lukkede formene tegnes deretter presist.",
-  },
-  {
-    id: "assembly",
-    number: "02",
-    name: "Sammenstilling",
-    note: "Tre separate objekter føres inn langs målte bevegelsesakser og låses til sluttposisjonen.",
-  },
-  {
-    id: "calibration",
-    number: "03",
-    name: "Kalibrering",
-    note: "Kontrollpunkter, hovedakser og mål verifiseres før konturen blir stående alene.",
-  },
-  {
     id: "hybrid",
-    number: "04",
-    name: "Konstruksjon + kontroll",
-    note: "Den faglige oppbyggingen fra studie 1 avsluttes med kontrollpunkter og skanning fra studie 3.",
+    number: "01",
+    name: "Alpha-konstruksjon",
+    note: "Fra blankt millimeterpapir og målbar geometri til det ferdige Project Alpha-merket.",
   },
 ];
 
@@ -219,8 +201,8 @@ export default function AlphaAssemblyLab() {
 
       <header className="geometryHeader">
         <small>ALPHA MOTION STUDY</small>
-        <h1>Enklere form.<br />Reell geometri.</h1>
-        <p>Tre vidt forskjellige animasjoner basert på identiske, målbare koordinater. Ingen simulert 3D eller tvunget perspektiv.</p>
+        <h1>Fra geometri<br />til Alpha.</h1>
+        <p>Én konsentrert konstruksjonssekvens basert på målbare koordinater, uten simulert 3D eller tvunget perspektiv.</p>
       </header>
 
       <section className="studyList">
@@ -235,7 +217,7 @@ export default function AlphaAssemblyLab() {
         .geometryHeader small,.studyCardHeader small { color:#c2a878; font-weight:850; letter-spacing:.16em; }
         .geometryHeader h1 { margin:11px 0 17px; font-size:clamp(44px,7vw,84px); line-height:.95; letter-spacing:-.05em; }
         .geometryHeader p { max-width:650px; margin:0; color:#8e9891; line-height:1.65; }
-        .studyList { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+        .studyList { display:grid; grid-template-columns:minmax(0,860px); justify-content:center; gap:18px; }
         .studyCard { overflow:hidden; min-width:0; border:1px solid rgba(234,239,233,.09); border-radius:17px; background:rgba(17,22,20,.86); box-shadow:0 22px 64px rgba(0,0,0,.22); }
         .studyCardHeader { min-height:166px; padding:23px; display:flex; align-items:flex-start; justify-content:space-between; gap:16px; }
         .studyCardHeader h2 { margin:6px 0 8px; font-size:25px; letter-spacing:-.025em; }
@@ -317,6 +299,7 @@ export default function AlphaAssemblyLab() {
         .hybridGeometry .studyLeft { --fixed-fill:#e1e7e2; animation:lineDraw 1.05s ease 6.18s forwards,polygonFill .65s ease 7.45s forwards,fixedLogoFill .8s ease 8.12s forwards; }
         .hybridGeometry .studyRight { --fixed-fill:#aeb8b1; animation:lineDraw 1.05s ease 6.38s forwards,polygonFill .65s ease 7.45s forwards,fixedLogoFill .8s ease 8.12s forwards; }
         .hybridGeometry .studyBeam { --fixed-fill:#c2a878; animation:lineDraw .82s ease 6.63s forwards,polygonFill .65s ease 7.45s forwards,fixedLogoFill .8s ease 8.12s forwards; }
+        .hybridGeometry .studyRightForeground { fill:rgba(174,184,177,0); stroke:rgba(237,240,234,0); animation:fixedLogoFill .8s ease 8.12s forwards; }
         @keyframes datumReveal { from{opacity:0} to{opacity:1} }
         @keyframes datumTrace { from{opacity:0;stroke-dashoffset:80} to{opacity:1;stroke-dashoffset:0} }
         @keyframes hybridDimensionDraw { from{opacity:0;stroke-dashoffset:1} to{opacity:1;stroke-dashoffset:0} }
