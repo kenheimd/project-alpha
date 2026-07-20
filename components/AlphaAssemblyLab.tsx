@@ -47,6 +47,9 @@ function DefinitionSet({ prefix }: { prefix: string }) {
       <marker id={`${prefix}-arrow`} viewBox="0 0 8 8" refX="4" refY="4" markerWidth="5" markerHeight="5" orient="auto-start-reverse">
         <path d="M0 0 8 4 0 8Z" className="studyArrow" />
       </marker>
+      <clipPath id={`${prefix}-right-foreground`}>
+        <rect x="0" y="210" width="600" height="290" />
+      </clipPath>
     </defs>
   );
 }
@@ -76,12 +79,18 @@ function Baselines({ prefix, compact = false }: { prefix: string; compact?: bool
   );
 }
 
-function FinalGeometry({ className = "" }: { className?: string }) {
+function FinalGeometry({ className = "", prefix }: { className?: string; prefix: string }) {
   return (
     <g className={`studyGeometry ${className}`.trim()}>
-      <polygon className="studyObject studyLeft" points={leftShape} pathLength="1" />
       <polygon className="studyObject studyRight" points={rightShape} pathLength="1" />
+      <polygon className="studyObject studyLeft" points={leftShape} pathLength="1" />
       <polygon className="studyObject studyBeam" points={beamShape} pathLength="1" />
+      <polygon
+        className="studyObject studyRight studyRightForeground"
+        points={rightShape}
+        pathLength="1"
+        clipPath={`url(#${prefix}-right-foreground)`}
+      />
     </g>
   );
 }
@@ -97,7 +106,7 @@ function BlueprintStudy() {
         <path className="sketchLine sketchBeam" d="M174 351.8 416.8 301.5" pathLength="1" />
       </g>
       <Baselines prefix="blueprint" />
-      <FinalGeometry className="blueprintGeometry" />
+      <FinalGeometry className="blueprintGeometry" prefix="blueprint" />
       <g className="studyNodes">
         <circle cx="126.3" cy="432.7" r="3" /><circle cx="317.5" cy="43" r="3" />
         <circle cx="308.3" cy="62.9" r="3" /><circle cx="401.7" cy="423.6" r="3" />
@@ -118,7 +127,7 @@ function AssemblyStudy() {
       <text className="studyLabel motionLabel motionLabelLeft" x="56" y="326">Δ 136,1 u</text>
       <text className="studyLabel motionLabel motionLabelRight" x="444" y="183">Δ 135,7 u</text>
       <text className="studyLabel motionLabel motionLabelBeam" x="300" y="458">Δ 108,0 u</text>
-      <FinalGeometry className="assemblyGeometry" />
+      <FinalGeometry className="assemblyGeometry" prefix="assembly" />
       <g className="lockingPoints">
         <path d="M308.5 43h18M317.5 34v18" />
         <path d="M165 351.8h18M174 342.8v18" />
@@ -143,7 +152,7 @@ function CalibrationStudy() {
         <circle cx="308.3" cy="62.9" r="12" /><circle cx="401.7" cy="423.6" r="12" />
         <circle cx="174" cy="351.8" r="10" /><circle cx="416.8" cy="301.5" r="10" />
       </g>
-      <FinalGeometry className="calibrationGeometry" />
+      <FinalGeometry className="calibrationGeometry" prefix="calibration" />
       <path className="calibrationScan" d="M78 54V446" />
     </svg>
   );
@@ -167,7 +176,7 @@ function HybridStudy() {
           <circle cx="174" cy="351.8" r="10" /><circle cx="416.8" cy="301.5" r="10" />
         </g>
       </g>
-      <FinalGeometry className="hybridGeometry" />
+      <FinalGeometry className="hybridGeometry" prefix="hybrid" />
     </svg>
   );
 }
@@ -305,9 +314,9 @@ export default function AlphaAssemblyLab() {
         .hybridRings circle:nth-child(2n) { animation-delay:3.4s; }
         .hybridGeometry .studyObject { fill:none; }
         .hybridGeometry { transform-box:fill-box; transform-origin:center; animation:fixedLogoSettle .9s cubic-bezier(.2,.75,.2,1) 8.12s both; }
-        .hybridGeometry .studyLeft { --fixed-fill:rgba(225,231,226,.9); animation:lineDraw 1.05s ease 6.18s forwards,polygonFill .65s ease 7.45s forwards,fixedLogoFill .8s ease 8.12s forwards; }
-        .hybridGeometry .studyRight { --fixed-fill:rgba(174,184,177,.78); animation:lineDraw 1.05s ease 6.38s forwards,polygonFill .65s ease 7.45s forwards,fixedLogoFill .8s ease 8.12s forwards; }
-        .hybridGeometry .studyBeam { --fixed-fill:rgba(194,168,120,.82); animation:lineDraw .82s ease 6.63s forwards,polygonFill .65s ease 7.45s forwards,fixedLogoFill .8s ease 8.12s forwards; }
+        .hybridGeometry .studyLeft { --fixed-fill:#e1e7e2; animation:lineDraw 1.05s ease 6.18s forwards,polygonFill .65s ease 7.45s forwards,fixedLogoFill .8s ease 8.12s forwards; }
+        .hybridGeometry .studyRight { --fixed-fill:#aeb8b1; animation:lineDraw 1.05s ease 6.38s forwards,polygonFill .65s ease 7.45s forwards,fixedLogoFill .8s ease 8.12s forwards; }
+        .hybridGeometry .studyBeam { --fixed-fill:#c2a878; animation:lineDraw .82s ease 6.63s forwards,polygonFill .65s ease 7.45s forwards,fixedLogoFill .8s ease 8.12s forwards; }
         @keyframes datumReveal { from{opacity:0} to{opacity:1} }
         @keyframes datumTrace { from{opacity:0;stroke-dashoffset:80} to{opacity:1;stroke-dashoffset:0} }
         @keyframes hybridDimensionDraw { from{opacity:0;stroke-dashoffset:1} to{opacity:1;stroke-dashoffset:0} }
