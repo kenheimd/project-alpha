@@ -223,34 +223,20 @@ function LightingLogo({ study }: { study: LightStudy }) {
         <clipPath id={`${prefix}-beam-overlap`}>
           <polygon points={beamShape} />
         </clipPath>
-        <mask id={`${prefix}-beam-outline-mask`} maskUnits="userSpaceOnUse" x="0" y="0" width="600" height="500">
-          <rect x="0" y="0" width="600" height="500" fill="white" />
-          <polygon points={rightShape} fill="black" stroke="black" strokeWidth="4" />
-        </mask>
         <filter id={`${prefix}-shadow`} x="-35%" y="-35%" width="170%" height="170%">
           <feDropShadow dx={study.shadowX} dy={study.shadowY} stdDeviation="7" floodColor="#000000" floodOpacity="0.42" />
-        </filter>
-        <filter id={`${prefix}-contact`} x="-25%" y="-25%" width="150%" height="150%">
-          <feDropShadow dx={study.shadowX * 0.22} dy={study.shadowY * 0.22} stdDeviation="2.2" floodColor="#020403" floodOpacity="0.5" />
         </filter>
       </defs>
 
       <g className="lightingLogo" filter={`url(#${prefix}-shadow)`}>
         <polygon className="lightingObject" points={rightShape} fill={`url(#${prefix}-right)`} />
-        <polygon className="lightingObject" points={leftShape} fill={`url(#${prefix}-left)`} filter={`url(#${prefix}-contact)`} />
-        <polygon className="lightingObject" points={beamShape} fill={`url(#${prefix}-beam)`} stroke="none" filter={`url(#${prefix}-contact)`} />
-        <polygon
-          className="lightingObject"
-          points={beamShape}
-          fill="none"
-          mask={`url(#${prefix}-beam-outline-mask)`}
-        />
+        <polygon className="lightingObject" points={leftShape} fill={`url(#${prefix}-left)`} />
+        <polygon className="lightingObject" points={beamShape} fill={`url(#${prefix}-beam)`} />
         <polygon
           className="lightingObject"
           points={rightShape}
           fill={`url(#${prefix}-right)`}
           clipPath={`url(#${prefix}-beam-overlap)`}
-          filter={`url(#${prefix}-contact)`}
         />
       </g>
     </svg>
@@ -363,7 +349,7 @@ export default function AlphaAssemblyLab() {
         .lightingCardMeta strong { color:#e5eae6; font-size:12px; letter-spacing:.08em; }
         .lightingCardMeta span { color:#77817b; font-size:10px; letter-spacing:.06em; }
         .lightingSvg { display:block; width:100%; height:100%; transform:scale(.82); }
-        .lightingObject { stroke:rgba(241,245,242,.18); stroke-width:1; stroke-linejoin:round; vector-effect:non-scaling-stroke; }
+        .lightingObject { stroke:none; }
         .studyGrid { opacity:.34; }
         .studyGrid.faint { opacity:.15; }
         .studyGridLine { fill:none; stroke:rgba(237,240,234,.075); stroke-width:.7; }
