@@ -166,7 +166,6 @@ function HybridStudy() {
         <circle cx="174" cy="351.8" r="10" /><circle cx="416.8" cy="301.5" r="10" />
       </g>
       <FinalGeometry className="hybridGeometry" />
-      <path className="hybridScan" d="M78 54V446" />
     </svg>
   );
 }
@@ -305,7 +304,6 @@ export default function AlphaAssemblyLab() {
         .hybridGeometry .studyLeft { animation:lineDraw 1.05s ease 6.18s forwards,polygonFill .65s ease 7.45s forwards; }
         .hybridGeometry .studyRight { animation:lineDraw 1.05s ease 6.38s forwards,polygonFill .65s ease 7.45s forwards; }
         .hybridGeometry .studyBeam { animation:lineDraw .82s ease 6.63s forwards,polygonFill .65s ease 7.45s forwards; }
-        .hybridScan { fill:none; stroke:rgba(143,184,168,.52); stroke-width:1; filter:drop-shadow(0 0 7px rgba(143,184,168,.65)); animation:scanAcross 1.55s ease 8.12s both; }
         @keyframes datumReveal { from{opacity:0} to{opacity:1} }
         @keyframes datumTrace { from{opacity:0;stroke-dashoffset:80} to{opacity:1;stroke-dashoffset:0} }
         @keyframes hybridDimensionDraw { from{opacity:0;stroke-dashoffset:1} to{opacity:1;stroke-dashoffset:0} }
