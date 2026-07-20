@@ -30,7 +30,7 @@ function DefinitionSet({ prefix }: { prefix: string }) {
         <path d="M0 0 8 4 0 8Z" className="studyArrow" />
       </marker>
       <clipPath id={`${prefix}-right-foreground`}>
-        <rect x="0" y="210" width="600" height="290" />
+        <polygon points={beamShape} />
       </clipPath>
     </defs>
   );
@@ -61,18 +61,28 @@ function Baselines({ prefix, compact = false }: { prefix: string; compact?: bool
   );
 }
 
-function FinalGeometry({ className = "", prefix }: { className?: string; prefix: string }) {
+function FinalGeometry({
+  className = "",
+  prefix,
+  includeForeground = true,
+}: {
+  className?: string;
+  prefix: string;
+  includeForeground?: boolean;
+}) {
   return (
     <g className={`studyGeometry ${className}`.trim()}>
       <polygon className="studyObject studyRight" points={rightShape} pathLength="1" />
       <polygon className="studyObject studyLeft" points={leftShape} pathLength="1" />
       <polygon className="studyObject studyBeam" points={beamShape} pathLength="1" />
-      <polygon
-        className="studyObject studyRight studyRightForeground"
-        points={rightShape}
-        pathLength="1"
-        clipPath={`url(#${prefix}-right-foreground)`}
-      />
+      {includeForeground ? (
+        <polygon
+          className="studyObject studyRight studyRightForeground"
+          points={rightShape}
+          pathLength="1"
+          clipPath={`url(#${prefix}-right-foreground)`}
+        />
+      ) : null}
     </g>
   );
 }
@@ -157,8 +167,9 @@ function HybridStudy() {
           <circle cx="308.3" cy="62.9" r="12" /><circle cx="401.7" cy="423.6" r="12" />
           <circle cx="174" cy="351.8" r="10" /><circle cx="416.8" cy="301.5" r="10" />
         </g>
+        <FinalGeometry className="hybridOutlineGeometry" prefix="hybrid" includeForeground={false} />
       </g>
-      <FinalGeometry className="hybridGeometry" prefix="hybrid" />
+      <FinalGeometry className="hybridFinalGeometry" prefix="hybrid" />
     </svg>
   );
 }
@@ -272,7 +283,7 @@ export default function AlphaAssemblyLab() {
         .calibrationGeometry .studyRight { animation-delay:2s; }.calibrationGeometry .studyBeam { animation-delay:2.15s; }
         .calibrationScan { fill:none; stroke:rgba(143,184,168,.5); stroke-width:1; filter:drop-shadow(0 0 7px rgba(143,184,168,.65)); animation:scanAcross 1.65s ease 2.6s both; }
         .study-hybrid .studyGrid { opacity:0; animation:hybridGridReveal .35s ease .25s forwards; }
-        .hybridConstruction { animation:constructionExit .8s ease 8.12s forwards; }
+        .hybridConstruction { animation:constructionExit 1.05s ease-in-out 7.45s forwards; }
         .hybridSketch { animation:sketchSettle .65s ease 7.35s forwards; }
         .hybridSketchLine { fill:none; stroke:rgba(143,184,168,.62); stroke-width:.9; stroke-dasharray:1; stroke-dashoffset:1; vector-effect:non-scaling-stroke; }
         .hybridSketchLeft { animation:lineDraw .72s ease 1.45s forwards; }
@@ -294,12 +305,15 @@ export default function AlphaAssemblyLab() {
         .study-hybrid .labelBeamLength { animation-delay:5.83s; }
         .hybridRings circle { fill:none; stroke:#c2a878; stroke-width:1; opacity:0; transform-box:fill-box; transform-origin:center; animation:ringIn .55s ease 3.28s both; }
         .hybridRings circle:nth-child(2n) { animation-delay:3.4s; }
-        .hybridGeometry .studyObject { fill:none; }
-        .hybridGeometry { transform-box:fill-box; transform-origin:center; animation:fixedLogoSettle .9s cubic-bezier(.2,.75,.2,1) 8.12s both; }
-        .hybridGeometry .studyLeft { --fixed-fill:#e1e7e2; animation:lineDraw 1.05s ease 6.18s forwards,polygonFill .65s ease 7.45s forwards,fixedLogoFill .8s ease 8.12s forwards; }
-        .hybridGeometry .studyRight { --fixed-fill:#aeb8b1; animation:lineDraw 1.05s ease 6.38s forwards,polygonFill .65s ease 7.45s forwards,fixedLogoFill .8s ease 8.12s forwards; }
-        .hybridGeometry .studyBeam { --fixed-fill:#c2a878; animation:lineDraw .82s ease 6.63s forwards,polygonFill .65s ease 7.45s forwards,fixedLogoFill .8s ease 8.12s forwards; }
-        .hybridGeometry .studyRightForeground { fill:rgba(174,184,177,0); stroke:rgba(237,240,234,0); animation:fixedLogoFill .8s ease 8.12s forwards; }
+        .hybridOutlineGeometry .studyObject { fill:none; }
+        .hybridOutlineGeometry .studyLeft { animation:lineDraw 1.05s ease 6.18s forwards; }
+        .hybridOutlineGeometry .studyRight { animation:lineDraw 1.05s ease 6.38s forwards; }
+        .hybridOutlineGeometry .studyBeam { animation:lineDraw .82s ease 6.63s forwards; }
+        .hybridFinalGeometry { opacity:0; transform-box:fill-box; transform-origin:center; animation:finalLogoReveal 1.05s ease-in-out 7.45s forwards,fixedLogoSettle .9s cubic-bezier(.2,.75,.2,1) 8.05s both; }
+        .hybridFinalGeometry .studyObject { stroke:rgba(237,240,234,.28); stroke-dasharray:none; stroke-dashoffset:0; }
+        .hybridFinalGeometry .studyLeft { fill:#e1e7e2; }
+        .hybridFinalGeometry .studyRight { fill:#aeb8b1; }
+        .hybridFinalGeometry .studyBeam { fill:#c2a878; }
         @keyframes datumReveal { from{opacity:0} to{opacity:1} }
         @keyframes datumTrace { from{opacity:0;stroke-dashoffset:80} to{opacity:1;stroke-dashoffset:0} }
         @keyframes hybridDimensionDraw { from{opacity:0;stroke-dashoffset:1} to{opacity:1;stroke-dashoffset:0} }
@@ -314,9 +328,8 @@ export default function AlphaAssemblyLab() {
         @keyframes scanAcross { from{transform:translateX(0);opacity:0} 12%{opacity:1} 88%{opacity:1} to{transform:translateX(445px);opacity:0} }
         @keyframes sketchSettle { to{opacity:.2} }
         @keyframes hybridGridReveal { to{opacity:.34} }
-        @keyframes polygonFill { from{fill:rgba(237,240,234,0)} to{fill:rgba(237,240,234,.07)} }
         @keyframes constructionExit { to{opacity:0} }
-        @keyframes fixedLogoFill { to{fill:var(--fixed-fill);stroke:rgba(237,240,234,.28)} }
+        @keyframes finalLogoReveal { from{opacity:0} to{opacity:1} }
         @keyframes fixedLogoSettle { from{filter:drop-shadow(0 0 0 rgba(0,0,0,0))} to{filter:drop-shadow(0 18px 18px rgba(0,0,0,.26))} }
         @media(max-width:1180px){.studyList{grid-template-columns:1fr}.studyViewport{height:min(76vw,600px)}}
         @media(max-width:620px){.geometryLab{padding-inline:13px}.geometryTopbar>span{display:none}.studyCardHeader{min-height:0}.studyViewport{min-height:360px}}
