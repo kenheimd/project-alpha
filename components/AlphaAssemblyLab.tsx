@@ -5,7 +5,7 @@ import Link from "next/link";
 import { ArrowLeft, Play } from "lucide-react";
 
 type Study = "blueprint" | "assembly" | "calibration" | "hybrid";
-const motionVersion = "06";
+const motionVersion = "07";
 
 const studies: Array<{ id: Study; number: string; name: string; note: string }> = [
   {
@@ -423,22 +423,22 @@ export default function AlphaAssemblyLab() {
         .hybridSketchBeam { animation:lineDraw 1.9s var(--alpha-flow) 1s forwards; }
         .study-hybrid .studyDatum { opacity:0; stroke-dashoffset:80; animation:datumTrace .9s var(--alpha-flow) .45s forwards; }
         .study-hybrid .studyDatumVertical { animation-delay:.45s; }
-        .study-hybrid .studyArc { animation-delay:2.45s; animation-duration:1.2s; animation-timing-function:var(--alpha-flow); }
+        .study-hybrid .studyArc { animation-delay:2.35s; animation-duration:1.25s; animation-timing-function:var(--alpha-flow); }
         .study-hybrid .arcRight { animation-delay:2.53s; }
-        .study-hybrid .arcBeam { animation-delay:2.61s; }
-        .study-hybrid .beamAngleDatum { animation:angleDatumReveal 1.2s var(--alpha-flow) 2.61s forwards; }
+        .study-hybrid .arcBeam { animation-delay:2.71s; }
+        .study-hybrid .beamAngleDatum { animation:angleDatumReveal 1.25s var(--alpha-flow) 2.71s forwards; }
         .study-hybrid .labelLeftAngle,
         .study-hybrid .labelRightAngle,
         .study-hybrid .labelBeamAngle { animation-duration:.9s; animation-timing-function:var(--alpha-flow); }
-        .study-hybrid .labelLeftAngle { animation-delay:3.1s; }
-        .study-hybrid .labelRightAngle { animation-delay:3.18s; }
-        .study-hybrid .labelBeamAngle { animation-delay:3.26s; }
-        .study-hybrid .studyDimension { opacity:0; animation:hybridDimensionDraw 1.8s var(--alpha-flow) 3.5s forwards; }
-        .study-hybrid .dimRight { animation-delay:3.62s; }
-        .study-hybrid .dimBeam { animation-delay:3.74s; }
-        .study-hybrid .labelLeftLength { animation-delay:4.05s; animation-duration:.9s; }
-        .study-hybrid .labelRightLength { animation-delay:4.17s; animation-duration:.9s; }
-        .study-hybrid .labelBeamLength { animation-delay:4.29s; animation-duration:.9s; }
+        .study-hybrid .labelLeftAngle { animation-delay:2.72s; }
+        .study-hybrid .labelRightAngle { animation-delay:2.9s; }
+        .study-hybrid .labelBeamAngle { animation-delay:3.08s; }
+        .study-hybrid .studyDimension { opacity:0; animation:hybridDimensionDraw 2.05s var(--alpha-flow) 2.92s forwards; }
+        .study-hybrid .dimRight { animation-delay:3.1s; }
+        .study-hybrid .dimBeam { animation-delay:3.28s; }
+        .study-hybrid .labelLeftLength { animation-delay:3.3s; animation-duration:.9s; }
+        .study-hybrid .labelRightLength { animation-delay:3.48s; animation-duration:.9s; }
+        .study-hybrid .labelBeamLength { animation-delay:3.66s; animation-duration:.9s; }
         .hybridRings circle { fill:none; stroke:#c2a878; stroke-width:1; opacity:0; transform-box:fill-box; transform-origin:center; animation:ringIn 1.1s var(--alpha-arrival) 1.55s both; }
         .hybridRings circle:nth-child(2) { animation-delay:1.595s; }
         .hybridRings circle:nth-child(3) { animation-delay:1.64s; }
